@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KnotLearn - Subjects</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <header>
+    <div class="logo">KnotLearn</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="subjects.html">Subjects</a></li>
+        <li><a href="#">Quiz</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <section class="subjects-list">
+    <img src="logo.png">
+    <h1>All Subjects</h1>
+    <ul>
+      <li>Mathematics</li>
+      <li>Science</li>
+      <li>Programming</li>
+      <li>Languages</li>
+      <li>History</li>
+      <li>Geography</li>
+      <li>Art & Music</li>
+    </ul>
+  </section><br>
+ <label><strong>Click here if you want to study Mathematics ☞ </strong></label>
+<button onclick="openPage('Mathematics')">Mathematics</button><br>
+
+<label><strong>Click here if you want to study Science ☞ </strong></label>
+<button onclick="openPage('Science')">Science</button><br>
+
+<label><strong>Click here if you want to study Programming ☞ </strong></label>
+<button onclick="openPage('Programming')">Programming</button><br>
+
+<label><strong>Click here if you want to study Languages ☞ </strong></label>
+<button onclick="openPage('Languages')">Languages</button><br>
+
+<label><strong>Click here if you want to study History ☞ </strong></label>
+<button onclick="openPage('History')">History</button><br>
+
+<label><strong>Click here if you want to study Geography ☞ </strong></label>
+<button onclick="openPage('Geography')">Geography</button><br>
+
+<label><strong>Click here if you want Art & Music ☞ </strong></label>
+<button onclick="openPage('ArtMusic')">Art & Music</button><br>
+
+<script>
+function openPage(subject) {
+    window.location.href = subject + ".html";
+}
+</script>
+
+  <footer>
+    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+  </footer>
+</body>
+</html>
