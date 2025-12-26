@@ -4,66 +4,177 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KnotLearn - Subjects</title>
-  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+    }
+
+    /* Header */
+    header {
+      background-color: #0f39ac;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    img{
+      weight: 85px;
+      height: 85px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li {
+      margin-left: 20px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    /* Subjects Section */
+    .subjects-list {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .subjects-list h1 {
+      margin-bottom: 30px;
+      color: #0f245f;
+    }
+
+    .subjects-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .subject-card {
+      background-color: rgb(234, 237, 239);
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .subject-card h3 {
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .subject-card button {
+      padding: 10px 20px;
+      background-color: #0f39ac;
+      color: rgb(235, 237, 238);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .subject-card button:hover {
+      background-color: #0f39ac;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #0f39ac;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
 </head>
+
 <body>
-  
-  <header>
-    <div class="logo">KnotLearn</div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="subjects.html">Subjects</a></li>
-        <li><a href="#">Quiz</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
 
-
-  <section class="subjects-list">
-    <img src="logo.png">
-    <h1>All Subjects</h1>
+<header>
+  <div><img src="logo.png"></div>
+  <nav>
     <ul>
-      <li>Mathematics</li>
-      <li>Science</li>
-      <li>Programming</li>
-      <li>Languages</li>
-      <li>History</li>
-      <li>Geography</li>
-      <li>Art & Music</li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="subject.html">Subjects</a></li>
+      <li><a href="Quiz.html">Quiz</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="Contact.html">Contact</a></li>
     </ul>
-  </section><br>
- <label><strong>Click here if you want to study Mathematics ☞ </strong></label>
-<button onclick="openPage('Mathematics')">Mathematics</button><br>
+  </nav>
+</header>
 
-<label><strong>Click here if you want to study Science ☞ </strong></label>
-<button onclick="openPage('Science')">Science</button><br>
+<section class="subjects-list">
+  <h1>All Subjects</h1>
 
-<label><strong>Click here if you want to study Programming ☞ </strong></label>
-<button onclick="openPage('Programming')">Programming</button><br>
+  <div class="subjects-container">
 
-<label><strong>Click here if you want to study Languages ☞ </strong></label>
-<button onclick="openPage('Languages')">Languages</button><br>
+    <div class="subject-card">
+      <h3>Mathematics</h3>
+      <button onclick="openPage('Mathematics')">Start Learning</button>
+    </div>
 
-<label><strong>Click here if you want to study History ☞ </strong></label>
-<button onclick="openPage('History')">History</button><br>
+    <div class="subject-card">
+      <h3>Science</h3>
+      <button onclick="openPage('Science')">Start Learning</button>
+    </div>
 
-<label><strong>Click here if you want to study Geography ☞ </strong></label>
-<button onclick="openPage('Geography')">Geography</button><br>
+    <div class="subject-card">
+      <h3>Programming</h3>
+      <button onclick="openPage('Programming')">Start Learning</button>
+    </div>
 
-<label><strong>Click here if you want Art & Music ☞ </strong></label>
-<button onclick="openPage('ArtMusic')">Art & Music</button><br>
+    <div class="subject-card">
+      <h3>Languages</h3>
+      <button onclick="openPage('Languages')">Start Learning</button>
+    </div>
+
+    <div class="subject-card">
+      <h3>History</h3>
+      <button onclick="openPage('History')">Start Learning</button>
+    </div>
+
+    <div class="subject-card">
+      <h3>Geography</h3>
+      <button onclick="openPage('Geography')">Start Learning</button>
+    </div>
+
+    <div class="subject-card">
+      <h3>Art & Music</h3>
+      <button onclick="openPage('ArtMusic')">Start Learning</button>
+    </div>
+
+  </div>
+</section>
 
 <script>
-function openPage(subject) {
+  function openPage(subject) {
     window.location.href = subject + ".html";
-}
+  }
 </script>
 
-  <footer>
-    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
-  </footer>
+<footer>
+  <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+</footer>
+
 </body>
 </html>

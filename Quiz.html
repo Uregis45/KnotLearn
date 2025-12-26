@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KnotLearn - Quiz</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+    }
+
+    header {
+      background-color: #0f39ac;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    img{
+        weight: 85px;
+        height: 85px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      margin-left: 20px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .quiz-container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #0f245f;
+    }
+
+    .question {
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin: 8px 0;
+      cursor: pointer;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      width: 100%;
+      background-color: #0f39ac;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0f39ac;
+    }
+
+    #progress {
+      text-align: center;
+      margin-top: 15px;
+      color: #555;
+    }
+
+    footer {
+      background-color: #0f245f;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div><img src="logo.png"></div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="subject.html">Subjects</a></li>
+      <li><a href="Quiz.html">Quiz</a></li>
+      <li><a href="About.html">About</a></li>
+      <li><a href="Contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="quiz-container">
+  <h1>Quiz</h1>
+
+  <div id="quiz-box">
+    <!-- Question will appear here -->
+  </div>
+
+  <button onclick="nextQuiz()">Next Question</button>
+  <div id="progress"></div>
+</div>
+
+<script>
+  const quizzes = [
+    {
+      question: "What is 5 + 3?",
+      options: ["6", "8", "9"],
+      answer: 1
+    },
+    {
+      question: "Which one is a programming language?",
+      options: ["HTML", "CSS", "JavaScript"],
+      answer: 2
+    },
+    {
+      question: "Which planet is known as the Red Planet?",
+      options: ["Earth", "Mars", "Jupiter"],
+      answer: 1
+    },
+    {
+      question: "What is 10 × 2?",
+      options: ["10", "20", "30"],
+      answer: 1
+    }
+  ];
+
+  let currentQuiz = 0;
+  let score = 0;
+
+  function loadQuiz() {
+    const quiz = quizzes[currentQuiz];
+    let html = `<div class="question">${quiz.question}</div>`;
+
+    quiz.options.forEach((option, index) => {
+      html += `
+        <label>
+          <input type="radio" name="answer" value="${index}">
+          ${option}
+        </label>
+      `;
+    });
+
+    document.getElementById("quiz-box").innerHTML = html;
+    document.getElementById("progress").innerText =
+      `Question ${currentQuiz + 1} of ${quizzes.length}`;
+  }
+
+  function nextQuiz() {
+    const selected = document.querySelector('input[name="answer"]:checked');
+
+    if (!selected) {
+      alert("Please select an answer");
+      return;
+    }
+
+    if (parseInt(selected.value) === quizzes[currentQuiz].answer) {
+      score++;
+    }
+
+    currentQuiz++;
+
+    if (currentQuiz < quizzes.length) {
+      loadQuiz();
+    } else {
+      document.getElementById("quiz-box").innerHTML =
+        `<h2>You scored ${score} out of ${quizzes.length}</h2>`;
+      document.getElementById("progress").innerText = "Quiz Completed!";
+    }
+  }
+
+  loadQuiz();
+</script>
+
+<footer>
+  <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
