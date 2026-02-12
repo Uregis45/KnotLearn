@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO META TAGS -->
+  <meta name="description" content="KnotLearn - Send us your feedback. We value your questions, suggestions, and messages.">
+  <meta name="keywords" content="contact KnotLearn, feedback, send message, support">
+  <meta name="author" content="KnotLearn">
+  
+  <!-- SOCIAL SHARING -->
+  <meta property="og:title" content="KnotLearn - Feedback">
+  <meta property="og:description" content="Send us your message. We'd love to hear from you.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="logo.png">
+  
+  <title>KnotLearn - Feedback</title>
+  
+  <!-- MASTER CSS FILE -->
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* ===== CONTACT PAGE - YOUR COLORS ===== */
+    .contact-wrapper {
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+    
+    .contact-card {
+      background: white;
+      border-radius: 20px;
+      padding: 50px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border: 1px solid #e0e7ff;
+    }
+    
+    .contact-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .contact-header h1 {
+      color: #0f39ac;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .contact-header h1:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: #0f39ac;
+      border-radius: 2px;
+    }
+    
+    .contact-header p {
+      color: #555;
+      font-size: 1.1rem;
+      margin-top: 20px;
+    }
+    
+    /* FORM STYLES */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .form-group label {
+      font-weight: bold;
+      color: #0f39ac;
+      font-size: 1rem;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+      padding: 15px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.2s;
+      background: #f8fafc;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #0f39ac;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(15, 57, 172, 0.1);
+      background: white;
+    }
+    
+    .form-group input:hover,
+    .form-group textarea:hover {
+      border-color: #0b74de;
+    }
+    
+    .form-group textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+    
+    .submit-btn {
+      background: #0f39ac;
+      color: white;
+      border: none;
+      padding: 18px 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .submit-btn:hover {
+      background: #0b74de;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(15, 57, 172, 0.2);
+    }
+    
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+    
+    /* SUCCESS MESSAGE */
+    .success-message {
+      display: none;
+      background: #10b981;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+      animation: slideIn 0.3s ease;
+    }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* CONTACT INFO */
+    .contact-info {
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 2px solid #e2e8f0;
+      text-align: center;
+      color: #555;
+    }
+    
+    .contact-info p {
+      margin-bottom: 10px;
+    }
+    
+    .contact-info i {
+      color: #0f39ac;
+      font-weight: bold;
+    }
+    
+    /* DARK MODE */
+    body.dark .contact-card {
+      background: #1e1e1e;
+      border-color: #333;
+    }
+    
+    body.dark .contact-header p {
+      color: #ccc;
+    }
+    
+    body.dark .form-group input,
+    body.dark .form-group textarea {
+      background: #2d2d2d;
+      border-color: #444;
+      color: white;
+    }
+    
+    body.dark .form-group input:focus,
+    body.dark .form-group textarea:focus {
+      border-color: #0f39ac;
+      background: #333;
+    }
+    
+    body.dark .form-group label {
+      color: #60a5fa;
+    }
+    
+    body.dark .contact-info {
+      border-top-color: #444;
+      color: #ccc;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .contact-card {
+        padding: 35px;
+      }
+      
+      .contact-header h1 {
+        font-size: 2rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .contact-card {
+        padding: 25px;
+      }
+      
+      .contact-header h1 {
+        font-size: 1.8rem;
+      }
+      
+      .submit-btn {
+        padding: 15px 20px;
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <a href="index.html">
+        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
+      </a>
+    </div>
+    
+    <nav>
+      <ul>
+        <li><a href="index.html" id="nav-home">Home</a></li>
+        <li><a href="subject.html" id="nav-subject">Subjects</a></li>
+        <li><a href="Quiz.html" id="nav-quiz">Quiz</a></li>
+        <li><a href="About.html" id="nav-about">About</a></li>
+        <li><a href="Contact.html" id="nav-contact">Feedback</a></li>
+        <li><a href="Relax.html" id="nav-relax">Relax</a></li>
+        
+        <!-- LANGUAGE & THEME CONTROLS -->
+        <li class="nav-controls">
+          <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
+            <option value="en">🇬🇧 English</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="rw">🇷🇼 Kinyarwanda</option>
+          </select>
+          
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
+            🌙
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="contact-wrapper">
+    <div class="contact-card">
+      
+      <div class="contact-header">
+        <h1>📬 Feedback</h1>
+        <p>We'd love to hear from you. Send us your questions, suggestions, or feedback.</p>
+      </div>
+      
+      <!-- CONTACT FORM - YOUR EXACT FIELDS -->
+      <form id="contactForm" class="contact-form" onsubmit="sendMessage(); return false;">
+        
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="message">Your Message</label>
+          <textarea id="message" name="message" placeholder="Write your feedback, question, or suggestion here..." required></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn">
+          📨 Send Message
+        </button>
+        
+        <!-- SUCCESS MESSAGE (HIDDEN BY DEFAULT) -->
+        <div id="successMessage" class="success-message">
+          ✅ Thank you! Your message has been sent successfully.
+        </div>
+        
+      </form>
+      
+      <!-- CONTACT INFORMATION -->
+      <div class="contact-info">
+        <p>✉️ <span style="color: #0f39ac; font-weight: bold;">KnotLearn</span> values your feedback.</p>
+        <p>We typically respond within 24-48 hours.</p>
+      </div>
+      
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // ===== KNOTLEARN - CONTACT PAGE =====
+    
+    // Send message function - YOUR EXACT ALERT, PLUS BETTER VISUAL FEEDBACK
+    function sendMessage() {
+      // Get form values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+      
+      // Show success message
+      const successMsg = document.getElementById('successMessage');
+      successMsg.style.display = 'block';
+      
+      // YOUR ORIGINAL ALERT - PRESERVED
+      alert("Thank you! Your message has been sent successfully.");
+      
+      // Clear form
+      document.getElementById('contactForm').reset();
+      
+      // Hide success message after 5 seconds
+      setTimeout(() => {
+        successMsg.style.display = 'none';
+      }, 5000);
+      
+      return false;
+    }
+    
+    // ===== LANGUAGE & THEME CONTROLS =====
+    const textData = {
+      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
+      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
+      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+    };
+
+    function changeLanguage() {
+      const langSelect = document.getElementById("languageSelect");
+      if (!langSelect) return;
+      const lang = langSelect.value;
+      localStorage.setItem("knotlearn_lang", lang);
+      
+      document.getElementById("nav-home").innerText = textData[lang].home;
+      document.getElementById("nav-subject").innerText = textData[lang].subjects;
+      document.getElementById("nav-quiz").innerText = textData[lang].quiz;
+      document.getElementById("nav-about").innerText = textData[lang].about;
+      document.getElementById("nav-contact").innerText = textData[lang].contact;
+      document.getElementById("nav-relax").innerText = textData[lang].relax;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
+      const themeBtn = document.getElementById("themeToggle");
+      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+    }
+
+    window.onload = function() {
+      const savedLang = localStorage.getItem("knotlearn_lang");
+      const savedTheme = localStorage.getItem("knotlearn_theme");
+
+      if (savedLang) {
+        const langSelect = document.getElementById("languageSelect");
+        if (langSelect) {
+          langSelect.value = savedLang;
+          changeLanguage();
+        }
+      }
+
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark");
+        const themeBtn = document.getElementById("themeToggle");
+        if (themeBtn) themeBtn.innerText = "☀️";
+      }
+    };
+  </script>
+
+</body>
+</html>

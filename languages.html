@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO META TAGS -->
+  <meta name="description" content="KnotLearn - Language learning. Learn English, French, and Kiswahili with easy lessons and examples.">
+  <meta name="keywords" content="learn languages, English, French, Kiswahili, vocabulary, phrases">
+  <meta name="author" content="KnotLearn">
+  
+  <!-- SOCIAL SHARING -->
+  <meta property="og:title" content="KnotLearn - Language Learning">
+  <meta property="og:description" content="Learn English, French, and Kiswahili with step-by-step lessons.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="logo.png">
+  
+  <title>KnotLearn - Languages</title>
+  
+  <!-- MASTER CSS FILE -->
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* ===== LANGUAGES PAGE - YOUR COLORS ===== */
+    .languages-hero {
+      background: linear-gradient(135deg, #0f39ac 0%, #0b74de 100%);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .languages-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+    
+    .languages-hero p {
+      font-size: 1.3rem;
+      opacity: 0.95;
+    }
+    
+    .languages-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+    
+    .languages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+    
+    .language-card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border: 1px solid #e0e7ff;
+      transition: transform 0.2s;
+    }
+    
+    .language-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(15, 57, 172, 0.15);
+    }
+    
+    .language-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      border-bottom: 2px solid #eef2f6;
+      padding-bottom: 20px;
+    }
+    
+    .language-flag {
+      font-size: 3rem;
+    }
+    
+    .language-header h2 {
+      color: #0f39ac;
+      font-size: 2rem;
+      margin: 0;
+    }
+    
+    .vocab-list {
+      background: #f8fafc;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .vocab-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .vocab-item:last-child {
+      border-bottom: none;
+    }
+    
+    .vocab-word {
+      font-weight: bold;
+      color: #0f39ac;
+      font-size: 1.1rem;
+    }
+    
+    .vocab-meaning {
+      color: #555;
+    }
+    
+    .example-box {
+      background: #eef6ff;
+      border-left: 5px solid #0f39ac;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    
+    .example-box p {
+      margin: 5px 0;
+      color: #1e293b;
+    }
+    
+    .example-label {
+      font-weight: bold;
+      color: #0f39ac;
+      margin-bottom: 10px;
+    }
+    
+    /* DARK MODE */
+    body.dark .language-card {
+      background: #1e1e1e;
+      border-color: #333;
+    }
+    
+    body.dark .vocab-list {
+      background: #2d2d2d;
+    }
+    
+    body.dark .vocab-item {
+      border-bottom-color: #444;
+    }
+    
+    body.dark .vocab-meaning {
+      color: #ccc;
+    }
+    
+    body.dark .example-box {
+      background: #1a2a4a;
+    }
+    
+    body.dark .example-box p {
+      color: white;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .languages-hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .languages-hero p {
+        font-size: 1.1rem;
+      }
+      
+      .languages-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .language-header h2 {
+        font-size: 1.8rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .languages-hero {
+        padding: 40px 20px;
+      }
+      
+      .languages-hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .language-card {
+        padding: 20px;
+      }
+      
+      .language-header {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <a href="index.html">
+        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
+      </a>
+    </div>
+    
+    <nav>
+      <ul>
+        <li><a href="index.html" id="nav-home">Home</a></li>
+        <li><a href="subject.html" id="nav-subject">Subjects</a></li>
+        <li><a href="Quiz.html" id="nav-quiz">Quiz</a></li>
+        <li><a href="About.html" id="nav-about">About</a></li>
+        <li><a href="Contact.html" id="nav-contact">Feedback</a></li>
+        <li><a href="Relax.html" id="nav-relax">Relax</a></li>
+        
+        <li class="nav-controls">
+          <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
+            <option value="en">🇬🇧 English</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="rw">🇷🇼 Kinyarwanda</option>
+          </select>
+          
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
+            🌙
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- LANGUAGES HERO SECTION -->
+  <div class="languages-hero">
+    <h1>🌍 Learn Languages</h1>
+    <p>Start speaking new languages with simple, practical lessons</p>
+  </div>
+
+  <!-- LANGUAGES GRID - YOUR EXACT CONTENT -->
+  <div class="languages-container">
+    
+    <div class="languages-grid">
+      
+      <!-- ENGLISH CARD - YOUR EXACT WORDS -->
+      <div class="language-card">
+        <div class="language-header">
+          <span class="language-flag">🇬🇧</span>
+          <h2>English</h2>
+        </div>
+        
+        <div class="vocab-list">
+          <div class="vocab-item">
+            <span class="vocab-word">Hello</span>
+            <span class="vocab-meaning">Greeting</span>
+          </div>
+          <div class="vocab-item">
+            <span class="vocab-word">Thank you</span>
+            <span class="vocab-meaning">Appreciation</span>
+          </div>
+          <div class="vocab-item">
+            <span class="vocab-word">How are you?</span>
+            <span class="vocab-meaning">Asking about well-being</span>
+          </div>
+        </div>
+        
+        <div class="example-box">
+          <div class="example-label">📝 Example</div>
+          <p><strong>Hello! How are you?</strong></p>
+          <p style="color: #666; margin-top: 5px;">"Hello! How are you?"</p>
+        </div>
+      </div>
+      
+      <!-- FRENCH CARD - YOUR EXACT WORDS -->
+      <div class="language-card">
+        <div class="language-header">
+          <span class="language-flag">🇫🇷</span>
+          <h2>French</h2>
+        </div>
+        
+        <div class="vocab-list">
+          <div class="vocab-item">
+            <span class="vocab-word">Bonjour</span>
+            <span class="vocab-meaning">Hello</span>
+          </div>
+          <div class="vocab-item">
+            <span class="vocab-word">Merci</span>
+            <span class="vocab-meaning">Thank you</span>
+          </div>
+          <div class="vocab-item">
+            <span class="vocab-word">Comment ça va ?</span>
+            <span class="vocab-meaning">How are you?</span>
+          </div>
+        </div>
+        
+        <div class="example-box">
+          <div class="example-label">📝 Exemple</div>
+          <p><strong>Bonjour ! Comment ça va ?</strong></p>
+          <p style="color: #666; margin-top: 5px;">"Hello! How are you?"</p>
+        </div>
+      </div>
+      
+      <!-- KISWAHILI CARD - YOUR EXACT WORDS -->
+      <div class="language-card">
+        <div class="language-header">
+          <span class="language-flag">🇰🇪</span>
+          <h2>Kiswahili</h2>
+        </div>
+        
+        <div class="vocab-list">
+          <div class="vocab-item">
+            <span class="vocab-word">Habari</span>
+            <span class="vocab-meaning">Hello</span>
+          </div>
+          <div class="vocab-item">
+            <span class="vocab-word">Asante</span>
+            <span class="vocab-meaning">Thank you</span>
+          </div>
+          <div class="vocab-item">
+            <span class="vocab-word">Habari yako?</span>
+            <span class="vocab-meaning">How are you?</span>
+          </div>
+        </div>
+        
+        <div class="example-box">
+          <div class="example-label">📝 Mfano</div>
+          <p><strong>Habari! Habari yako?</strong></p>
+          <p style="color: #666; margin-top: 5px;">"Hello! How are you?"</p>
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- MORE LANGUAGES COMING SOON -->
+    <div style="text-align: center; margin-top: 50px; padding: 30px; background: #f0f7ff; border-radius: 15px;">
+      <p style="font-size: 1.2rem; color: #0f39ac; font-weight: bold;">
+        🚀 More languages coming soon! Spanish, Arabic, Chinese, and more.
+      </p>
+    </div>
+    
+  </div>
+
+  <footer>
+    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // ===== KNOTLEARN - LANGUAGE & THEME CONTROLS =====
+    const textData = {
+      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
+      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
+      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+    };
+
+    function changeLanguage() {
+      const langSelect = document.getElementById("languageSelect");
+      if (!langSelect) return;
+      const lang = langSelect.value;
+      localStorage.setItem("knotlearn_lang", lang);
+      
+      document.getElementById("nav-home").innerText = textData[lang].home;
+      document.getElementById("nav-subject").innerText = textData[lang].subjects;
+      document.getElementById("nav-quiz").innerText = textData[lang].quiz;
+      document.getElementById("nav-about").innerText = textData[lang].about;
+      document.getElementById("nav-contact").innerText = textData[lang].contact;
+      document.getElementById("nav-relax").innerText = textData[lang].relax;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
+      const themeBtn = document.getElementById("themeToggle");
+      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+    }
+
+    window.onload = function() {
+      const savedLang = localStorage.getItem("knotlearn_lang");
+      const savedTheme = localStorage.getItem("knotlearn_theme");
+
+      if (savedLang) {
+        const langSelect = document.getElementById("languageSelect");
+        if (langSelect) {
+          langSelect.value = savedLang;
+          changeLanguage();
+        }
+      }
+
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark");
+        const themeBtn = document.getElementById("themeToggle");
+        if (themeBtn) themeBtn.innerText = "☀️";
+      }
+    };
+  </script>
+
+</body>
+</html>

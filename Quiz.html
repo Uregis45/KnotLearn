@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO META TAGS -->
+  <meta name="description" content="KnotLearn - Test your knowledge with fun quizzes. Math, programming, science, and more.">
+  <meta name="keywords" content="educational quiz, test yourself, KnotLearn quiz, learning assessment">
+  <meta name="author" content="KnotLearn">
+  
+  <!-- SOCIAL SHARING -->
+  <meta property="og:title" content="KnotLearn - Quiz">
+  <meta property="og:description" content="Challenge yourself with our interactive quizzes.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="logo.png">
+  
+  <title>KnotLearn - Quiz</title>
+  
+  <!-- MASTER CSS FILE -->
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* ===== QUIZ PAGE - YOUR COLORS ===== */
+    .quiz-hero {
+      background: linear-gradient(135deg, #0f39ac 0%, #0b74de 100%);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .quiz-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+    
+    .quiz-hero p {
+      font-size: 1.3rem;
+      opacity: 0.95;
+    }
+    
+    .quiz-wrapper {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+    
+    .quiz-card {
+      background: white;
+      border-radius: 25px;
+      padding: 40px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+      border: 1px solid #e0e7ff;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .quiz-card:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: linear-gradient(90deg, #0f39ac, #0b74de);
+    }
+    
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #eef2f6;
+    }
+    
+    .quiz-title {
+      color: #0f39ac;
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin: 0;
+    }
+    
+    .score-badge {
+      background: #0f39ac;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    
+    .question-box {
+      margin-bottom: 30px;
+    }
+    
+    .question-text {
+      font-size: 1.5rem;
+      color: #1e293b;
+      margin-bottom: 25px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .option-item {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 15px;
+      padding: 18px 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+    }
+    
+    .option-item:hover {
+      background: #e0f2fe;
+      border-color: #0f39ac;
+      transform: translateX(5px);
+    }
+    
+    .option-item.selected {
+      background: #e0f2fe;
+      border-color: #0f39ac;
+      box-shadow: 0 0 0 3px rgba(15, 57, 172, 0.1);
+    }
+    
+    .option-radio {
+      margin-right: 15px;
+      width: 22px;
+      height: 22px;
+      accent-color: #0f39ac;
+      cursor: pointer;
+    }
+    
+    .option-label {
+      font-size: 1.2rem;
+      color: #1e293b;
+      font-weight: 500;
+    }
+    
+    .quiz-footer {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .next-btn {
+      background: #0f39ac;
+      color: white;
+      border: none;
+      padding: 16px 40px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 100%;
+      max-width: 300px;
+      margin-bottom: 20px;
+    }
+    
+    .next-btn:hover {
+      background: #0b74de;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(15, 57, 172, 0.2);
+    }
+    
+    .progress-indicator {
+      color: #64748b;
+      font-size: 1.1rem;
+      font-weight: 500;
+      padding: 10px 20px;
+      background: #f1f5f9;
+      border-radius: 50px;
+    }
+    
+    .result-screen {
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .result-score {
+      font-size: 4rem;
+      font-weight: bold;
+      color: #0f39ac;
+      margin: 30px 0;
+      display: inline-block;
+      padding: 20px 40px;
+      background: #eef2ff;
+      border-radius: 100px;
+    }
+    
+    .result-message {
+      font-size: 1.5rem;
+      color: #1e293b;
+      margin-bottom: 30px;
+    }
+    
+    .restart-btn {
+      background: white;
+      color: #0f39ac;
+      border: 3px solid #0f39ac;
+      padding: 16px 40px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 20px;
+    }
+    
+    .restart-btn:hover {
+      background: #0f39ac;
+      color: white;
+    }
+    
+    /* DARK MODE */
+    body.dark .quiz-card {
+      background: #1e1e1e;
+      border-color: #333;
+    }
+    
+    body.dark .question-text {
+      color: white;
+    }
+    
+    body.dark .option-item {
+      background: #2d2d2d;
+      border-color: #444;
+    }
+    
+    body.dark .option-item:hover {
+      background: #1a2a4a;
+      border-color: #0f39ac;
+    }
+    
+    body.dark .option-label {
+      color: white;
+    }
+    
+    body.dark .progress-indicator {
+      background: #2d2d2d;
+      color: #ccc;
+    }
+    
+    body.dark .result-message {
+      color: white;
+    }
+    
+    body.dark .result-score {
+      background: #2d2d2d;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .quiz-hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .quiz-hero p {
+        font-size: 1.1rem;
+      }
+      
+      .quiz-card {
+        padding: 30px;
+      }
+      
+      .quiz-title {
+        font-size: 1.5rem;
+      }
+      
+      .question-text {
+        font-size: 1.3rem;
+      }
+      
+      .option-label {
+        font-size: 1.1rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .quiz-hero {
+        padding: 40px 20px;
+      }
+      
+      .quiz-hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .quiz-card {
+        padding: 25px;
+      }
+      
+      .quiz-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+      
+      .question-text {
+        font-size: 1.2rem;
+      }
+      
+      .option-item {
+        padding: 15px;
+      }
+      
+      .result-score {
+        font-size: 3rem;
+        padding: 15px 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <a href="index.html">
+        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
+      </a>
+    </div>
+    
+    <nav>
+      <ul>
+        <li><a href="index.html" id="nav-home">Home</a></li>
+        <li><a href="subject.html" id="nav-subject">Subjects</a></li>
+        <li><a href="Quiz.html" id="nav-quiz">Quiz</a></li>
+        <li><a href="About.html" id="nav-about">About</a></li>
+        <li><a href="Contact.html" id="nav-contact">Feedback</a></li>
+        <li><a href="Relax.html" id="nav-relax">Relax</a></li>
+        
+        <li class="nav-controls">
+          <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
+            <option value="en">🇬🇧 English</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="rw">🇷🇼 Kinyarwanda</option>
+          </select>
+          
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
+            🌙
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- QUIZ HERO SECTION -->
+  <div class="quiz-hero">
+    <h1>📝 Test Your Knowledge</h1>
+    <p>Challenge yourself with our interactive quizzes</p>
+  </div>
+
+  <!-- QUIZ CONTAINER -->
+  <div class="quiz-wrapper">
+    <div class="quiz-card">
+      
+      <!-- QUIZ HEADER -->
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 KnotQuiz</span>
+        <span id="scoreDisplay" class="score-badge">Score: 0</span>
+      </div>
+      
+      <!-- QUIZ CONTENT - DYNAMIC -->
+      <div id="quizContent">
+        <!-- LOADED BY JAVASCRIPT -->
+      </div>
+      
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // ===== KNOTLEARN - QUIZ SYSTEM =====
+    // YOUR EXACT QUESTIONS. YOUR EXACT ANSWERS. ENHANCED UI.
+    
+    // YOUR ORIGINAL QUIZ QUESTIONS - 100% INTACT
+    const quizzes = [
+      { question: "What is 5 + 3?", options: ["6", "8", "9"], answer: 1 },
+      { question: "Which one is a programming language?", options: ["HTML", "CSS", "JavaScript"], answer: 2 },
+      { question: "Which planet is known as the Red Planet?", options: ["Earth", "Mars", "Jupiter"], answer: 1 },
+      { question: "What is 10 × 2?", options: ["10", "20", "30"], answer: 1 }
+    ];
+
+    let currentQuiz = 0;
+    let score = 0;
+
+    // DOM Elements
+    const quizContent = document.getElementById('quizContent');
+    const scoreDisplay = document.getElementById('scoreDisplay');
+
+    // Load current question
+    function loadQuiz() {
+      const quiz = quizzes[currentQuiz];
+      
+      let html = `
+        <div class="question-box">
+          <div class="question-text">${quiz.question}</div>
+          <div class="options-list" id="optionsList">
+      `;
+      
+      quiz.options.forEach((option, index) => {
+        html += `
+          <label class="option-item" onclick="selectOption(${index})">
+            <input type="radio" name="answer" value="${index}" class="option-radio" onchange="selectOption(${index})">
+            <span class="option-label">${option}</span>
+          </label>
+        `;
+      });
+      
+      html += `
+          </div>
+        </div>
+        <div class="quiz-footer">
+          <button id="nextBtn" class="next-btn" onclick="nextQuiz()">Next Question</button>
+          <div class="progress-indicator">
+            Question ${currentQuiz + 1} of ${quizzes.length}
+          </div>
+        </div>
+      `;
+      
+      quizContent.innerHTML = html;
+    }
+
+    // Handle option selection
+    function selectOption(index) {
+      // Remove selected class from all options
+      const options = document.querySelectorAll('.option-item');
+      options.forEach(opt => opt.classList.remove('selected'));
+      
+      // Add selected class to clicked option
+      const selectedLabel = document.querySelectorAll('.option-item')[index];
+      if (selectedLabel) selectedLabel.classList.add('selected');
+      
+      // Check the radio button
+      const radio = document.querySelector(`input[name="answer"][value="${index}"]`);
+      if (radio) radio.checked = true;
+    }
+
+    // Move to next question
+    function nextQuiz() {
+      const selected = document.querySelector('input[name="answer"]:checked');
+
+      if (!selected) {
+        alert("📝 Please select an answer");
+        return;
+      }
+
+      // Check answer and update score
+      if (Number(selected.value) === quizzes[currentQuiz].answer) {
+        score++;
+        scoreDisplay.innerText = `Score: ${score}`;
+      }
+
+      currentQuiz++;
+
+      if (currentQuiz < quizzes.length) {
+        loadQuiz();
+      } else {
+        // Show results
+        showResults();
+      }
+    }
+
+    // Show final score
+    function showResults() {
+      let message = "";
+      let emoji = "";
+      
+      if (score === quizzes.length) {
+        message = "Perfect! You're a star! 🌟";
+        emoji = "🏆";
+      } else if (score >= quizzes.length / 2) {
+        message = "Good job! Keep learning! 📚";
+        emoji = "👍";
+      } else {
+        message = "Keep practicing! You'll get better! 💪";
+        emoji = "📖";
+      }
+      
+      const html = `
+        <div class="result-screen">
+          <div style="font-size: 4rem; margin-bottom: 20px;">${emoji}</div>
+          <div class="result-message">${message}</div>
+          <div class="result-score">${score} / ${quizzes.length}</div>
+          <button class="restart-btn" onclick="restartQuiz()">🔄 Try Again</button>
+        </div>
+      `;
+      
+      quizContent.innerHTML = html;
+      scoreDisplay.innerText = `Final: ${score}/${quizzes.length}`;
+    }
+
+    // Restart quiz
+    function restartQuiz() {
+      currentQuiz = 0;
+      score = 0;
+      scoreDisplay.innerText = `Score: 0`;
+      loadQuiz();
+    }
+
+    // Load first question
+    loadQuiz();
+
+    // ===== KNOTLEARN - LANGUAGE & THEME CONTROLS =====
+    const textData = {
+      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
+      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
+      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+    };
+
+    function changeLanguage() {
+      const langSelect = document.getElementById("languageSelect");
+      if (!langSelect) return;
+      const lang = langSelect.value;
+      localStorage.setItem("knotlearn_lang", lang);
+      
+      document.getElementById("nav-home").innerText = textData[lang].home;
+      document.getElementById("nav-subject").innerText = textData[lang].subjects;
+      document.getElementById("nav-quiz").innerText = textData[lang].quiz;
+      document.getElementById("nav-about").innerText = textData[lang].about;
+      document.getElementById("nav-contact").innerText = textData[lang].contact;
+      document.getElementById("nav-relax").innerText = textData[lang].relax;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
+      const themeBtn = document.getElementById("themeToggle");
+      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+    }
+
+    window.onload = function() {
+      const savedLang = localStorage.getItem("knotlearn_lang");
+      const savedTheme = localStorage.getItem("knotlearn_theme");
+
+      if (savedLang) {
+        const langSelect = document.getElementById("languageSelect");
+        if (langSelect) {
+          langSelect.value = savedLang;
+          changeLanguage();
+        }
+      }
+
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark");
+        const themeBtn = document.getElementById("themeToggle");
+        if (themeBtn) themeBtn.innerText = "☀️";
+      }
+    };
+  </script>
+
+</body>
+</html>

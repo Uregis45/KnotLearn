@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO META TAGS - HELPS STUDENTS FIND YOU -->
+  <meta name="description" content="KnotLearn - Free step-by-step tutorials in Math, Science, Programming, and Languages. Learn anything, anytime, for free.">
+  <meta name="keywords" content="free learning, math tutorials, programming for beginners, science lessons, language learning">
+  <meta name="author" content="KnotLearn">
+  
+  <!-- SOCIAL SHARING META (WHEN STUDENTS SHARE YOUR LINK) -->
+  <meta property="og:title" content="KnotLearn - Learn anything, anytime!">
+  <meta property="og:description" content="Free step-by-step tutorials for students of all ages.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="logo.png">
+  
+  <title>KnotLearn - Free Online Learning Platform</title>
+  
+  <!-- ONE MASTER CSS FILE FOR ALL PAGES -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <!-- YOUR LOGO - FIXED ALT TEXT FOR ACCESSIBILITY -->
+    <div>
+      <a href="index.html">
+        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
+      </a>
+    </div>
+    
+    <nav>
+      <ul>
+        <li><a href="index.html" id="nav-home">Home</a></li>
+        <li><a href="subject.html" id="nav-subject">Subjects</a></li>
+        <li><a href="Quiz.html" id="nav-quiz">Quiz</a></li>
+        <li><a href="About.html" id="nav-about">About</a></li>
+        <li><a href="Contact.html" id="nav-contact">Feedback</a></li>
+        <li><a href="Relax.html" id="nav-relax">Relax</a></li>
+        
+        <!-- LANGUAGE & THEME CONTROLS - VISIBLE TO ALL STUDENTS -->
+        <li class="nav-controls">
+          <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
+            <option value="en">🇬🇧 English</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="rw">🇷🇼 Kinyarwanda</option>
+          </select>
+          
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
+            🌙
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION - YOUR EXACT WORDS -->
+  <section class="hero">
+    <h1>Learn anything, anytime!</h1>
+    <p>Step-by-step tutorials and exercises for students of all ages.</p>
+    <a href="subject.html" class="btn">Start Learning</a>
+  </section>
+
+  <!-- FEATURED SUBJECTS - YOUR EXACT CONTENT -->
+  <section class="subjects">
+    <h2>Featured Subjects</h2>
+    <div class="cards">
+      
+      <div class="card" onclick="location.href='mathematics.html'" style="cursor: pointer;">
+        <h3>Math</h3>
+        <p>Master algebra, geometry, calculus, and more.</p>
+        <button onclick="event.stopPropagation(); location.href='mathematics.html'">Start Learning</button>
+      </div>
+      
+      <div class="card" onclick="location.href='science.html'" style="cursor: pointer;">
+        <h3>Science</h3>
+        <p>Learn physics, chemistry, biology step by step.</p>
+        <button onclick="event.stopPropagation(); location.href='science.html'">Start Learning</button>
+      </div>
+      
+      <div class="card" onclick="location.href='programming.html'" style="cursor: pointer;">
+        <h3>Programming</h3>
+        <p>HTML, CSS, JavaScript, Game in Vue</p>
+        <button onclick="event.stopPropagation(); location.href='programming.html'">Start Learning</button>
+      </div>
+      
+      <div class="card" onclick="location.href='languages.html'" style="cursor: pointer;">
+        <h3>Languages</h3>
+        <p>Improve English, French, Spanish, and more.</p>
+        <button onclick="event.stopPropagation(); location.href='languages.html'">Start Learning</button>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- FOOTER - YOUR EXACT COPYRIGHT -->
+  <footer>
+    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+  </footer>
+
+  <!-- JAVASCRIPT - FIXED LANGUAGE & THEME -->
+  <script>
+    // ===== KNOTLEARN - LANGUAGE & THEME CONTROLS =====
+    // YOUR CODE - I ONLY FIXED WHAT WAS BROKEN
+    
+    const textData = {
+      en: {
+        home: "Home",
+        subjects: "Subjects",
+        quiz: "Quiz",
+        about: "About",
+        contact: "Feedback",
+        relax: "Relax"
+      },
+      fr: {
+        home: "Accueil",
+        subjects: "Matières",
+        quiz: "Quiz",
+        about: "À propos",
+        contact: "Contact",
+        relax: "Détente"
+      },
+      rw: {
+        home: "Ahabanza",
+        subjects: "Amasomo",
+        quiz: "Ikizamini",
+        about: "Ibyerekeye",
+        contact: "Twandikire",
+        relax: "Wuhura"
+      }
+    };
+
+    function changeLanguage() {
+      const langSelect = document.getElementById("languageSelect");
+      if (!langSelect) return;
+      
+      const lang = langSelect.value;
+      localStorage.setItem("knotlearn_lang", lang);
+
+      // Update navigation text
+      document.getElementById("nav-home").innerText = textData[lang].home;
+      document.getElementById("nav-subject").innerText = textData[lang].subjects;
+      document.getElementById("nav-quiz").innerText = textData[lang].quiz;
+      document.getElementById("nav-about").innerText = textData[lang].about;
+      document.getElementById("nav-contact").innerText = textData[lang].contact;
+      document.getElementById("nav-relax").innerText = textData[lang].relax;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      
+      // Save theme preference
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
+      
+      // Update button icon
+      const themeBtn = document.getElementById("themeToggle");
+      if (themeBtn) {
+        themeBtn.innerText = isDark ? "☀️" : "🌙";
+      }
+    }
+
+    // Load saved preferences
+    window.onload = function() {
+      const savedLang = localStorage.getItem("knotlearn_lang");
+      const savedTheme = localStorage.getItem("knotlearn_theme");
+
+      // Restore language
+      if (savedLang) {
+        const langSelect = document.getElementById("languageSelect");
+        if (langSelect) {
+          langSelect.value = savedLang;
+          changeLanguage();
+        }
+      }
+
+      // Restore theme
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark");
+        const themeBtn = document.getElementById("themeToggle");
+        if (themeBtn) themeBtn.innerText = "☀️";
+      }
+    };
+  </script>
+
+</body>
+</html>

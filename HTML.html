@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO META TAGS -->
+  <meta name="description" content="KnotLearn - HTML Tutorials. Learn HTML step by step with clear explanations and code examples. Perfect for beginners.">
+  <meta name="keywords" content="HTML tutorial, learn HTML, web development, HTML basics, HTML tags, beginner coding">
+  <meta name="author" content="KnotLearn">
+  
+  <!-- SOCIAL SHARING -->
+  <meta property="og:title" content="KnotLearn - HTML Tutorials">
+  <meta property="og:description" content="Learn HTML from scratch. Step-by-step lessons with live examples.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="logo.png">
+  
+  <title>KnotLearn - HTML Tutorials</title>
+  
+  <!-- MASTER CSS FILE -->
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* ===== HTML TUTORIAL PAGE - YOUR COLORS ===== */
+    .tutorial-hero {
+      background: linear-gradient(135deg, #0f39ac 0%, #0b74de 100%);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .tutorial-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+    
+    .tutorial-hero p {
+      font-size: 1.3rem;
+      opacity: 0.95;
+    }
+    
+    .tutorial-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .section-title h2 {
+      color: #0f39ac;
+      font-size: 2.2rem;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 15px;
+    }
+    
+    .section-title h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: #0f39ac;
+      border-radius: 2px;
+    }
+    
+    /* SUB-NAVIGATION */
+    .sub-nav {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: -20px 0 40px;
+      flex-wrap: wrap;
+    }
+    
+    .sub-nav a {
+      background: white;
+      color: #0f39ac;
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-weight: bold;
+      border: 2px solid #0f39ac;
+      transition: all 0.2s;
+    }
+    
+    .sub-nav a:hover {
+      background: #0f39ac;
+      color: white;
+    }
+    
+    .sub-nav a.active {
+      background: #0f39ac;
+      color: white;
+    }
+    
+    /* LESSON CARDS */
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    
+    .lesson-card {
+      background: white;
+      border-radius: 20px;
+      padding: 35px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border: 1px solid #e0e7ff;
+      transition: transform 0.2s;
+    }
+    
+    .lesson-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(15, 57, 172, 0.15);
+    }
+    
+    .lesson-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #eef2f6;
+      padding-bottom: 20px;
+    }
+    
+    .lesson-icon {
+      font-size: 2.2rem;
+    }
+    
+    .lesson-header h2 {
+      color: #0f39ac;
+      font-size: 1.8rem;
+      margin: 0;
+    }
+    
+    .lesson-content p {
+      color: #555;
+      margin-bottom: 20px;
+      line-height: 1.7;
+      font-size: 1.1rem;
+    }
+    
+    .code-block {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin: 25px 0;
+      border-left: 5px solid #0f39ac;
+    }
+    
+    .example-box {
+      background: #f0f7ff;
+      border-radius: 12px;
+      padding: 25px;
+      margin-top: 25px;
+      border: 1px solid #e0e7ff;
+    }
+    
+    .example-box h4 {
+      color: #0f39ac;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .example-display {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+    
+    /* DARK MODE */
+    body.dark .lesson-card {
+      background: #1e1e1e;
+      border-color: #333;
+    }
+    
+    body.dark .lesson-content p {
+      color: #ccc;
+    }
+    
+    body.dark .example-box {
+      background: #2d2d2d;
+      border-color: #444;
+    }
+    
+    body.dark .example-display {
+      background: #1e1e1e;
+      border-color: #444;
+      color: white;
+    }
+    
+    body.dark .sub-nav a {
+      background: #2d2d2d;
+      color: white;
+      border-color: #0f39ac;
+    }
+    
+    body.dark .sub-nav a:hover,
+    body.dark .sub-nav a.active {
+      background: #0f39ac;
+      color: white;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .tutorial-hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .tutorial-hero p {
+        font-size: 1.1rem;
+      }
+      
+      .lesson-header {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .lesson-header h2 {
+        font-size: 1.6rem;
+      }
+      
+      .code-block {
+        font-size: 0.85rem;
+        padding: 20px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .tutorial-hero {
+        padding: 40px 20px;
+      }
+      
+      .tutorial-hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .lesson-card {
+        padding: 25px;
+      }
+      
+      .lesson-header h2 {
+        font-size: 1.5rem;
+      }
+      
+      .sub-nav a {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <a href="index.html">
+        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
+      </a>
+    </div>
+    
+    <nav>
+      <ul>
+        <li><a href="index.html" id="nav-home">Home</a></li>
+        <li><a href="subject.html" id="nav-subject">Subjects</a></li>
+        <li><a href="Quiz.html" id="nav-quiz">Quiz</a></li>
+        <li><a href="About.html" id="nav-about">About</a></li>
+        <li><a href="Contact.html" id="nav-contact">Feedback</a></li>
+        <li><a href="Relax.html" id="nav-relax">Relax</a></li>
+        
+        <li class="nav-controls">
+          <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
+            <option value="en">🇬🇧 English</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="rw">🇷🇼 Kinyarwanda</option>
+          </select>
+          
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
+            🌙
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- TUTORIAL HERO SECTION -->
+  <div class="tutorial-hero">
+    <h1>🌐 HTML Tutorial</h1>
+    <p>Learn HTML step by step — from zero to your first webpage</p>
+  </div>
+  
+  <!-- SUB-NAVIGATION - YOUR EXACT LINKS -->
+  <div class="sub-nav">
+    <a href="HTML.html" class="active">HTML</a>
+    <a href="CSS.html">CSS</a>
+    <a href="JavaScript.html">JavaScript</a>
+  </div>
+
+  <!-- HTML LESSONS - YOUR EXACT CONTENT -->
+  <div class="tutorial-container">
+    
+    <div class="section-title">
+      <h2>📖 HTML Basics</h2>
+      <p style="color: #666; margin-top: 15px;">10 lessons to get you started with web development</p>
+    </div>
+    
+    <div class="lesson-grid">
+      
+      <!-- LESSON 1: WHAT IS HTML? - YOUR EXACT WORDS -->
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <span class="lesson-icon">💡</span>
+          <h2>1. What is HTML?</h2>
+        </div>
+        <div class="lesson-content">
+          <p>
+            HTML stands for <strong>HyperText Markup Language</strong>.<br>
+            It is used to create webpages and structure content on the internet.
+          </p>
+          
+          <div class="example-box">
+            <h4>📌 Key Point:</h4>
+            <div class="example-display">
+              HTML is the structure of a website — like the skeleton of a building.
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- LESSON 2: BASIC HTML STRUCTURE - YOUR EXACT WORDS -->
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <span class="lesson-icon">📄</span>
+          <h2>2. Basic HTML Structure</h2>
+        </div>
+        <div class="lesson-content">
+          <p>This is the basic structure of every HTML page:</p>
+          
+          <div class="code-block">
+&lt;!DOCTYPE html&gt;<br>
+&lt;html&gt;<br>
+&nbsp;&nbsp;&lt;head&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;My Page&lt;/title&gt;<br>
+&nbsp;&nbsp;&lt;/head&gt;<br>
+&nbsp;&nbsp;&lt;body&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Hello World!<br>
+&nbsp;&nbsp;&lt;/body&gt;<br>
+&lt;/html&gt;
+          </div>
+        </div>
+      </div>
+      
+      <!-- LESSON 3: HTML HEADINGS - YOUR EXACT WORDS -->
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <span class="lesson-icon">🔤</span>
+          <h2>3. HTML Headings</h2>
+        </div>
+        <div class="lesson-content">
+          <p>HTML has headings from <strong>&lt;h1&gt;</strong> to <strong>&lt;h6&gt;</strong>:</p>
+          
+          <div class="code-block">
+&lt;h1&gt;Heading 1 - Most Important&lt;/h1&gt;<br>
+&lt;h2&gt;Heading 2&lt;/h2&gt;<br>
+&lt;h3&gt;Heading 3&lt;/h3&gt;<br>
+&lt;h4&gt;Heading 4&lt;/h4&gt;<br>
+&lt;h5&gt;Heading 5&lt;/h5&gt;<br>
+&lt;h6&gt;Heading 6 - Least Important&lt;/h6&gt;
+          </div>
+          
+          <div class="example-box">
+            <h4>🎯 Live Example:</h4>
+            <div class="example-display">
+              <h1 style="font-size: 1.8rem; margin: 0; color: #0f39ac;">Heading 1</h1>
+              <h2 style="font-size: 1.5rem; margin: 10px 0 0; color: #0b74de;">Heading 2</h2>
+              <h3 style="font-size: 1.2rem; margin: 10px 0 0; color: #2563eb;">Heading 3</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- LESSON 4: HTML PARAGRAPH - YOUR EXACT WORDS -->
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <span class="lesson-icon">📝</span>
+          <h2>4. HTML Paragraph</h2>
+        </div>
+        <div class="lesson-content">
+          <p>The <strong>&lt;p&gt;</strong> tag is used to write text:</p>
+          
+          <div class="code-block">
+&lt;p&gt;This is a paragraph of text.&lt;/p&gt;<br>
+&lt;p&gt;This is another paragraph.&lt;/p&gt;
+          </div>
+        </div>
+      </div>
+      
+      <!-- LESSON 5: HTML LINKS - YOUR EXACT WORDS -->
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <span class="lesson-icon">🔗</span>
+          <h2>5. HTML Links</h2>
+        </div>
+        <div class="lesson-content">
+          <p>Use the <strong>&lt;a&gt;</strong> tag to create links:</p>
+          
+          <div class="code-block">
+&lt;a href="https://www.google.com"&gt;Go to Google&lt;/a&gt;
+          </div>
+          
+          <div class="example-box">
+            <h4>🎯 Live Example:</h4>
+            <div class="example-display">
+              <a href="#" style="color: #0f39ac; text-decoration: underline;">This is a sample link</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- LESSON 6: HTML IMAGES - YOUR EXACT WORDS -->
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <span class="lesson-icon">🖼️</span>
+          <h2>6. HTML Images</h2>
+        </div>
+        <div class="lesson-content">
+          <p>Use the <strong>&lt;img&gt;</strong> tag to add images:</p>
+          
+          <div class="code-block">
+&lt;img src="image.jpg" alt="Description of image"&gt;
+          </div>
+        </div>
+      </div>
+      
+      <!-- LESSON 7: HTML LISTS - YOUR EXACT WORDS -->
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <span class="lesson-icon">📋</span>
+          <h2>7. HTML Lists</h2>
+        </div>
+        <div class="lesson-content">
+          <p>Unordered list (bullets):</p>
+          
+          <div class="code-block">
+&lt;ul&gt;<br>
+&nbsp;&nbsp;&lt;li&gt;HTML&lt;/li&gt;<br>
+&nbsp;&nbsp;&lt;li&gt;CSS&lt;/li&gt;<br>
+&nbsp;&nbsp;&lt;li&gt;JavaScript&lt;/li&gt;<br>
+&lt;/ul&gt;
+          </div>
+          
+          <p style="margin-top: 15px;">Ordered list (numbers):</p>
+          
+          <div class="code-block">
+&lt;ol&gt;<br>
+&nbsp;&nbsp;&lt;li&gt;First step&lt;/li&gt;<br>
+&nbsp;&nbsp;&lt;li&gt;Second step&lt;/li&gt;<br>
+&nbsp;&nbsp;&lt;li&gt;Third step&lt;/li&gt;<br>
+&lt;/ol&gt;
+          </div>
+        </div>
+      </div>
+      
+      <!-- LESSON 8: HTML BUTTONS - YOUR EXACT WORDS -->
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <span class="lesson-icon">🔘</span>
+          <h2>8. HTML Buttons</h2>
+        </div>
+        <div class="lesson-content">
+          <p>Use the <strong>&lt;button&gt;</strong> tag to create clickable buttons:</p>
+          
+          <div class="code-block">
+&lt;button&gt;Click Me&lt;/button&gt;
+          </div>
+          
+          <div class="example-box">
+            <h4>🎯 Live Example:</h4>
+            <div class="example-display">
+              <button style="background: #0f39ac; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="alert('Hello from KnotLearn!')">Click Me</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- LESSON 9: HTML FORMS - YOUR EXACT WORDS -->
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <span class="lesson-icon">📨</span>
+          <h2>9. HTML Forms</h2>
+        </div>
+        <div class="lesson-content">
+          <p>Forms collect user input:</p>
+          
+          <div class="code-block">
+&lt;form&gt;<br>
+&nbsp;&nbsp;&lt;input type="text" placeholder="Your name"&gt;<br>
+&nbsp;&nbsp;&lt;button type="submit"&gt;Submit&lt;/button&gt;<br>
+&lt;/form&gt;
+          </div>
+        </div>
+      </div>
+      
+      <!-- LESSON 10: CONCLUSION - YOUR EXACT WORDS -->
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <span class="lesson-icon">🚀</span>
+          <h2>10. Conclusion</h2>
+        </div>
+        <div class="lesson-content">
+          <p>
+            HTML is easy to learn and very important.<br>
+            After HTML, you should learn <strong>CSS</strong> and <strong>JavaScript</strong>.
+          </p>
+          
+          <div class="example-box" style="background: #e8f0fe; text-align: center;">
+            <h4 style="color: #0f39ac;">🎉 You've completed HTML Basics!</h4>
+            <p style="margin-top: 10px;">Next: Learn CSS to style your webpages.</p>
+            <div style="margin-top: 20px;">
+              <a href="CSS.html" style="display: inline-block; background: #0f39ac; color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold;">Continue to CSS →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  <footer>
+    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // ===== KNOTLEARN - LANGUAGE & THEME CONTROLS =====
+    const textData = {
+      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
+      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
+      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+    };
+
+    function changeLanguage() {
+      const langSelect = document.getElementById("languageSelect");
+      if (!langSelect) return;
+      const lang = langSelect.value;
+      localStorage.setItem("knotlearn_lang", lang);
+      
+      document.getElementById("nav-home").innerText = textData[lang].home;
+      document.getElementById("nav-subject").innerText = textData[lang].subjects;
+      document.getElementById("nav-quiz").innerText = textData[lang].quiz;
+      document.getElementById("nav-about").innerText = textData[lang].about;
+      document.getElementById("nav-contact").innerText = textData[lang].contact;
+      document.getElementById("nav-relax").innerText = textData[lang].relax;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
+      const themeBtn = document.getElementById("themeToggle");
+      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+    }
+
+    window.onload = function() {
+      const savedLang = localStorage.getItem("knotlearn_lang");
+      const savedTheme = localStorage.getItem("knotlearn_theme");
+
+      if (savedLang) {
+        const langSelect = document.getElementById("languageSelect");
+        if (langSelect) {
+          langSelect.value = savedLang;
+          changeLanguage();
+        }
+      }
+
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark");
+        const themeBtn = document.getElementById("themeToggle");
+        if (themeBtn) themeBtn.innerText = "☀️";
+      }
+    };
+  </script>
+
+</body>
+</html>

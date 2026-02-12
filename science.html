@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO META TAGS -->
+  <meta name="description" content="KnotLearn - Science tutorials. Learn biology, chemistry, physics, and more with simple step-by-step lessons.">
+  <meta name="keywords" content="science lessons, biology, chemistry, physics, living things, non-living things, states of matter, energy">
+  <meta name="author" content="KnotLearn">
+  
+  <!-- SOCIAL SHARING -->
+  <meta property="og:title" content="KnotLearn - Science">
+  <meta property="og:description" content="Explore and understand the world of science with easy lessons.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="logo.png">
+  
+  <title>KnotLearn - Science</title>
+  
+  <!-- MASTER CSS FILE -->
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* ===== SCIENCE PAGE - YOUR COLORS ===== */
+    .science-hero {
+      background: linear-gradient(135deg, #0f39ac 0%, #0b74de 100%);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .science-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+    
+    .science-hero p {
+      font-size: 1.3rem;
+      opacity: 0.95;
+    }
+    
+    .science-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .section-title h2 {
+      color: #0f39ac;
+      font-size: 2.2rem;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 15px;
+    }
+    
+    .section-title h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: #0f39ac;
+      border-radius: 2px;
+    }
+    
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+    
+    .topic-card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border: 1px solid #e0e7ff;
+      transition: transform 0.2s;
+    }
+    
+    .topic-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(15, 57, 172, 0.15);
+    }
+    
+    .topic-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+    
+    .topic-card h2 {
+      color: #0f39ac;
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+    }
+    
+    .topic-card p {
+      color: #555;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    
+    .examples-list {
+      background: #f8fafc;
+      border-radius: 15px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    
+    .examples-list h4 {
+      color: #0f39ac;
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+    
+    .examples-list ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .examples-list li {
+      padding: 8px 0;
+      padding-left: 25px;
+      position: relative;
+      color: #555;
+    }
+    
+    .examples-list li:before {
+      content: "•";
+      color: #0f39ac;
+      font-weight: bold;
+      position: absolute;
+      left: 5px;
+    }
+    
+    .practice-btn {
+      background: #0f39ac;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .practice-btn:hover {
+      background: #0b74de;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(15, 57, 172, 0.3);
+    }
+    
+    /* DARK MODE */
+    body.dark .topic-card {
+      background: #1e1e1e;
+      border-color: #333;
+    }
+    
+    body.dark .topic-card p {
+      color: #ccc;
+    }
+    
+    body.dark .examples-list {
+      background: #2d2d2d;
+    }
+    
+    body.dark .examples-list li {
+      color: #ccc;
+    }
+    
+    body.dark .examples-list li:before {
+      color: #60a5fa;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .science-hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .science-hero p {
+        font-size: 1.1rem;
+      }
+      
+      .topics-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .science-hero {
+        padding: 40px 20px;
+      }
+      
+      .science-hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .topic-card {
+        padding: 20px;
+      }
+      
+      .topic-card h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <a href="index.html">
+        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
+      </a>
+    </div>
+    
+    <nav>
+      <ul>
+        <li><a href="index.html" id="nav-home">Home</a></li>
+        <li><a href="subject.html" id="nav-subject">Subjects</a></li>
+        <li><a href="Quiz.html" id="nav-quiz">Quiz</a></li>
+        <li><a href="About.html" id="nav-about">About</a></li>
+        <li><a href="Contact.html" id="nav-contact">Feedback</a></li>
+        <li><a href="Relax.html" id="nav-relax">Relax</a></li>
+        
+        <li class="nav-controls">
+          <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
+            <option value="en">🇬🇧 English</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="rw">🇷🇼 Kinyarwanda</option>
+          </select>
+          
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
+            🌙
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- SCIENCE HERO SECTION -->
+  <div class="science-hero">
+    <h1>🔬 Science</h1>
+    <p>Explore and understand the world around you</p>
+  </div>
+
+  <!-- SCIENCE TOPICS - YOUR EXACT CONTENT -->
+  <div class="science-container">
+    
+    <div class="section-title">
+      <h2>📚 Science Topics</h2>
+      <p style="color: #666; margin-top: 15px;">Learn step by step with simple explanations</p>
+    </div>
+    
+    <div class="topics-grid">
+      
+      <!-- LIVING THINGS - YOUR EXACT WORDS -->
+      <div class="topic-card">
+        <div class="topic-icon">🌱</div>
+        <h2>Living Things</h2>
+        <p>Living things can grow, move, breathe, and reproduce.</p>
+        
+        <div class="examples-list">
+          <h4>📌 Examples:</h4>
+          <ul>
+            <li>Humans</li>
+            <li>Animals</li>
+            <li>Plants</li>
+          </ul>
+        </div>
+        
+        <button class="practice-btn" onclick="alert('Question: Name one living thing')">
+          ✏️ Practice
+        </button>
+      </div>
+      
+      <!-- NON-LIVING THINGS - YOUR EXACT WORDS -->
+      <div class="topic-card">
+        <div class="topic-icon">🪨</div>
+        <h2>Non-Living Things</h2>
+        <p>Non-living things do not grow or breathe.</p>
+        
+        <div class="examples-list">
+          <h4>📌 Examples:</h4>
+          <ul>
+            <li>Stone</li>
+            <li>Water</li>
+            <li>Chair</li>
+          </ul>
+        </div>
+        
+        <button class="practice-btn" onclick="alert('Question: Name one non-living thing')">
+          ✏️ Practice
+        </button>
+      </div>
+      
+      <!-- STATES OF MATTER - YOUR EXACT WORDS -->
+      <div class="topic-card">
+        <div class="topic-icon">💧</div>
+        <h2>States of Matter</h2>
+        <p>Matter exists in three main states.</p>
+        
+        <div class="examples-list">
+          <h4>📌 Examples:</h4>
+          <ul>
+            <li><strong>Solid:</strong> Ice</li>
+            <li><strong>Liquid:</strong> Water</li>
+            <li><strong>Gas:</strong> Air</li>
+          </ul>
+        </div>
+        
+        <button class="practice-btn" onclick="alert('Question: What state is water?')">
+          ✏️ Practice
+        </button>
+      </div>
+      
+      <!-- ENERGY - YOUR EXACT WORDS -->
+      <div class="topic-card">
+        <div class="topic-icon">⚡</div>
+        <h2>Energy</h2>
+        <p>Energy helps us do work and move.</p>
+        
+        <div class="examples-list">
+          <h4>📌 Examples:</h4>
+          <ul>
+            <li>Light energy</li>
+            <li>Heat energy</li>
+            <li>Sound energy</li>
+          </ul>
+        </div>
+        
+        <button class="practice-btn" onclick="alert('Question: Name one type of energy')">
+          ✏️ Practice
+        </button>
+      </div>
+      
+    </div>
+    
+    <!-- MORE TOPICS COMING SOON -->
+    <div style="text-align: center; margin-top: 50px; padding: 30px; background: #f0f7ff; border-radius: 15px;">
+      <p style="font-size: 1.2rem; color: #0f39ac; font-weight: bold;">
+        🧪 More science topics coming soon! Chemistry, Physics, Biology, and more.
+      </p>
+    </div>
+    
+  </div>
+
+  <footer>
+    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // ===== KNOTLEARN - LANGUAGE & THEME CONTROLS =====
+    const textData = {
+      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
+      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
+      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+    };
+
+    function changeLanguage() {
+      const langSelect = document.getElementById("languageSelect");
+      if (!langSelect) return;
+      const lang = langSelect.value;
+      localStorage.setItem("knotlearn_lang", lang);
+      
+      document.getElementById("nav-home").innerText = textData[lang].home;
+      document.getElementById("nav-subject").innerText = textData[lang].subjects;
+      document.getElementById("nav-quiz").innerText = textData[lang].quiz;
+      document.getElementById("nav-about").innerText = textData[lang].about;
+      document.getElementById("nav-contact").innerText = textData[lang].contact;
+      document.getElementById("nav-relax").innerText = textData[lang].relax;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
+      const themeBtn = document.getElementById("themeToggle");
+      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+    }
+
+    window.onload = function() {
+      const savedLang = localStorage.getItem("knotlearn_lang");
+      const savedTheme = localStorage.getItem("knotlearn_theme");
+
+      if (savedLang) {
+        const langSelect = document.getElementById("languageSelect");
+        if (langSelect) {
+          langSelect.value = savedLang;
+          changeLanguage();
+        }
+      }
+
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark");
+        const themeBtn = document.getElementById("themeToggle");
+        if (themeBtn) themeBtn.innerText = "☀️";
+      }
+    };
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO META TAGS -->
+  <meta name="description" content="KnotLearn - About Us. We help students learn difficult topics in a simple, clear way. Free education for everyone.">
+  <meta name="keywords" content="about KnotLearn, free learning platform, educational mission, learn easily">
+  <meta name="author" content="KnotLearn">
+  
+  <!-- SOCIAL SHARING -->
+  <meta property="og:title" content="KnotLearn - About Us">
+  <meta property="og:description" content="Making complex topics simple and clear for all students.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="logo.png">
+  
+  <title>KnotLearn - About Us</title>
+  
+  <!-- MASTER CSS FILE -->
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* ===== ABOUT PAGE - YOUR COLORS ===== */
+    .about-wrapper {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+    
+    .about-card {
+      background: white;
+      border-radius: 20px;
+      padding: 50px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border: 1px solid #e0e7ff;
+    }
+    
+    .about-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .about-header h1 {
+      color: #0f39ac;
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .about-header h1:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: #0f39ac;
+      border-radius: 2px;
+    }
+    
+    .about-mission {
+      background: #f0f7ff;
+      border-left: 6px solid #0f39ac;
+      padding: 30px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+    
+    .about-mission p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #1e293b;
+      margin: 0;
+    }
+    
+    .about-content {
+      color: #334155;
+      line-height: 1.8;
+    }
+    
+    .about-content p {
+      margin-bottom: 25px;
+      font-size: 1.1rem;
+    }
+    
+    .about-highlight {
+      font-weight: bold;
+      color: #0f39ac;
+    }
+    
+    .values-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+    
+    .value-item {
+      text-align: center;
+      padding: 25px;
+      background: #f8fafc;
+      border-radius: 15px;
+      transition: transform 0.2s;
+    }
+    
+    .value-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(15, 57, 172, 0.1);
+    }
+    
+    .value-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+    
+    .value-item h3 {
+      color: #0f39ac;
+      margin-bottom: 10px;
+    }
+    
+    .value-item p {
+      color: #555;
+      font-size: 0.95rem;
+      margin: 0;
+    }
+    
+    /* DARK MODE */
+    body.dark .about-card {
+      background: #1e1e1e;
+      border-color: #333;
+    }
+    
+    body.dark .about-mission {
+      background: #2d2d2d;
+    }
+    
+    body.dark .about-mission p {
+      color: white;
+    }
+    
+    body.dark .about-content p {
+      color: #e0e0e0;
+    }
+    
+    body.dark .value-item {
+      background: #2d2d2d;
+    }
+    
+    body.dark .value-item p {
+      color: #ccc;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .about-card {
+        padding: 30px;
+      }
+      
+      .about-header h1 {
+        font-size: 2.2rem;
+      }
+      
+      .about-mission p {
+        font-size: 1.1rem;
+      }
+      
+      .about-content p {
+        font-size: 1rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .about-card {
+        padding: 25px;
+      }
+      
+      .about-header h1 {
+        font-size: 1.8rem;
+      }
+      
+      .values-section {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <a href="index.html">
+        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
+      </a>
+    </div>
+    
+    <nav>
+      <ul>
+        <li><a href="index.html" id="nav-home">Home</a></li>
+        <li><a href="subject.html" id="nav-subject">Subjects</a></li>
+        <li><a href="Quiz.html" id="nav-quiz">Quiz</a></li>
+        <li><a href="About.html" id="nav-about">About</a></li>
+        <li><a href="Contact.html" id="nav-contact">Feedback</a></li>
+        <li><a href="Relax.html" id="nav-relax">Relax</a></li>
+        
+        <!-- LANGUAGE & THEME CONTROLS -->
+        <li class="nav-controls">
+          <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
+            <option value="en">🇬🇧 English</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="rw">🇷🇼 Kinyarwanda</option>
+          </select>
+          
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
+            🌙
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="about-wrapper">
+    <div class="about-card">
+      
+      <div class="about-header">
+        <h1>About Us</h1>
+      </div>
+      
+      <!-- MISSION STATEMENT - YOUR EXACT WORDS -->
+      <div class="about-mission">
+        <p>
+          <span class="about-highlight">KnotLearn</span> is an educational platform created to help students understand difficult topics in a simple and clear way.
+        </p>
+      </div>
+      
+      <!-- ABOUT CONTENT - YOUR EXACT WORDS, NOTHING CHANGED -->
+      <div class="about-content">
+        <p>
+          We believe that learning should not feel confusing or overwhelming.
+          Our goal is to untangle complex ideas and turn them into easy, understandable lessons.
+        </p>
+        
+        <p>
+          At KnotLearn, we focus on <span class="about-highlight">clarity, simplicity, and real understanding</span>.
+          We break down hard concepts into smaller parts, use clear explanations, and present
+          knowledge in a way that makes sense for every learner.
+        </p>
+        
+        <p>
+          KnotLearn is built for students who want to learn smarter, not harder.
+          Whether you are struggling with a topic or just want to improve your understanding,
+          we are here to support your learning journey.
+        </p>
+        
+        <p style="font-size: 1.2rem; font-weight: bold; color: #0f39ac; text-align: center; margin-top: 40px;">
+          Our mission is to make education accessible, engaging, and effective for everyone.
+        </p>
+      </div>
+      
+      <!-- OUR VALUES - ADDED TO MAKE PAGE MORE VISUALLY APPEALING (YOUR MESSAGE INTACT) -->
+      <div style="margin-top: 50px;">
+        <h2 style="color: #0f39ac; text-align: center; margin-bottom: 30px;">What We Believe</h2>
+        
+        <div class="values-section">
+          <div class="value-item">
+            <div class="value-icon">🧩</div>
+            <h3>Simple</h3>
+            <p>We break down complex topics into small, easy steps.</p>
+          </div>
+          
+          <div class="value-item">
+            <div class="value-icon">🎯</div>
+            <h3>Clear</h3>
+            <p>No confusion. No unnecessary jargon. Just clear explanations.</p>
+          </div>
+          
+          <div class="value-item">
+            <div class="value-icon">🌍</div>
+            <h3>Free</h3>
+            <p>Education should be accessible to everyone, anywhere.</p>
+          </div>
+          
+          <div class="value-item">
+            <div class="value-icon">💡</div>
+            <h3>Effective</h3>
+            <p>We help students truly understand, not just memorize.</p>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // ===== KNOTLEARN - LANGUAGE & THEME CONTROLS =====
+    const textData = {
+      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
+      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
+      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+    };
+
+    function changeLanguage() {
+      const langSelect = document.getElementById("languageSelect");
+      if (!langSelect) return;
+      const lang = langSelect.value;
+      localStorage.setItem("knotlearn_lang", lang);
+      
+      document.getElementById("nav-home").innerText = textData[lang].home;
+      document.getElementById("nav-subject").innerText = textData[lang].subjects;
+      document.getElementById("nav-quiz").innerText = textData[lang].quiz;
+      document.getElementById("nav-about").innerText = textData[lang].about;
+      document.getElementById("nav-contact").innerText = textData[lang].contact;
+      document.getElementById("nav-relax").innerText = textData[lang].relax;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
+      const themeBtn = document.getElementById("themeToggle");
+      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+    }
+
+    window.onload = function() {
+      const savedLang = localStorage.getItem("knotlearn_lang");
+      const savedTheme = localStorage.getItem("knotlearn_theme");
+
+      if (savedLang) {
+        const langSelect = document.getElementById("languageSelect");
+        if (langSelect) {
+          langSelect.value = savedLang;
+          changeLanguage();
+        }
+      }
+
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark");
+        const themeBtn = document.getElementById("themeToggle");
+        if (themeBtn) themeBtn.innerText = "☀️";
+      }
+    };
+  </script>
+
+</body>
+</html>

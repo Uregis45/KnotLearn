@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO META TAGS -->
+  <meta name="description" content="KnotLearn - Think Fast! Critical thinking game for students. Improve logic, digital safety, and problem solving skills.">
+  <meta name="keywords" content="educational game, critical thinking, logic puzzle, digital safety, student game">
+  <meta name="author" content="KnotLearn">
+  
+  <title>KnotLearn - Think Fast! Critical Thinking Game</title>
+  
+  <!-- MASTER CSS FILE -->
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* ===== GAME-SPECIFIC STYLES - YOUR COLORS ===== */
+    .game-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0f39ac;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 10px 10px 0 0;
+    }
+    
+    .score-box, .level-box {
+      background: white;
+      color: #0f39ac;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+    
+    .game-card {
+      background: white;
+      border: 2px solid #e0e7ff;
+      border-radius: 0 0 10px 10px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* INTRO SCREEN */
+    .intro-screen {
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .intro-screen h2 {
+      color: #0f39ac;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    
+    .intro-screen p {
+      color: #555;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    
+    .intro-list {
+      text-align: left;
+      background: #f0f7ff;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 25px 0;
+      list-style: none;
+    }
+    
+    .intro-list li {
+      padding: 8px 0;
+      padding-left: 30px;
+      position: relative;
+    }
+    
+    .intro-list li:before {
+      content: "🧠";
+      position: absolute;
+      left: 0;
+    }
+    
+    /* QUESTION SCREEN */
+    .question-screen {
+      display: none;
+    }
+    
+    .timer-bar {
+      width: 100%;
+      height: 8px;
+      background: #e0e7ff;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    
+    .timer-fill {
+      height: 100%;
+      width: 100%;
+      background: #0f39ac;
+      transition: width 1s linear;
+    }
+    
+    .category-tag {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #0f39ac;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    
+    .question-text {
+      font-size: 1.5rem;
+      color: #1e293b;
+      margin-bottom: 30px;
+      line-height: 1.4;
+    }
+    
+    .options-grid {
+      display: grid;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .option-btn {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      padding: 15px 20px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #1e293b;
+    }
+    
+    .option-btn:hover {
+      background: #e0f2fe;
+      border-color: #0f39ac;
+    }
+    
+    .hint-box {
+      background: #fff4e5;
+      border-left: 5px solid #ff9800;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 5px;
+      color: #663c00;
+      display: none;
+    }
+    
+    /* RESULT SCREEN */
+    .result-screen {
+      display: none;
+      text-align: center;
+      padding: 30px;
+    }
+    
+    .result-screen h2 {
+      color: #0f39ac;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    
+    .final-score {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #0f39ac;
+      margin: 30px 0;
+    }
+    
+    .play-again-btn {
+      background: #0f39ac;
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    
+    .play-again-btn:hover {
+      background: #0b74de;
+    }
+    
+    /* DARK MODE */
+    body.dark .game-card {
+      background: #1e1e1e;
+      border-color: #333;
+    }
+    
+    body.dark .question-text {
+      color: white;
+    }
+    
+    body.dark .option-btn {
+      background: #2d2d2d;
+      border-color: #444;
+      color: white;
+    }
+    
+    body.dark .option-btn:hover {
+      background: #0f39ac;
+      color: white;
+    }
+    
+    body.dark .intro-list {
+      background: #2d2d2d;
+      color: white;
+    }
+    
+    body.dark .intro-list li:before {
+      opacity: 0.9;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .game-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+      }
+      
+      .question-text {
+        font-size: 1.2rem;
+      }
+      
+      .game-card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <a href="index.html">
+        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
+      </a>
+    </div>
+    
+    <nav>
+      <ul>
+        <li><a href="index.html" id="nav-home">Home</a></li>
+        <li><a href="subject.html" id="nav-subject">Subjects</a></li>
+        <li><a href="Quiz.html" id="nav-quiz">Quiz</a></li>
+        <li><a href="About.html" id="nav-about">About</a></li>
+        <li><a href="Contact.html" id="nav-contact">Feedback</a></li>
+        <li><a href="Relax.html" id="nav-relax">Relax</a></li>
+        
+        <li class="nav-controls">
+          <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
+            <option value="en">🇬🇧 English</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="rw">🇷🇼 Kinyarwanda</option>
+          </select>
+          
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
+            🌙
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="game-container">
+    
+    <!-- GAME HEADER -->
+    <div class="game-header">
+      <h1 style="font-size: 1.5rem;">🧠 Think Fast!</h1>
+      <div style="display: flex; gap: 15px;">
+        <div class="score-box">Score: <span id="scoreDisplay">0</span></div>
+        <div class="level-box">Level: <span id="levelDisplay">1</span></div>
+      </div>
+    </div>
+    
+    <!-- GAME CARD -->
+    <div class="game-card">
+      
+      <!-- INTRO SCREEN -->
+      <div id="introScreen" class="intro-screen">
+        <h2>Welcome, Young Thinker! 👋</h2>
+        <p>You are on a mission to save your school by using <strong>critical thinking</strong>, <strong>logic</strong>, and <strong>digital safety</strong> skills.</p>
+        
+        <ul class="intro-list">
+          <li>Answer fast-thinking questions</li>
+          <li>Solve logic puzzles</li>
+          <li>Make smart digital choices</li>
+        </ul>
+        
+        <button onclick="startGame()" class="btn" style="font-size: 1.2rem; padding: 15px 40px;">Start Adventure</button>
+      </div>
+      
+      <!-- QUESTION SCREEN -->
+      <div id="questionScreen" class="question-screen">
+        <div class="timer-bar">
+          <div id="timerFill" class="timer-fill" style="width: 100%;"></div>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <span id="categoryTag" class="category-tag">Speed Thinking</span>
+          <span id="timerText" style="font-weight: bold; color: #0f39ac;">⏱️ 20s</span>
+        </div>
+        
+        <div id="questionText" class="question-text"></div>
+        
+        <div id="optionsContainer" class="options-grid"></div>
+        
+        <div id="hintBox" class="hint-box">
+          <strong>💡 Hint:</strong> <span id="hintText"></span>
+        </div>
+      </div>
+      
+      <!-- RESULT SCREEN -->
+      <div id="resultScreen" class="result-screen">
+        <h2>🎉 Mission Complete!</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 20px;">You showed strong critical thinking skills.</p>
+        
+        <div class="final-score">
+          <span id="finalScoreDisplay">0</span>
+        </div>
+        
+        <button onclick="restartGame()" class="play-again-btn">Play Again</button>
+      </div>
+      
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // ===== KNOTLEARN - THINK FAST! GAME =====
+    // YOUR GAME. YOUR QUESTIONS. CLEAN & FAST.
+    
+    // QUESTIONS - YOUR EXACT CONTENT (REMOVED DUPLICATES)
+    const questions = [
+      // Level 1 - Speed Thinking
+      { level: 1, category: 'Speed Thinking', q: 'Which is heavier: 1kg of iron or 1kg of cotton?', options: ['Iron', 'Cotton', 'They are the same'], a: 2, hint: 'Think about the unit: kilogram.' },
+      { level: 1, category: 'Speed Thinking', q: 'What comes next: 2, 4, 8, 16, ?', options: ['18', '24', '32'], a: 2, hint: 'Each number doubles.' },
+      
+      // Level 2 - Logic Puzzle
+      { level: 2, category: 'Logic Puzzle', q: 'If you have 3 apples and take away 2, how many do you have?', options: ['1', '2', '3'], a: 1, hint: 'You take them, so they are with you.' },
+      { level: 2, category: 'Logic Puzzle', q: 'A farmer has 17 sheep, all but 9 run away. How many are left?', options: ['8', '9', '17'], a: 1, hint: 'Read carefully: "all but 9".' },
+      
+      // Level 3 - Digital Safety
+      { level: 3, category: 'Digital Safety', q: 'Which password is strongest?', options: ['knot123', 'MySchool2026', 'K9!aQ#2Lm'], a: 2, hint: 'Strong passwords mix symbols, numbers, and letters.' },
+      { level: 3, category: 'Digital Safety', q: 'A stranger asks for your photo online. What should you do?', options: ['Send it', 'Ignore & report', 'Ask for their photo first'], a: 1, hint: 'Protect your privacy.' },
+      
+      // Level 4 - Math Thinking
+      { level: 4, category: 'Math Thinking', q: 'What is 25% of 200?', options: ['25', '50', '75'], a: 1, hint: '25% is one quarter.' },
+      { level: 4, category: 'Math Thinking', q: 'Which number is prime?', options: ['21', '29', '39'], a: 1, hint: 'Prime numbers have only two factors.' },
+      
+      // Level 5 - Geography & Science
+      { level: 5, category: 'Geography & Science', q: 'Which is the largest continent?', options: ['Africa', 'Asia', 'Europe'], a: 1, hint: 'Think biggest by land area.' },
+      { level: 5, category: 'Geography & Science', q: 'What gas do plants use to make food?', options: ['Oxygen', 'Carbon Dioxide', 'Nitrogen'], a: 1, hint: 'Photosynthesis needs this gas.' },
+      
+      // Level 6 - Creativity & Ethics
+      { level: 6, category: 'Creativity & Ethics', q: 'Your friend cheats in an exam. What is the best action?', options: ['Join them', 'Tell them to stop', 'Ignore it'], a: 1, hint: 'Think about honesty and growth.' },
+      { level: 6, category: 'Creativity & Ethics', q: 'Which idea shows creativity?', options: ['Copying homework', 'Building a solar phone charger', 'Doing nothing'], a: 1, hint: 'Creativity solves problems.' }
+    ];
+
+    // GAME STATE
+    let currentScore = 0;
+    let currentIndex = 0;
+    let timerInterval = null;
+    let timeLeft = 20;
+    
+    // DOM ELEMENTS
+    const introScreen = document.getElementById('introScreen');
+    const questionScreen = document.getElementById('questionScreen');
+    const resultScreen = document.getElementById('resultScreen');
+    const scoreDisplay = document.getElementById('scoreDisplay');
+    const levelDisplay = document.getElementById('levelDisplay');
+    const finalScoreDisplay = document.getElementById('finalScoreDisplay');
+    const questionText = document.getElementById('questionText');
+    const optionsContainer = document.getElementById('optionsContainer');
+    const categoryTag = document.getElementById('categoryTag');
+    const hintText = document.getElementById('hintText');
+    const hintBox = document.getElementById('hintBox');
+    const timerText = document.getElementById('timerText');
+    const timerFill = document.getElementById('timerFill');
+
+    // ===== GAME FUNCTIONS =====
+    function startGame() {
+      currentScore = 0;
+      currentIndex = 0;
+      updateScore();
+      
+      introScreen.style.display = 'none';
+      questionScreen.style.display = 'block';
+      resultScreen.style.display = 'none';
+      
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      // Clear previous timer
+      if (timerInterval) clearInterval(timerInterval);
+      
+      // Check if game is complete
+      if (currentIndex >= questions.length) {
+        endGame();
+        return;
+      }
+      
+      const q = questions[currentIndex];
+      
+      // Update display
+      levelDisplay.textContent = q.level;
+      categoryTag.textContent = q.category;
+      questionText.textContent = q.q;
+      hintText.textContent = q.hint;
+      hintBox.style.display = 'none';
+      
+      // Create option buttons
+      optionsContainer.innerHTML = '';
+      q.options.forEach((option, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.textContent = option;
+        btn.onclick = () => checkAnswer(i);
+        optionsContainer.appendChild(btn);
+      });
+      
+      // Setup timer
+      timeLeft = 20;
+      timerText.textContent = `⏱️ ${timeLeft}s`;
+      timerFill.style.width = '100%';
+      
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timerText.textContent = `⏱️ ${timeLeft}s`;
+        timerFill.style.width = `${(timeLeft / 20) * 100}%`;
+        
+        // Show hint at 10 seconds
+        if (timeLeft === 10) {
+          hintBox.style.display = 'block';
+        }
+        
+        // Time's up - move to next question
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          currentIndex++;
+          loadQuestion();
+        }
+      }, 1000);
+    }
+
+    function checkAnswer(selectedIndex) {
+      const q = questions[currentIndex];
+      
+      // Award points if correct
+      if (selectedIndex === q.a) {
+        currentScore += 10;
+        updateScore();
+      }
+      
+      // Move to next question
+      clearInterval(timerInterval);
+      currentIndex++;
+      loadQuestion();
+    }
+
+    function updateScore() {
+      scoreDisplay.textContent = currentScore;
+    }
+
+    function endGame() {
+      questionScreen.style.display = 'none';
+      resultScreen.style.display = 'block';
+      finalScoreDisplay.textContent = currentScore;
+    }
+
+    function restartGame() {
+      currentScore = 0;
+      currentIndex = 0;
+      updateScore();
+      
+      introScreen.style.display = 'block';
+      questionScreen.style.display = 'none';
+      resultScreen.style.display = 'none';
+    }
+
+    // ===== LANGUAGE & THEME CONTROLS (SAME AS INDEX) =====
+    const textData = {
+      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
+      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
+      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+    };
+
+    function changeLanguage() {
+      const langSelect = document.getElementById("languageSelect");
+      if (!langSelect) return;
+      const lang = langSelect.value;
+      localStorage.setItem("knotlearn_lang", lang);
+      
+      document.getElementById("nav-home").innerText = textData[lang].home;
+      document.getElementById("nav-subject").innerText = textData[lang].subjects;
+      document.getElementById("nav-quiz").innerText = textData[lang].quiz;
+      document.getElementById("nav-about").innerText = textData[lang].about;
+      document.getElementById("nav-contact").innerText = textData[lang].contact;
+      document.getElementById("nav-relax").innerText = textData[lang].relax;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
+      const themeBtn = document.getElementById("themeToggle");
+      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+    }
+
+    window.onload = function() {
+      const savedLang = localStorage.getItem("knotlearn_lang");
+      const savedTheme = localStorage.getItem("knotlearn_theme");
+
+      if (savedLang) {
+        const langSelect = document.getElementById("languageSelect");
+        if (langSelect) {
+          langSelect.value = savedLang;
+          changeLanguage();
+        }
+      }
+
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark");
+        const themeBtn = document.getElementById("themeToggle");
+        if (themeBtn) themeBtn.innerText = "☀️";
+      }
+    };
+  </script>
+
+</body>
+</html>

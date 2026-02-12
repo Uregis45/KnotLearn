@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO META TAGS -->
+  <meta name="description" content="KnotLearn - Relax Zone. Take a break with calming music, breathing exercises, and study timers.">
+  <meta name="keywords" content="study music, breathing exercise, focus timer, relax, break">
+  <meta name="author" content="KnotLearn">
+  
+  <title>KnotLearn - Relax Zone</title>
+  
+  <!-- MASTER CSS FILE -->
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* ===== RELAX ZONE - YOUR COLORS ===== */
+    .relax-container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    
+    .relax-card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border: 1px solid #e0e7ff;
+    }
+    
+    .relax-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .relax-header h1 {
+      color: #0f39ac;
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+    
+    .relax-header p {
+      color: #555;
+      font-size: 1.1rem;
+    }
+    
+    .quick-game-link {
+      display: inline-block;
+      background: #f0f7ff;
+      color: #0f39ac;
+      padding: 12px 25px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-bottom: 20px;
+      border: 2px solid #0f39ac;
+      transition: all 0.2s;
+    }
+    
+    .quick-game-link:hover {
+      background: #0f39ac;
+      color: white;
+    }
+    
+    /* MUSIC PLAYER */
+    .music-section {
+      background: #f8fafc;
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+    
+    .music-section h2 {
+      color: #0f39ac;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .now-playing {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      border-left: 5px solid #0f39ac;
+      font-weight: bold;
+      color: #1e293b;
+    }
+    
+    .player-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    
+    .player-btn {
+      background: white;
+      border: 2px solid #0f39ac;
+      color: #0f39ac;
+      padding: 12px 18px;
+      border-radius: 50px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s;
+      flex: 1 1 auto;
+    }
+    
+    .player-btn:hover {
+      background: #0f39ac;
+      color: white;
+    }
+    
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .volume-control input {
+      flex: 1;
+      height: 6px;
+      -webkit-appearance: none;
+      background: #e2e8f0;
+      border-radius: 3px;
+    }
+    
+    .volume-control input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      background: #0f39ac;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    
+    /* BREATHING EXERCISE */
+    .breathing-section {
+      background: #f0f9ff;
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+    
+    .breathing-circle {
+      width: 150px;
+      height: 150px;
+      background: linear-gradient(145deg, #0f39ac, #0b74de);
+      border-radius: 50%;
+      margin: 20px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.3rem;
+      font-weight: bold;
+      box-shadow: 0 10px 20px rgba(15, 57, 172, 0.3);
+      transition: transform 3s ease-in-out;
+    }
+    
+    .breathing-text {
+      font-size: 1.5rem;
+      color: #0f39ac;
+      margin: 15px 0;
+      min-height: 50px;
+      font-weight: bold;
+    }
+    
+    /* TIMER SECTION */
+    .timer-section {
+      background: #f8fafc;
+      border-radius: 15px;
+      padding: 25px;
+    }
+    
+    .timer-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 15px;
+    }
+    
+    .timer-btn {
+      background: white;
+      border: 2px solid #0f39ac;
+      color: #0f39ac;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+    
+    .timer-btn:hover {
+      background: #0f39ac;
+      color: white;
+    }
+    
+    /* DARK MODE */
+    body.dark .relax-card {
+      background: #1e1e1e;
+      border-color: #333;
+    }
+    
+    body.dark .music-section,
+    body.dark .timer-section {
+      background: #2d2d2d;
+    }
+    
+    body.dark .breathing-section {
+      background: #1a2a4a;
+    }
+    
+    body.dark .now-playing {
+      background: #2d2d2d;
+      color: white;
+    }
+    
+    body.dark .player-btn,
+    body.dark .timer-btn {
+      background: #2d2d2d;
+      color: white;
+      border-color: #0f39ac;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .relax-header h1 {
+        font-size: 1.8rem;
+      }
+      
+      .player-controls {
+        flex-direction: column;
+      }
+      
+      .player-btn {
+        width: 100%;
+      }
+      
+      .timer-buttons {
+        flex-direction: column;
+      }
+      
+      .timer-btn {
+        width: 100%;
+      }
+      
+      .breathing-circle {
+        width: 120px;
+        height: 120px;
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <a href="index.html">
+        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
+      </a>
+    </div>
+    
+    <nav>
+      <ul>
+        <li><a href="index.html" id="nav-home">Home</a></li>
+        <li><a href="subject.html" id="nav-subject">Subjects</a></li>
+        <li><a href="Quiz.html" id="nav-quiz">Quiz</a></li>
+        <li><a href="About.html" id="nav-about">About</a></li>
+        <li><a href="Contact.html" id="nav-contact">Feedback</a></li>
+        <li><a href="Relax.html" id="nav-relax">Relax</a></li>
+        
+        <li class="nav-controls">
+          <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
+            <option value="en">🇬🇧 English</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="rw">🇷🇼 Kinyarwanda</option>
+          </select>
+          
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
+            🌙
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="relax-container">
+    
+    <!-- QUICK GAME LINK - YOUR EXACT LINK -->
+    <div style="text-align: center;">
+      <a href="quick%20game.html" class="quick-game-link">🧠 Thinkers Game →</a>
+    </div>
+    
+    <div class="relax-card">
+      
+      <div class="relax-header">
+        <h1>🌿 Relax Zone</h1>
+        <p>Take a break, breathe, and enjoy calming music.</p>
+      </div>
+      
+      <!-- MUSIC PLAYER SECTION -->
+      <div class="music-section">
+        <h2>🎵 Music Player</h2>
+        
+        <div id="nowPlaying" class="now-playing">
+          ⏹️ No music playing
+        </div>
+        
+        <audio id="player" preload="metadata"></audio>
+        
+        <div class="player-controls">
+          <button id="prevBtn" class="player-btn">⏮️ Prev</button>
+          <button id="playPauseBtn" class="player-btn">▶️ Play</button>
+          <button id="nextBtn" class="player-btn">⏭️ Next</button>
+          <button id="shuffleBtn" class="player-btn">🔀 Shuffle</button>
+        </div>
+        
+        <div class="volume-control">
+          <span style="color: #0f39ac; font-weight: bold;">🔊</span>
+          <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+          <span id="volumePercent" style="color: #0f39ac; font-weight: bold;">50%</span>
+        </div>
+      </div>
+      
+      <!-- BREATHING EXERCISE -->
+      <div class="breathing-section">
+        <h2 style="color: #0f39ac; margin-bottom: 15px;">🌬️ Breathing Exercise</h2>
+        
+        <div id="breathingCircle" class="breathing-circle">
+          <span id="breathingPhase">Ready</span>
+        </div>
+        
+        <div id="breathingText" class="breathing-text">
+          Click Start to begin
+        </div>
+        
+        <button id="startBreathingBtn" class="player-btn" style="background: #0f39ac; color: white; border: none;">
+          Start Breathing
+        </button>
+      </div>
+      
+      <!-- STUDY TIMER -->
+      <div class="timer-section">
+        <h2 style="color: #0f39ac; margin-bottom: 15px;">⏱️ Study Timer</h2>
+        <p style="color: #555; margin-bottom: 15px;">Music will play, timer will notify you.</p>
+        
+        <div class="timer-buttons">
+          <button onclick="startTimer(5)" class="timer-btn">5 minutes</button>
+          <button onclick="startTimer(10)" class="timer-btn">10 minutes</button>
+          <button onclick="startTimer(15)" class="timer-btn">15 minutes</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // ===== KNOTLEARN - RELAX ZONE =====
+    // YOUR MUSIC. YOUR PLAYLIST. FIXED AUDIO.
+    
+    // ===== MUSIC PLAYER =====
+    // YOUR EXACT PLAYLIST - I DID NOT CHANGE ANY SONGS
+    const playlist = [
+      "music/A-Let-It-Flow-Toni-Braxton.mp3",
+      "music/All-The-Man-Tha-I-Need-Whitney.mp3",
+      "music/Christopher-Muneza-POZ.mp3",
+      "music/Element_Eleeeh-TOMBE.mp3",
+      "music/Element-Eleeeh-MAASO.mp3",
+      "music/Ross-Kana-MOLELA.mp3",
+      "music/Lil-NasX.mp3"
+    ];
+    
+    let currentTrack = 0;
+    let isPlaying = false;
+    let shuffleMode = false;
+    
+    const player = document.getElementById('player');
+    const nowPlaying = document.getElementById('nowPlaying');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const shuffleBtn = document.getElementById('shuffleBtn');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const volumePercent = document.getElementById('volumePercent');
+    
+    // Load first track
+    function loadTrack(index) {
+      currentTrack = (index + playlist.length) % playlist.length;
+      player.src = playlist[currentTrack];
+      player.load();
+      
+      // Display now playing
+      const fileName = playlist[currentTrack].split('/').pop();
+      nowPlaying.innerHTML = `🎵 Now Playing: ${fileName}`;
+    }
+    
+    // Play current track
+    function playTrack() {
+      player.play();
+      isPlaying = true;
+      playPauseBtn.innerHTML = '⏸️ Pause';
+    }
+    
+    // Pause current track
+    function pauseTrack() {
+      player.pause();
+      isPlaying = false;
+      playPauseBtn.innerHTML = '▶️ Play';
+    }
+    
+    // Toggle play/pause
+    function togglePlay() {
+      if (isPlaying) {
+        pauseTrack();
+      } else {
+        playTrack();
+      }
+    }
+    
+    // Next track
+    function nextTrack() {
+      if (shuffleMode) {
+        let randomIndex;
+        do {
+          randomIndex = Math.floor(Math.random() * playlist.length);
+        } while (randomIndex === currentTrack && playlist.length > 1);
+        currentTrack = randomIndex;
+      } else {
+        currentTrack = (currentTrack + 1) % playlist.length;
+      }
+      
+      loadTrack(currentTrack);
+      if (isPlaying) playTrack();
+    }
+    
+    // Previous track
+    function prevTrack() {
+      if (shuffleMode) {
+        let randomIndex;
+        do {
+          randomIndex = Math.floor(Math.random() * playlist.length);
+        } while (randomIndex === currentTrack && playlist.length > 1);
+        currentTrack = randomIndex;
+      } else {
+        currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+      }
+      
+      loadTrack(currentTrack);
+      if (isPlaying) playTrack();
+    }
+    
+    // Toggle shuffle
+    function toggleShuffle() {
+      shuffleMode = !shuffleMode;
+      shuffleBtn.style.background = shuffleMode ? '#0f39ac' : 'white';
+      shuffleBtn.style.color = shuffleMode ? 'white' : '#0f39ac';
+      shuffleBtn.innerHTML = shuffleMode ? '🔀 Shuffle On' : '🔀 Shuffle';
+    }
+    
+    // Volume control
+    function setVolume() {
+      const vol = volumeSlider.value;
+      player.volume = vol;
+      volumePercent.innerHTML = Math.round(vol * 100) + '%';
+    }
+    
+    // Auto-play next when track ends
+    player.addEventListener('ended', function() {
+      nextTrack();
+    });
+    
+    // Event listeners
+    playPauseBtn.addEventListener('click', togglePlay);
+    nextBtn.addEventListener('click', nextTrack);
+    prevBtn.addEventListener('click', prevTrack);
+    shuffleBtn.addEventListener('click', toggleShuffle);
+    volumeSlider.addEventListener('input', setVolume);
+    
+    // Load first track
+    loadTrack(0);
+    
+    // ===== BREATHING EXERCISE =====
+    const breathingCircle = document.getElementById('breathingCircle');
+    const breathingText = document.getElementById('breathingText');
+    const breathingPhase = document.getElementById('breathingPhase');
+    const startBreathingBtn = document.getElementById('startBreathingBtn');
+    
+    let breathingInterval = null;
+    let breathingStep = 0;
+    const breathingSteps = ['Breathe in...', 'Hold...', 'Breathe out...', 'Hold...'];
+    const breathingDurations = [4000, 2000, 4000, 2000]; // ms
+    
+    function startBreathing() {
+      // Clear existing interval
+      if (breathingInterval) clearInterval(breathingInterval);
+      
+      breathingStep = 0;
+      updateBreathingStep();
+      
+      breathingInterval = setInterval(() => {
+        breathingStep = (breathingStep + 1) % breathingSteps.length;
+        updateBreathingStep();
+      }, breathingDurations[breathingStep]);
+    }
+    
+    function updateBreathingStep() {
+      breathingPhase.textContent = breathingSteps[breathingStep];
+      breathingText.textContent = breathingSteps[breathingStep];
+      
+      // Animate circle
+      if (breathingStep === 0) {
+        breathingCircle.style.transform = 'scale(1.3)';
+        breathingCircle.style.background = 'linear-gradient(145deg, #0f39ac, #0b74de)';
+      } else if (breathingStep === 1) {
+        breathingCircle.style.transform = 'scale(1.3)';
+        breathingCircle.style.background = 'linear-gradient(145deg, #2563eb, #3b82f6)';
+      } else if (breathingStep === 2) {
+        breathingCircle.style.transform = 'scale(1)';
+        breathingCircle.style.background = 'linear-gradient(145deg, #0f39ac, #0b74de)';
+      } else if (breathingStep === 3) {
+        breathingCircle.style.transform = 'scale(1)';
+        breathingCircle.style.background = 'linear-gradient(145deg, #1e4b8a, #2563eb)';
+      }
+    }
+    
+    startBreathingBtn.addEventListener('click', startBreathing);
+    
+    // ===== TIMER FUNCTION =====
+    function startTimer(minutes) {
+      // Play music if not playing
+      if (!isPlaying) {
+        playTrack();
+      }
+      
+      const seconds = minutes * 60;
+      alert(`⏱️ Timer started for ${minutes} minutes. You will be notified when time is up.`);
+      
+      setTimeout(() => {
+        pauseTrack();
+        alert(`⏰ ${minutes} minutes are up! Great job focusing.`);
+      }, seconds * 1000);
+    }
+    
+    // ===== LANGUAGE & THEME CONTROLS =====
+    const textData = {
+      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
+      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
+      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+    };
+
+    function changeLanguage() {
+      const langSelect = document.getElementById("languageSelect");
+      if (!langSelect) return;
+      const lang = langSelect.value;
+      localStorage.setItem("knotlearn_lang", lang);
+      
+      document.getElementById("nav-home").innerText = textData[lang].home;
+      document.getElementById("nav-subject").innerText = textData[lang].subjects;
+      document.getElementById("nav-quiz").innerText = textData[lang].quiz;
+      document.getElementById("nav-about").innerText = textData[lang].about;
+      document.getElementById("nav-contact").innerText = textData[lang].contact;
+      document.getElementById("nav-relax").innerText = textData[lang].relax;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
+      const themeBtn = document.getElementById("themeToggle");
+      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+    }
+
+    window.onload = function() {
+      const savedLang = localStorage.getItem("knotlearn_lang");
+      const savedTheme = localStorage.getItem("knotlearn_theme");
+
+      if (savedLang) {
+        const langSelect = document.getElementById("languageSelect");
+        if (langSelect) {
+          langSelect.value = savedLang;
+          changeLanguage();
+        }
+      }
+
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark");
+        const themeBtn = document.getElementById("themeToggle");
+        if (themeBtn) themeBtn.innerText = "☀️";
+      }
+      
+      // Set initial volume
+      player.volume = volumeSlider.value;
+    };
+  </script>
+
+</body>
+</html>

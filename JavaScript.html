@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO META TAGS -->
+  <meta name="description" content="KnotLearn - JavaScript Tutorials. Learn JavaScript step by step with interactive examples. Master variables, functions, events, and more.">
+  <meta name="keywords" content="JavaScript tutorial, learn JS, web development, interactive, variables, functions, events">
+  <meta name="author" content="KnotLearn">
+  
+  <!-- SOCIAL SHARING -->
+  <meta property="og:title" content="KnotLearn - JavaScript Tutorials">
+  <meta property="og:description" content="Learn JavaScript from scratch. Make your websites interactive and dynamic.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="logo.png">
+  
+  <title>KnotLearn - JavaScript Tutorials</title>
+  
+  <!-- MASTER CSS FILE -->
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* ===== JAVASCRIPT TUTORIAL PAGE - YOUR COLORS ===== */
+    .tutorial-hero {
+      background: linear-gradient(135deg, #0f39ac 0%, #0b74de 100%);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .tutorial-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+    
+    .tutorial-hero p {
+      font-size: 1.3rem;
+      opacity: 0.95;
+    }
+    
+    .tutorial-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .section-title h2 {
+      color: #0f39ac;
+      font-size: 2.2rem;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 15px;
+    }
+    
+    .section-title h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: #0f39ac;
+      border-radius: 2px;
+    }
+    
+    /* SUB-NAVIGATION */
+    .sub-nav {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: -20px 0 40px;
+      flex-wrap: wrap;
+    }
+    
+    .sub-nav a {
+      background: white;
+      color: #0f39ac;
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-weight: bold;
+      border: 2px solid #0f39ac;
+      transition: all 0.2s;
+    }
+    
+    .sub-nav a:hover {
+      background: #0f39ac;
+      color: white;
+    }
+    
+    .sub-nav a.active {
+      background: #0f39ac;
+      color: white;
+    }
+    
+    /* LESSON CARDS */
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    
+    .lesson-card {
+      background: white;
+      border-radius: 20px;
+      padding: 35px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border: 1px solid #e0e7ff;
+      transition: transform 0.2s;
+    }
+    
+    .lesson-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(15, 57, 172, 0.15);
+    }
+    
+    .lesson-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #eef2f6;
+      padding-bottom: 20px;
+    }
+    
+    .lesson-icon {
+      font-size: 2.2rem;
+    }
+    
+    .lesson-header h2 {
+      color: #0f39ac;
+      font-size: 1.8rem;
+      margin: 0;
+    }
+    
+    .lesson-content p {
+      color: #555;
+      margin-bottom: 20px;
+      line-height: 1.7;
+      font-size: 1.1rem;
+    }
+    
+    .code-block {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin: 25px 0;
+      border-left: 5px solid #0f39ac;
+    }
+    
+    .example-box {
+      background: #f0f7ff;
+      border-radius: 12px;
+      padding: 25px;
+      margin-top: 25px;
+      border: 1px solid #e0e7ff;
+    }
+    
+    .example-box h4 {
+      color: #0f39ac;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .example-display {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+    
+    /* INTERACTIVE DEMO STYLES */
+    .interactive-demo {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 25px;
+      margin-top: 20px;
+    }
+    
+    .demo-input {
+      padding: 10px 15px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin: 5px 0;
+      width: 100%;
+      max-width: 200px;
+    }
+    
+    .demo-btn {
+      padding: 12px 24px;
+      background-color: #0f39ac;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+    
+    .demo-btn:hover {
+      background-color: #0b74de;
+      transform: scale(1.05);
+    }
+    
+    .result-area {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      margin-top: 15px;
+      min-height: 50px;
+      font-size: 1.1rem;
+    }
+    
+    /* DARK MODE */
+    body.dark .lesson-card {
+      background: #1e1e1e;
+      border-color: #333;
+    }
+    
+    body.dark .lesson-content p {
+      color: #ccc;
+    }
+    
+    body.dark .example-box {
+      background: #2d2d2d;
+      border-color: #444;
+    }
+    
+    body.dark .example-display {
+      background: #1e1e1e;
+      border-color: #444;
+      color: white;
+    }
+    
+    body.dark .sub-nav a {
+      background: #2d2d2d;
+      color: white;
+      border-color: #0f39ac;
+    }
+    
+    body.dark .sub-nav a:hover,
+    body.dark .sub-nav a.active {
+      background: #0f39ac;
+      color: white;
+    }
+    
+    body.dark .interactive-demo {
+      background: #2d2d2d;
+    }
+    
+    body.dark .result-area {
+      background: #1e1e1e;
+      border-color: #444;
+      color: white;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .tutorial-hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .tutorial-hero p {
+        font-size: 1.1rem;
+      }
+      
+      .lesson-header {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .lesson-header h2 {
+        font-size: 1.6rem;
+      }
+      
+      .code-block {
+        font-size: 0.85rem;
+        padding: 20px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .tutorial-hero {
+        padding: 40px 20px;
+      }
+      
+      .tutorial-hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .lesson-card {
+        padding: 25px;
+      }
+      
+      .lesson-header h2 {
+        font-size: 1.5rem;
+      }
+      
+      .sub-nav a {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <a href="index.html">
+        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
+      </a>
+    </div>
+    
+    <nav>
+      <ul>
+        <li><a href="index.html" id="nav-home">Home</a></li>
+        <li><a href="subject.html" id="nav-subject">Subjects</a></li>
+        <li><a href="Quiz.html" id="nav-quiz">Quiz</a></li>
+        <li><a href="About.html" id="nav-about">About</a></li>
+        <li><a href="Contact.html" id="nav-contact">Feedback</a></li>
+        <li><a href="Relax.html" id="nav-relax">Relax</a></li>
+        
+        <li class="nav-controls">
+          <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
+            <option value="en">🇬🇧 English</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="rw">🇷🇼 Kinyarwanda</option>
+          </select>
+          
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
+            🌙
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- TUTORIAL HERO SECTION -->
+  <div class="tutorial-hero">
+    <h1>⚡ JavaScript Tutorial</h1>
+    <p>Learn JavaScript step by step — make your websites interactive</p>
+  </div>
+  
+  <!-- SUB-NAVIGATION - YOUR EXACT LINKS -->
+  <div class="sub-nav">
+    <a href="HTML.html">HTML</a>
+    <a href="CSS.html">CSS</a>
+    <a href="JavaScript.html" class="active">JavaScript</a>
+  </div>
+
+  <!-- JAVASCRIPT LESSONS - YOUR EXACT CONTENT -->
+  <div class="tutorial-container">
+    
+    <div class="section-title">
+      <h2>🚀 JavaScript Fundamentals</h2>
+      <p style="color: #666; margin-top: 15px;">4 lessons to bring your websites to life</p>
+    </div>
+    
+    <div class="lesson-grid">
+      
+      <!-- LESSON 1: WHAT IS JAVASCRIPT? - YOUR EXACT WORDS -->
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <span class="lesson-icon">🤔</span>
+          <h2>1. What is JavaScript?</h2>
+        </div>
+        <div class="lesson-content">
+          <p>
+            JavaScript makes websites interactive.<br>
+            It can respond to clicks, validate forms, create animations, and much more.
+          </p>
+          
+          <div class="code-block">
+// This is JavaScript<br>
+alert("Welcome to KnotLearn!");
+          </div>
+          
+          <div class="example-box">
+            <h4>🎯 Try it yourself:</h4>
+            <div class="example-display">
+              <button class="demo-btn" onclick="alert('Welcome to KnotLearn JavaScript!')">Click to Run JavaScript</button>
+              <p style="margin-top: 15px; color: #555;">Click the button → an alert box appears!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- LESSON 2: VARIABLES - YOUR EXACT WORDS -->
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <span class="lesson-icon">📦</span>
+          <h2>2. Variables</h2>
+        </div>
+        <div class="lesson-content">
+          <p>
+            Variables store data like numbers, text, or booleans.
+          </p>
+          
+          <div class="code-block">
+let name = "Student";<br>
+let age = 15;<br>
+let isLearning = true;<br>
+<br>
+console.log(name, age);<br>
+// Output: Student 15
+          </div>
+          
+          <div class="example-box">
+            <h4>🎯 Live Demo:</h4>
+            <div class="interactive-demo">
+              <p style="margin-bottom: 15px;"><strong>Create your own variable:</strong></p>
+              <button class="demo-btn" onclick="showVariableDemo()">Show Variable Example</button>
+              <div id="variableResult" class="result-area" style="margin-top: 15px;">
+                Click the button to see variables in action
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- LESSON 3: BUTTON CLICK - YOUR EXACT WORDS -->
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <span class="lesson-icon">🖱️</span>
+          <h2>3. Button Click</h2>
+        </div>
+        <div class="lesson-content">
+          <p>
+            Make buttons respond to clicks with event listeners.
+          </p>
+          
+          <div class="code-block">
+&lt;button onclick="showMessage()"&gt;Click Me&lt;/button&gt;<br>
+<br>
+&lt;script&gt;<br>
+function showMessage() {<br>
+&nbsp;&nbsp;document.getElementById("message").innerText = "Hello!";<br>
+}<br>
+&lt;/script&gt;
+          </div>
+          
+          <div class="example-box">
+            <h4>🎯 Try it yourself:</h4>
+            <div class="interactive-demo">
+              <button class="demo-btn" onclick="showButtonMessage()">Click Me!</button>
+              <p id="buttonMessage" class="result-area" style="margin-top: 15px;">
+                Click the button to see a message
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- LESSON 4: SIMPLE ADDITION - YOUR EXACT WORDS -->
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <span class="lesson-icon">➕</span>
+          <h2>4. Simple Addition</h2>
+        </div>
+        <div class="lesson-content">
+          <p>
+            JavaScript can do math operations.
+          </p>
+          
+          <div class="code-block">
+function add() {<br>
+&nbsp;&nbsp;let a = Number(document.getElementById("num1").value);<br>
+&nbsp;&nbsp;let b = Number(document.getElementById("num2").value);<br>
+&nbsp;&nbsp;let sum = a + b;<br>
+&nbsp;&nbsp;document.getElementById("result").innerText = sum;<br>
+}
+          </div>
+          
+          <div class="example-box">
+            <h4>🧮 Try it yourself:</h4>
+            <div class="interactive-demo">
+              <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
+                <input type="number" id="num1" placeholder="Enter number 1" class="demo-input" value="5">
+                <span style="font-size: 1.5rem; color: #0f39ac;">+</span>
+                <input type="number" id="num2" placeholder="Enter number 2" class="demo-input" value="3">
+              </div>
+              <button class="demo-btn" onclick="calculateSum()" style="margin-top: 20px;">Calculate Sum</button>
+              <div id="additionResult" class="result-area" style="margin-top: 20px;">
+                Result will appear here
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- COMPLETE WEB DEVELOPMENT PATH -->
+    <div style="text-align: center; margin-top: 60px; padding: 40px; background: linear-gradient(145deg, #f0f7ff, #ffffff); border-radius: 20px;">
+      <span style="font-size: 3rem;">🎓</span>
+      <h3 style="color: #0f39ac; font-size: 2rem; margin: 15px 0;">You've Completed the Web Development Basics!</h3>
+      <p style="color: #555; font-size: 1.2rem; margin-bottom: 30px;">
+        HTML → CSS → JavaScript
+      </p>
+      <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+        <a href="programming.html" style="display: inline-block; background: #0f39ac; color: white; padding: 14px 35px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem;">More Programming →</a>
+        <a href="HTML.html" style="display: inline-block; background: white; color: #0f39ac; padding: 14px 35px; border-radius: 50px; text-decoration: none; font-weight: bold; border: 2px solid #0f39ac;">Review HTML</a>
+        <a href="CSS.html" style="display: inline-block; background: white; color: #0f39ac; padding: 14px 35px; border-radius: 50px; text-decoration: none; font-weight: bold; border: 2px solid #0f39ac;">Review CSS</a>
+      </div>
+    </div>
+    
+    <!-- MORE TOPICS COMING SOON -->
+    <div style="text-align: center; margin-top: 50px; padding: 30px; background: #e8f0fe; border-radius: 15px;">
+      <p style="font-size: 1.2rem; color: #0f39ac; font-weight: bold;">
+        🚀 More JavaScript topics coming soon! Arrays, Loops, Objects, DOM Manipulation, and Vue.js games.
+      </p>
+    </div>
+    
+  </div>
+
+  <footer>
+    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // ===== KNOTLEARN - JAVASCRIPT INTERACTIVE DEMOS =====
+    
+    // Lesson 2: Variable Demo
+    function showVariableDemo() {
+      let studentName = "KnotLearner";
+      let studentAge = 15;
+      let favoriteSubject = "JavaScript";
+      
+      let message = "👤 Name: " + studentName + 
+                    "\n🎂 Age: " + studentAge + 
+                    "\n📚 Favorite: " + favoriteSubject;
+      
+      document.getElementById("variableResult").innerHTML = 
+        "<strong>Variables created:</strong><br>" +
+        "let studentName = 'KnotLearner'<br>" +
+        "let studentAge = 15<br>" +
+        "let favoriteSubject = 'JavaScript'<br><br>" +
+        "<strong>Output:</strong> " + studentName + ", age " + studentAge + ", loves " + favoriteSubject;
+    }
+    
+    // Lesson 3: Button Click Demo
+    function showButtonMessage() {
+      document.getElementById("buttonMessage").innerHTML = 
+        "✅ Hello! You clicked the button. JavaScript is working!";
+    }
+    
+    // Lesson 4: Addition Demo
+    function calculateSum() {
+      let num1 = Number(document.getElementById("num1").value);
+      let num2 = Number(document.getElementById("num2").value);
+      
+      if (isNaN(num1)) num1 = 0;
+      if (isNaN(num2)) num2 = 0;
+      
+      let sum = num1 + num2;
+      
+      document.getElementById("additionResult").innerHTML = 
+        "<strong>" + num1 + " + " + num2 + " = " + sum + "</strong>";
+    }
+    
+    // ===== KNOTLEARN - LANGUAGE & THEME CONTROLS =====
+    const textData = {
+      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
+      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
+      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+    };
+
+    function changeLanguage() {
+      const langSelect = document.getElementById("languageSelect");
+      if (!langSelect) return;
+      const lang = langSelect.value;
+      localStorage.setItem("knotlearn_lang", lang);
+      
+      document.getElementById("nav-home").innerText = textData[lang].home;
+      document.getElementById("nav-subject").innerText = textData[lang].subjects;
+      document.getElementById("nav-quiz").innerText = textData[lang].quiz;
+      document.getElementById("nav-about").innerText = textData[lang].about;
+      document.getElementById("nav-contact").innerText = textData[lang].contact;
+      document.getElementById("nav-relax").innerText = textData[lang].relax;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
+      const themeBtn = document.getElementById("themeToggle");
+      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+    }
+
+    window.onload = function() {
+      const savedLang = localStorage.getItem("knotlearn_lang");
+      const savedTheme = localStorage.getItem("knotlearn_theme");
+
+      if (savedLang) {
+        const langSelect = document.getElementById("languageSelect");
+        if (langSelect) {
+          langSelect.value = savedLang;
+          changeLanguage();
+        }
+      }
+
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark");
+        const themeBtn = document.getElementById("themeToggle");
+        if (themeBtn) themeBtn.innerText = "☀️";
+      }
+    };
+  </script>
+
+</body>
+</html>

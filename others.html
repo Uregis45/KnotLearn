@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO META TAGS -->
+  <meta name="description" content="KnotLearn - All Subjects. Search and explore all learning topics including Languages, Mathematics, Science, History, Geography, Art, Music, and Computer Studies.">
+  <meta name="keywords" content="all subjects, search subjects, KnotLearn topics, learning resources">
+  <meta name="author" content="KnotLearn">
+  
+  <!-- SOCIAL SHARING -->
+  <meta property="og:title" content="KnotLearn - All Subjects">
+  <meta property="og:description" content="Find any subject you want to learn. Search and start learning today.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="logo.png">
+  
+  <title>KnotLearn - All Subjects</title>
+  
+  <!-- MASTER CSS FILE -->
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* ===== OTHERS PAGE (ALL SUBJECTS) - YOUR COLORS ===== */
+    .subjects-hero {
+      background: linear-gradient(135deg, #0f39ac 0%, #0b74de 100%);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .subjects-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+    
+    .subjects-hero p {
+      font-size: 1.3rem;
+      opacity: 0.95;
+    }
+    
+    .subjects-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+    
+    /* SEARCH SECTION */
+    .search-section {
+      max-width: 600px;
+      margin: 0 auto 50px;
+      text-align: center;
+    }
+    
+    .search-box {
+      width: 100%;
+      padding: 18px 25px;
+      font-size: 1.1rem;
+      border: 3px solid #e0e7ff;
+      border-radius: 50px;
+      outline: none;
+      transition: all 0.3s;
+      background: white;
+      color: #1e293b;
+    }
+    
+    .search-box:focus {
+      border-color: #0f39ac;
+      box-shadow: 0 0 0 4px rgba(15, 57, 172, 0.1);
+    }
+    
+    .search-box::placeholder {
+      color: #94a3b8;
+    }
+    
+    .search-stats {
+      margin-top: 15px;
+      color: #64748b;
+      font-size: 0.95rem;
+    }
+    
+    /* SUBJECTS GRID */
+    .subjects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+    
+    .subject-item {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border: 1px solid #e0e7ff;
+      transition: all 0.3s;
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    .subject-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(15, 57, 172, 0.15);
+      border-color: #0f39ac;
+    }
+    
+    .subject-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #eef2f6;
+      padding-bottom: 20px;
+    }
+    
+    .subject-icon {
+      font-size: 2.5rem;
+    }
+    
+    .subject-header h2 {
+      color: #0f39ac;
+      font-size: 1.8rem;
+      margin: 0;
+    }
+    
+    .subject-description {
+      color: #555;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      font-size: 1.05rem;
+    }
+    
+    .subject-links {
+      background: #f8fafc;
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    
+    .subject-links h4 {
+      color: #0f39ac;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+    
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+    }
+    
+    .subject-link {
+      display: block;
+      padding: 12px 15px;
+      background: white;
+      color: #0f39ac;
+      text-decoration: none;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      font-weight: 500;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    
+    .subject-link:hover {
+      background: #0f39ac;
+      color: white;
+      border-color: #0f39ac;
+      transform: translateY(-2px);
+    }
+    
+    /* NO RESULTS */
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      background: #f8fafc;
+      border-radius: 20px;
+      display: none;
+    }
+    
+    .no-results p {
+      font-size: 1.3rem;
+      color: #64748b;
+      margin-top: 15px;
+    }
+    
+    /* DARK MODE */
+    body.dark .subject-item {
+      background: #1e1e1e;
+      border-color: #333;
+    }
+    
+    body.dark .subject-description {
+      color: #ccc;
+    }
+    
+    body.dark .subject-links {
+      background: #2d2d2d;
+    }
+    
+    body.dark .subject-link {
+      background: #1e1e1e;
+      border-color: #444;
+      color: white;
+    }
+    
+    body.dark .subject-link:hover {
+      background: #0f39ac;
+      color: white;
+    }
+    
+    body.dark .search-box {
+      background: #1e1e1e;
+      border-color: #444;
+      color: white;
+    }
+    
+    body.dark .search-box::placeholder {
+      color: #94a3b8;
+    }
+    
+    body.dark .no-results {
+      background: #1e1e1e;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .subjects-hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .subjects-hero p {
+        font-size: 1.1rem;
+      }
+      
+      .subject-header {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .subject-header h2 {
+        font-size: 1.6rem;
+      }
+      
+      .links-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .subjects-hero {
+        padding: 40px 20px;
+      }
+      
+      .subjects-hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .subject-item {
+        padding: 25px;
+      }
+      
+      .subject-header h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <a href="index.html">
+        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
+      </a>
+    </div>
+    
+    <nav>
+      <ul>
+        <li><a href="index.html" id="nav-home">Home</a></li>
+        <li><a href="subject.html" id="nav-subject">Subjects</a></li>
+        <li><a href="Quiz.html" id="nav-quiz">Quiz</a></li>
+        <li><a href="About.html" id="nav-about">About</a></li>
+        <li><a href="Contact.html" id="nav-contact">Feedback</a></li>
+        <li><a href="Relax.html" id="nav-relax">Relax</a></li>
+        
+        <li class="nav-controls">
+          <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
+            <option value="en">🇬🇧 English</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="rw">🇷🇼 Kinyarwanda</option>
+          </select>
+          
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
+            🌙
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ALL SUBJECTS HERO SECTION -->
+  <div class="subjects-hero">
+    <h1>📚 All Subjects</h1>
+    <p>Every topic. One place. Start learning today.</p>
+  </div>
+
+  <!-- SEARCH AND SUBJECTS - YOUR EXACT CONTENT -->
+  <div class="subjects-container">
+    
+    <!-- SEARCH BOX - YOUR FUNCTIONALITY -->
+    <div class="search-section">
+      <input
+        type="text"
+        id="searchBox"
+        class="search-box"
+        placeholder="🔍 Search any subject (Math, English, History...)"
+        onkeyup="searchSubjects()"
+      />
+      <div id="searchStats" class="search-stats">
+        Showing <span id="visibleCount">7</span> of 7 subjects
+      </div>
+    </div>
+    
+    <!-- SUBJECTS GRID - YOUR EXACT CONTENT -->
+    <div id="subjectList" class="subjects-grid">
+      
+      <!-- LANGUAGES - YOUR EXACT CONTENT -->
+      <div class="subject-item" data-subject="languages english french kiswahili">
+        <div class="subject-header">
+          <span class="subject-icon">🌍</span>
+          <h2>Languages</h2>
+        </div>
+        <p class="subject-description">English, French, Kiswahili — learn to speak, read, and write.</p>
+        
+        <div class="subject-links">
+          <h4>📘 Start Learning:</h4>
+          <div class="links-grid">
+            <a href="languages.html" class="subject-link">🇬🇧 English</a>
+            <a href="languages.html" class="subject-link">🇫🇷 French</a>
+            <a href="languages.html" class="subject-link">🇰🇪 Kiswahili</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- MATHEMATICS - YOUR EXACT CONTENT -->
+      <div class="subject-item" data-subject="mathematics math numbers algebra geometry">
+        <div class="subject-header">
+          <span class="subject-icon">📐</span>
+          <h2>Mathematics</h2>
+        </div>
+        <p class="subject-description">Numbers and problem solving — from basic math to advanced topics.</p>
+        
+        <div class="subject-links">
+          <h4>📘 Start Learning:</h4>
+          <div class="links-grid">
+            <a href="mathematics.html" class="subject-link">➕ Basic Math</a>
+            <a href="mathematics.html" class="subject-link">✖️ Algebra</a>
+            <a href="mathematics.html" class="subject-link">📏 Geometry</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- SCIENCE - YOUR EXACT CONTENT -->
+      <div class="subject-item" data-subject="science biology chemistry physics">
+        <div class="subject-header">
+          <span class="subject-icon">🔬</span>
+          <h2>Science</h2>
+        </div>
+        <p class="subject-description">Biology, Chemistry, Physics — understand the world around you.</p>
+        
+        <div class="subject-links">
+          <h4>📘 Start Learning:</h4>
+          <div class="links-grid">
+            <a href="science.html" class="subject-link">🧬 Biology</a>
+            <a href="science.html" class="subject-link">🧪 Chemistry</a>
+            <a href="science.html" class="subject-link">⚛️ Physics</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- HISTORY - YOUR EXACT CONTENT -->
+      <div class="subject-item" data-subject="history ancient medieval modern">
+        <div class="subject-header">
+          <span class="subject-icon">📜</span>
+          <h2>History</h2>
+        </div>
+        <p class="subject-description">Ancient and modern history — learn from the past.</p>
+        
+        <div class="subject-links">
+          <h4>📘 Start Learning:</h4>
+          <div class="links-grid">
+            <a href="history.html" class="subject-link">🏛️ History</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- GEOGRAPHY - YOUR EXACT CONTENT -->
+      <div class="subject-item" data-subject="geography earth maps continents">
+        <div class="subject-header">
+          <span class="subject-icon">🌎</span>
+          <h2>Geography</h2>
+        </div>
+        <p class="subject-description">Earth, maps, and climate — explore our planet.</p>
+        
+        <div class="subject-links">
+          <h4>📘 Start Learning:</h4>
+          <div class="links-grid">
+            <a href="geography.html" class="subject-link">🗺️ Geography</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- ART & MUSIC - YOUR EXACT CONTENT -->
+      <div class="subject-item" data-subject="art music drawing painting sculpture creativity">
+        <div class="subject-header">
+          <span class="subject-icon">🎨🎵</span>
+          <h2>Art & Music</h2>
+        </div>
+        <p class="subject-description">Creativity and sound — express yourself through art and music.</p>
+        
+        <div class="subject-links">
+          <h4>📘 Start Learning:</h4>
+          <div class="links-grid">
+            <a href="art-music.html" class="subject-link">🎨 Art & Music</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- COMPUTER STUDIES - YOUR EXACT CONTENT -->
+      <div class="subject-item" data-subject="computer programming html css javascript vue">
+        <div class="subject-header">
+          <span class="subject-icon">💻</span>
+          <h2>Computer Studies</h2>
+        </div>
+        <p class="subject-description">Web and programming — learn to code and build websites.</p>
+        
+        <div class="subject-links">
+          <h4>📘 Start Learning:</h4>
+          <div class="links-grid">
+            <a href="HTML.html" class="subject-link">🌐 HTML</a>
+            <a href="CSS.html" class="subject-link">🎨 CSS</a>
+            <a href="JavaScript.html" class="subject-link">⚡ JavaScript</a>
+            <a href="programming.html" class="subject-link">🖥️ Vue</a>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- NO RESULTS MESSAGE -->
+    <div id="noResults" class="no-results">
+      <span style="font-size: 3rem;">🔍</span>
+      <p>No subjects found matching your search.</p>
+      <p style="font-size: 1rem; margin-top: 10px;">Try different keywords or browse all subjects above.</p>
+    </div>
+    
+    <!-- MORE SUBJECTS COMING SOON -->
+    <div style="text-align: center; margin-top: 60px; padding: 40px; background: linear-gradient(145deg, #f0f7ff, #ffffff); border-radius: 20px;">
+      <span style="font-size: 2.5rem;">🚀</span>
+      <h3 style="color: #0f39ac; font-size: 1.8rem; margin: 15px 0;">More Subjects Coming Soon!</h3>
+      <p style="color: #555; font-size: 1.1rem;">Economics, Psychology, Engineering, Business, and many more.</p>
+    </div>
+    
+  </div>
+
+  <footer>
+    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // ===== KNOTLEARN - SEARCH FUNCTIONALITY =====
+    // YOUR EXACT SEARCH CODE - ENHANCED WITH LIVE COUNT
+    
+    function searchSubjects() {
+      let input = document.getElementById("searchBox").value.toLowerCase();
+      let cards = document.querySelectorAll(".subject-item");
+      let visibleCount = 0;
+      
+      cards.forEach(card => {
+        let text = card.innerText.toLowerCase();
+        let matches = text.includes(input);
+        
+        if (matches) {
+          card.style.display = "block";
+          visibleCount++;
+        } else {
+          card.style.display = "none";
+        }
+      });
+      
+      // Update visible count
+      document.getElementById("visibleCount").innerText = visibleCount;
+      
+      // Show/hide no results message
+      let noResults = document.getElementById("noResults");
+      if (visibleCount === 0) {
+        noResults.style.display = "block";
+      } else {
+        noResults.style.display = "none";
+      }
+    }
+    
+    // ===== KNOTLEARN - LANGUAGE & THEME CONTROLS =====
+    const textData = {
+      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
+      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
+      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+    };
+
+    function changeLanguage() {
+      const langSelect = document.getElementById("languageSelect");
+      if (!langSelect) return;
+      const lang = langSelect.value;
+      localStorage.setItem("knotlearn_lang", lang);
+      
+      document.getElementById("nav-home").innerText = textData[lang].home;
+      document.getElementById("nav-subject").innerText = textData[lang].subjects;
+      document.getElementById("nav-quiz").innerText = textData[lang].quiz;
+      document.getElementById("nav-about").innerText = textData[lang].about;
+      document.getElementById("nav-contact").innerText = textData[lang].contact;
+      document.getElementById("nav-relax").innerText = textData[lang].relax;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
+      const themeBtn = document.getElementById("themeToggle");
+      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+    }
+
+    window.onload = function() {
+      const savedLang = localStorage.getItem("knotlearn_lang");
+      const savedTheme = localStorage.getItem("knotlearn_theme");
+
+      if (savedLang) {
+        const langSelect = document.getElementById("languageSelect");
+        if (langSelect) {
+          langSelect.value = savedLang;
+          changeLanguage();
+        }
+      }
+
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark");
+        const themeBtn = document.getElementById("themeToggle");
+        if (themeBtn) themeBtn.innerText = "☀️";
+      }
+      
+      // Initialize search count
+      searchSubjects();
+    };
+  </script>
+
+</body>
+</html>

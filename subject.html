@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO META TAGS -->
+  <meta name="description" content="KnotLearn - All subjects. Free tutorials in Math, Science, Programming, Languages, History, Geography, Art & Music, and more.">
+  <meta name="keywords" content="free learning, math, science, programming, languages, history, geography, art, music">
+  <meta name="author" content="KnotLearn">
+  
+  <!-- SOCIAL SHARING -->
+  <meta property="og:title" content="KnotLearn - All Subjects">
+  <meta property="og:description" content="Free step-by-step tutorials for all subjects.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="logo.png">
+  
+  <title>KnotLearn - All Subjects</title>
+  
+  <!-- MASTER CSS FILE -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <!-- YOUR LOGO -->
+    <div>
+      <a href="index.html">
+        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
+      </a>
+    </div>
+    
+    <nav>
+      <ul>
+        <li><a href="index.html" id="nav-home">Home</a></li>
+        <li><a href="subject.html" id="nav-subject">Subjects</a></li>
+        <li><a href="Quiz.html" id="nav-quiz">Quiz</a></li>
+        <li><a href="About.html" id="nav-about">About</a></li>
+        <li><a href="Contact.html" id="nav-contact">Feedback</a></li>
+        <li><a href="Relax.html" id="nav-relax">Relax</a></li>
+        
+        <!-- LANGUAGE & THEME CONTROLS -->
+        <li class="nav-controls">
+          <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
+            <option value="en">🇬🇧 English</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="rw">🇷🇼 Kinyarwanda</option>
+          </select>
+          
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
+            🌙
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ALL SUBJECTS SECTION -->
+  <section class="subjects-list" style="padding: 40px 20px; max-width: 1200px; margin: 0 auto;">
+    <h1 style="text-align: center; color: #0f39ac; margin-bottom: 40px; font-size: 2.5rem;">All Subjects</h1>
+
+    <div class="subjects-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
+      
+      <!-- MATHEMATICS -->
+      <div class="subject-card" style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;" onclick="location.href='mathematics.html'">
+        <h3 style="color: #0f39ac; margin-bottom: 15px; font-size: 1.5rem;">📐 Mathematics</h3>
+        <p style="color: #555; margin-bottom: 20px;">Numbers, algebra, geometry, calculus</p>
+        <button onclick="event.stopPropagation(); location.href='mathematics.html'" style="padding: 10px 20px; background-color: #0f39ac; color: white; border: none; border-radius: 5px; cursor: pointer;">Start Learning</button>
+      </div>
+      
+      <!-- SCIENCE -->
+      <div class="subject-card" style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;" onclick="location.href='science.html'">
+        <h3 style="color: #0f39ac; margin-bottom: 15px; font-size: 1.5rem;">🔬 Science</h3>
+        <p style="color: #555; margin-bottom: 20px;">Physics, chemistry, biology</p>
+        <button onclick="event.stopPropagation(); location.href='science.html'" style="padding: 10px 20px; background-color: #0f39ac; color: white; border: none; border-radius: 5px; cursor: pointer;">Start Learning</button>
+      </div>
+      
+      <!-- PROGRAMMING -->
+      <div class="subject-card" style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;" onclick="location.href='programming.html'">
+        <h3 style="color: #0f39ac; margin-bottom: 15px; font-size: 1.5rem;">💻 Programming</h3>
+        <p style="color: #555; margin-bottom: 20px;">HTML, CSS, JavaScript, Vue</p>
+        <button onclick="event.stopPropagation(); location.href='programming.html'" style="padding: 10px 20px; background-color: #0f39ac; color: white; border: none; border-radius: 5px; cursor: pointer;">Start Learning</button>
+      </div>
+      
+      <!-- LANGUAGES -->
+      <div class="subject-card" style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;" onclick="location.href='languages.html'">
+        <h3 style="color: #0f39ac; margin-bottom: 15px; font-size: 1.5rem;">🌍 Languages</h3>
+        <p style="color: #555; margin-bottom: 20px;">English, French, Kiswahili</p>
+        <button onclick="event.stopPropagation(); location.href='languages.html'" style="padding: 10px 20px; background-color: #0f39ac; color: white; border: none; border-radius: 5px; cursor: pointer;">Start Learning</button>
+      </div>
+      
+      <!-- HISTORY -->
+      <div class="subject-card" style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;" onclick="location.href='history.html'">
+        <h3 style="color: #0f39ac; margin-bottom: 15px; font-size: 1.5rem;">📜 History</h3>
+        <p style="color: #555; margin-bottom: 20px;">Ancient, medieval, modern history</p>
+        <button onclick="event.stopPropagation(); location.href='history.html'" style="padding: 10px 20px; background-color: #0f39ac; color: white; border: none; border-radius: 5px; cursor: pointer;">Start Learning</button>
+      </div>
+      
+      <!-- GEOGRAPHY -->
+      <div class="subject-card" style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;" onclick="location.href='geography.html'">
+        <h3 style="color: #0f39ac; margin-bottom: 15px; font-size: 1.5rem;">🌎 Geography</h3>
+        <p style="color: #555; margin-bottom: 20px;">Continents, maps, climate, people</p>
+        <button onclick="event.stopPropagation(); location.href='geography.html'" style="padding: 10px 20px; background-color: #0f39ac; color: white; border: none; border-radius: 5px; cursor: pointer;">Start Learning</button>
+      </div>
+      
+      <!-- ART & MUSIC -->
+      <div class="subject-card" style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;" onclick="location.href='art-music.html'">
+        <h3 style="color: #0f39ac; margin-bottom: 15px; font-size: 1.5rem;">🎨🎵 Art & Music</h3>
+        <p style="color: #555; margin-bottom: 20px;">Drawing, painting, instruments, singing</p>
+        <button onclick="event.stopPropagation(); location.href='art-music.html'" style="padding: 10px 20px; background-color: #0f39ac; color: white; border: none; border-radius: 5px; cursor: pointer;">Start Learning</button>
+      </div>
+      
+      <!-- OTHER SUBJECTS -->
+      <div class="subject-card" style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;" onclick="location.href='others.html'">
+        <h3 style="color: #0f39ac; margin-bottom: 15px; font-size: 1.5rem;">📚 Other Subjects</h3>
+        <p style="color: #555; margin-bottom: 20px;">More topics coming soon</p>
+        <button onclick="event.stopPropagation(); location.href='others.html'" style="padding: 10px 20px; background-color: #0f39ac; color: white; border: none; border-radius: 5px; cursor: pointer;">Start Learning</button>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+  </footer>
+
+  <!-- JAVASCRIPT - SAME AS INDEX -->
+  <script>
+    // ===== KNOTLEARN - LANGUAGE & THEME CONTROLS =====
+    const textData = {
+      en: {
+        home: "Home",
+        subjects: "Subjects",
+        quiz: "Quiz",
+        about: "About",
+        contact: "Feedback",
+        relax: "Relax"
+      },
+      fr: {
+        home: "Accueil",
+        subjects: "Matières",
+        quiz: "Quiz",
+        about: "À propos",
+        contact: "Contact",
+        relax: "Détente"
+      },
+      rw: {
+        home: "Ahabanza",
+        subjects: "Amasomo",
+        quiz: "Ikizamini",
+        about: "Ibyerekeye",
+        contact: "Twandikire",
+        relax: "Wuhura"
+      }
+    };
+
+    function changeLanguage() {
+      const langSelect = document.getElementById("languageSelect");
+      if (!langSelect) return;
+      
+      const lang = langSelect.value;
+      localStorage.setItem("knotlearn_lang", lang);
+
+      document.getElementById("nav-home").innerText = textData[lang].home;
+      document.getElementById("nav-subject").innerText = textData[lang].subjects;
+      document.getElementById("nav-quiz").innerText = textData[lang].quiz;
+      document.getElementById("nav-about").innerText = textData[lang].about;
+      document.getElementById("nav-contact").innerText = textData[lang].contact;
+      document.getElementById("nav-relax").innerText = textData[lang].relax;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
+      
+      const themeBtn = document.getElementById("themeToggle");
+      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+    }
+
+    window.onload = function() {
+      const savedLang = localStorage.getItem("knotlearn_lang");
+      const savedTheme = localStorage.getItem("knotlearn_theme");
+
+      if (savedLang) {
+        const langSelect = document.getElementById("languageSelect");
+        if (langSelect) {
+          langSelect.value = savedLang;
+          changeLanguage();
+        }
+      }
+
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark");
+        const themeBtn = document.getElementById("themeToggle");
+        if (themeBtn) themeBtn.innerText = "☀️";
+      }
+    };
+  </script>
+
+</body>
+</html>
