@@ -1,233 +1,543 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO META TAGS -->
   <meta name="description" content="KnotLearn - Mathematics tutorials. Learn addition, subtraction, multiplication, division, and more step by step.">
   <meta name="keywords" content="math tutorials, addition, subtraction, multiplication, division, learn math easily">
   <meta name="author" content="KnotLearn">
-  
-  <!-- SOCIAL SHARING -->
   <meta property="og:title" content="KnotLearn - Mathematics">
   <meta property="og:description" content="Learn mathematics step by step with simple explanations and practice.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="logo.png">
-  
   <title>KnotLearn - Mathematics</title>
-  
-  <!-- MASTER CSS FILE -->
-  <link rel="stylesheet" href="style.css">
-  
+
   <style>
-    /* ===== MATHEMATICS PAGE - YOUR COLORS ===== */
-    .math-hero {
-      background: linear-gradient(135deg, #0f39ac 0%, #0b74de 100%);
-      color: white;
-      padding: 60px 20px;
+    :root {
+      --primary: #0f39ac;
+      --primary-light: #0b74de;
+      --accent: #00c2ff;
+      --bg: #f0f4ff;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --card-shadow: 0 8px 32px rgba(15,57,172,0.10);
+      --radius: 18px;
+      --transition: 0.3s cubic-bezier(.4,0,.2,1);
+    }
+
+    body.dark {
+      --bg: #0d1117;
+      --surface: #161b27;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --card-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--primary);
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(15,57,172,0.25);
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-wrap img { width: 48px; height: 48px; border-radius: 12px; object-fit: cover; }
+    .logo-name { font-size: 1.4rem; font-weight: 800; color: white; letter-spacing: -0.5px; }
+
+    nav ul { list-style: none; display: flex; align-items: center; gap: 6px; }
+
+    nav ul li a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none; font-weight: 500;
+      font-size: 0.9rem; padding: 6px 14px;
+      border-radius: 8px;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    nav ul li a:hover, nav ul li a.active { background: rgba(255,255,255,0.15); color: white; }
+
+    .nav-controls { display: flex; gap: 8px; align-items: center; margin-left: 10px; }
+
+    #languageSelect {
+      padding: 6px 10px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1); color: white; font-size: 13px; cursor: pointer;
+    }
+
+    #languageSelect option { color: #1e293b; background: white; }
+
+    #themeToggle {
+      padding: 6px 10px; background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white; border-radius: 8px; cursor: pointer; font-size: 16px;
+    }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; }
+
+    /* ===== PAGE HERO ===== */
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      padding: 70px 20px;
       text-align: center;
-      margin-bottom: 40px;
+      color: white;
+      position: relative;
+      overflow: hidden;
     }
-    
-    .math-hero h1 {
-      font-size: 3rem;
-      margin-bottom: 15px;
+
+    .page-hero::before {
+      content: ''; position: absolute;
+      width: 400px; height: 400px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%; top: -150px; right: -100px;
     }
-    
-    .math-hero p {
-      font-size: 1.3rem;
-      opacity: 0.95;
+
+    .page-hero::after {
+      content: ''; position: absolute;
+      width: 300px; height: 300px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%; bottom: -100px; left: -80px;
     }
-    
+
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 5px 18px; border-radius: 100px;
+      font-size: 0.82rem; font-weight: 600;
+      margin-bottom: 20px; position: relative; z-index: 1;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800; margin-bottom: 14px;
+      position: relative; z-index: 1;
+    }
+
+    .page-hero p {
+      font-size: 1.05rem; opacity: 0.88;
+      max-width: 500px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+
+    /* ===== BREADCRUMB ===== */
+    .breadcrumb {
+      max-width: 1200px; margin: 28px auto 0;
+      padding: 0 20px; font-size: 0.85rem; color: var(--text-muted);
+    }
+
+    .breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    /* ===== MAIN CONTENT ===== */
     .math-container {
       max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px 60px;
+      margin: 40px auto;
+      padding: 0 20px 80px;
     }
-    
-    .section-title {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-    
-    .section-title h2 {
-      color: #0f39ac;
-      font-size: 2.2rem;
-      position: relative;
+
+    /* ===== SECTION HEADER ===== */
+    .section-header { text-align: center; margin-bottom: 40px; }
+
+    .section-tag {
       display: inline-block;
-      padding-bottom: 15px;
+      background: rgba(15,57,172,0.08);
+      color: var(--primary);
+      padding: 4px 16px; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;
     }
-    
-    .section-title h2:after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: #0f39ac;
-      border-radius: 2px;
+
+    body.dark .section-tag { background: rgba(11,116,222,0.15); color: var(--accent); }
+
+    .section-header h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800; color: var(--text);
     }
-    
+
+    .section-header p { color: var(--text-muted); margin-top: 10px; }
+
+    /* ===== MATH GRID ===== */
     .math-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-      gap: 30px;
-      margin-top: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
     }
-    
+
+    /* ===== MATH CARD ===== */
     .math-card {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      border: 1px solid #e0e7ff;
-      transition: transform 0.2s;
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(15,57,172,0.07);
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+      animation: fadeUp 0.5s ease both;
     }
-    
+
+    .math-card:nth-child(1) { animation-delay: 0.05s; }
+    .math-card:nth-child(2) { animation-delay: 0.10s; }
+    .math-card:nth-child(3) { animation-delay: 0.15s; }
+    .math-card:nth-child(4) { animation-delay: 0.20s; }
+
+    .math-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+
+    .math-card:hover::before { transform: scaleX(1); }
+
     .math-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(15, 57, 172, 0.15);
+      box-shadow: 0 20px 50px rgba(15,57,172,0.15);
     }
-    
-    .math-icon {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
-    }
-    
+
+    .math-icon { font-size: 2.8rem; margin-bottom: 16px; display: block; }
+
     .math-card h2 {
-      color: #0f39ac;
-      margin-bottom: 15px;
-      font-size: 1.8rem;
+      font-size: 1.5rem; font-weight: 800;
+      color: var(--primary); margin-bottom: 10px;
     }
-    
-    .math-card p {
-      color: #555;
-      margin-bottom: 15px;
-      line-height: 1.6;
-      font-size: 1.1rem;
+
+    body.dark .math-card h2 { color: #7eb3ff; }
+
+    .math-card > p {
+      color: var(--text-muted); font-size: 0.97rem;
+      margin-bottom: 20px; line-height: 1.7;
     }
-    
+
+    /* ===== EXAMPLE BOX ===== */
     .example-box {
-      background: #f8fafc;
-      border-radius: 15px;
+      background: var(--bg);
+      border-radius: 14px;
       padding: 20px;
-      margin: 20px 0;
+      margin-bottom: 20px;
+      border: 1px solid rgba(15,57,172,0.06);
     }
-    
+
     .example-box h4 {
-      color: #0f39ac;
-      margin-bottom: 12px;
-      font-size: 1.1rem;
+      color: var(--primary); margin-bottom: 14px;
+      font-size: 0.9rem; font-weight: 700;
     }
-    
+
+    body.dark .example-box h4 { color: #7eb3ff; }
+
     .example-equation {
       font-size: 2rem;
-      font-weight: bold;
-      color: #0f39ac;
+      font-weight: 800;
+      color: var(--primary);
       text-align: center;
-      padding: 15px;
-      background: white;
-      border-radius: 10px;
-      border: 2px solid #e0e7ff;
+      padding: 18px;
+      background: var(--surface);
+      border-radius: 12px;
+      border: 2px solid rgba(15,57,172,0.12);
+      letter-spacing: 2px;
     }
-    
+
+    body.dark .example-equation { color: #7eb3ff; border-color: rgba(126,179,255,0.2); }
+
+    /* ===== PRACTICE BUTTON ===== */
     .practice-btn {
-      background: #0f39ac;
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 50px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.2s;
-      margin-top: 15px;
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 11px 22px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      transition: all var(--transition);
+      box-shadow: 0 4px 16px rgba(15,57,172,0.2);
     }
-    
+
     .practice-btn:hover {
-      background: #0b74de;
+      background: var(--primary-light);
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(15, 57, 172, 0.3);
+      box-shadow: 0 8px 24px rgba(15,57,172,0.3);
     }
-    
-    /* DARK MODE */
-    body.dark .math-card {
-      background: #1e1e1e;
-      border-color: #333;
+
+    /* ===== PRACTICE MODAL ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(4px);
     }
-    
-    body.dark .math-card p {
-      color: #ccc;
+
+    .modal-overlay.open { display: flex; }
+
+    .modal-box {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 40px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+      position: relative;
+      animation: fadeUp 0.3s ease both;
     }
-    
-    body.dark .example-box {
-      background: #2d2d2d;
+
+    .modal-close {
+      position: absolute; top: 16px; right: 16px;
+      background: var(--bg); border: none;
+      width: 32px; height: 32px; border-radius: 8px;
+      font-size: 1rem; cursor: pointer;
+      color: var(--text-muted);
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition);
     }
-    
-    body.dark .example-equation {
-      background: #1e1e1e;
-      border-color: #444;
-      color: #60a5fa;
+
+    .modal-close:hover { background: rgba(239,68,68,0.1); color: #ef4444; }
+
+    .modal-topic {
+      display: inline-block;
+      background: rgba(15,57,172,0.08);
+      color: var(--primary);
+      padding: 3px 14px; border-radius: 100px;
+      font-size: 0.78rem; font-weight: 700;
+      text-transform: uppercase; margin-bottom: 14px;
     }
-    
-    /* RESPONSIVE */
+
+    body.dark .modal-topic { background: rgba(11,116,222,0.15); color: var(--accent); }
+
+    /* Input-based practice */
+    .modal-eq {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-align: center;
+      padding: 18px;
+      background: var(--bg);
+      border-radius: 12px;
+      border: 2px solid rgba(15,57,172,0.12);
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+    }
+
+    body.dark .modal-eq { color: #7eb3ff; }
+
+    .modal-input-wrap {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .modal-input {
+      flex: 1;
+      padding: 14px 18px;
+      border: 2px solid rgba(15,57,172,0.12);
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+      transition: border-color var(--transition);
+      text-align: center;
+    }
+
+    .modal-input:focus { border-color: var(--primary); }
+
+    .modal-check {
+      padding: 14px 20px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      transition: all var(--transition);
+    }
+
+    .modal-check:hover { background: var(--primary-light); }
+
+    .modal-feedback {
+      padding: 12px 16px; border-radius: 10px;
+      font-weight: 600; font-size: 0.9rem; display: none;
+      margin-bottom: 14px;
+    }
+
+    .modal-feedback.correct {
+      background: rgba(34,197,94,0.1); color: #16a34a;
+      border: 1px solid rgba(34,197,94,0.3); display: block;
+    }
+
+    .modal-feedback.wrong {
+      background: rgba(239,68,68,0.1); color: #dc2626;
+      border: 1px solid rgba(239,68,68,0.3); display: block;
+    }
+
+    .modal-next {
+      display: none; width: 100%;
+      padding: 13px; background: var(--primary); color: white;
+      border: none; border-radius: 12px; font-size: 0.95rem;
+      font-weight: 700; cursor: pointer;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      transition: all var(--transition);
+    }
+
+    .modal-next:hover { background: var(--primary-light); }
+
+    /* Progress dots */
+    .modal-progress {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .prog-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: rgba(15,57,172,0.12);
+      transition: background var(--transition);
+    }
+
+    .prog-dot.done { background: var(--primary); }
+    .prog-dot.current { background: var(--accent); }
+
+    /* Score wrap */
+    .modal-score-wrap {
+      text-align: center;
+      padding: 16px;
+      background: var(--bg);
+      border-radius: 12px;
+      margin-bottom: 14px;
+    }
+
+    .modal-score-num { font-size: 2.5rem; font-weight: 800; color: var(--primary); }
+    body.dark .modal-score-num { color: #7eb3ff; }
+    .modal-score-label { color: var(--text-muted); font-size: 0.9rem; }
+
+    /* ===== COMING SOON ===== */
+    .coming-card {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: var(--radius);
+      padding: 44px 40px;
+      text-align: center;
+      color: white;
+      animation: fadeUp 0.5s 0.25s ease both;
+    }
+
+    .coming-card h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; }
+    .coming-card p { opacity: 0.88; font-size: 0.95rem; margin-bottom: 22px; }
+
+    .coming-tags { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+    .coming-tag {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 6px 18px; border-radius: 100px;
+      font-size: 0.85rem; font-weight: 600;
+    }
+
+    /* ===== CTA ===== */
+    .cta-strip { text-align: center; margin-top: 28px; animation: fadeUp 0.5s 0.3s ease both; }
+    .cta-strip p { color: var(--text-muted); margin-bottom: 16px; }
+
+    .btn {
+      display: inline-block; padding: 13px 28px;
+      background: var(--primary); color: white;
+      text-decoration: none; border-radius: 12px;
+      font-weight: 700; font-size: 0.95rem;
+      transition: all var(--transition);
+      box-shadow: 0 4px 20px rgba(15,57,172,0.25); margin: 6px;
+    }
+
+    .btn:hover { background: var(--primary-light); transform: translateY(-2px); }
+
+    .btn-outline {
+      background: transparent; border: 2px solid var(--primary);
+      color: var(--primary); box-shadow: none;
+    }
+
+    .btn-outline:hover { background: var(--primary); color: white; }
+
+    /* ===== FOOTER ===== */
+    footer { background: var(--primary); color: white; text-align: center; padding: 28px 20px; }
+    footer p { opacity: 0.85; font-size: 0.9rem; }
+
+    /* ===== ANIMATION ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .math-hero h1 {
-        font-size: 2.2rem;
-      }
-      
-      .math-hero p {
-        font-size: 1.1rem;
-      }
-      
-      .math-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .section-title h2 {
-        font-size: 1.8rem;
-      }
+      header { padding: 0 20px; }
+      nav { display: none; position: absolute; top: 72px; left: 0; right: 0;
+        background: var(--primary); padding: 20px; z-index: 99; }
+      nav.open { display: block; }
+      nav ul { flex-direction: column; gap: 8px; }
+      nav ul li a { display: block; padding: 10px 16px; }
+      .hamburger { display: flex; }
+      .math-grid { grid-template-columns: 1fr; }
+      .math-card { padding: 24px; }
+      .modal-box { padding: 28px 20px; }
+      .coming-card { padding: 32px 22px; }
     }
-    
+
     @media (max-width: 480px) {
-      .math-hero {
-        padding: 40px 20px;
-      }
-      
-      .math-hero h1 {
-        font-size: 1.8rem;
-      }
-      
-      .math-card {
-        padding: 20px;
-      }
-      
-      .math-card h2 {
-        font-size: 1.5rem;
-      }
-      
-      .example-equation {
-        font-size: 1.5rem;
-      }
+      .example-equation { font-size: 1.5rem; }
+      .modal-eq { font-size: 1.5rem; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ===== HEADER ===== -->
   <header>
-    <div>
-      <a href="index.html">
-        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
-      </a>
-    </div>
-    
-    <nav>
+    <a href="index.html" class="logo-wrap">
+      <img src="logo.png" alt="KnotLearn Logo">
+      <span class="logo-name">KnotLearn</span>
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="mainNav">
       <ul>
         <li><a href="index.html" id="nav-home">Home</a></li>
         <li><a href="subject.html" id="nav-subject">Subjects</a></li>
@@ -235,131 +545,294 @@
         <li><a href="about.html" id="nav-about">About</a></li>
         <li><a href="contact.html" id="nav-contact">Feedback</a></li>
         <li><a href="relax.html" id="nav-relax">Relax</a></li>
-        
         <li class="nav-controls">
           <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
             <option value="en">🇬🇧 English</option>
             <option value="fr">🇫🇷 Français</option>
             <option value="rw">🇷🇼 Kinyarwanda</option>
           </select>
-          
-          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
-            🌙
-          </button>
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">🌙</button>
         </li>
       </ul>
     </nav>
   </header>
 
-  <!-- MATHEMATICS HERO SECTION -->
-  <div class="math-hero">
-    <h1>📐 Mathematics</h1>
-    <p>Learn mathematics step by step — from basics to advanced</p>
+  <!-- ===== PAGE HERO ===== -->
+  <section class="page-hero">
+    <div class="page-hero-badge">🧮 Numbers & Logic</div>
+    <h1>Mathematics</h1>
+    <p>Learn mathematics step by step — from basics to advanced.</p>
+  </section>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="index.html">Home</a> › <a href="subject.html">Subjects</a> › Mathematics
   </div>
 
-  <!-- MATH TOPICS - YOUR EXACT CONTENT -->
+  <!-- ===== MAIN CONTENT ===== -->
   <div class="math-container">
-    
-    <div class="section-title">
-      <h2>🧮 Math Topics</h2>
-      <p style="color: #666; margin-top: 15px;">Clear explanations. Simple examples. Practice ready.</p>
+
+    <div class="section-header">
+      <div class="section-tag">Lessons</div>
+      <h2>Math Topics</h2>
+      <p>Clear explanations. Simple examples. Type your answer and practice!</p>
     </div>
-    
+
     <div class="math-grid">
-      
-      <!-- ADDITION - YOUR EXACT WORDS -->
+
+      <!-- ADDITION -->
       <div class="math-card">
-        <div class="math-icon">➕</div>
+        <span class="math-icon">➕</span>
         <h2>Addition</h2>
-        <p>Addition means putting numbers together.</p>
-        
+        <p>Addition means putting numbers together to find the total.</p>
         <div class="example-box">
           <h4>📌 Example:</h4>
-          <div class="example-equation">
-            2 + 3 = 5
-          </div>
+          <div class="example-equation">2 + 3 = 5</div>
         </div>
-        
-        <button class="practice-btn" onclick="alert('Practice: 5 + 4 = ?')">
-          ✏️ Practice
-        </button>
+        <button class="practice-btn" onclick="openPractice('addition')">✏️ Practice</button>
       </div>
-      
-      <!-- SUBTRACTION - YOUR EXACT WORDS -->
+
+      <!-- SUBTRACTION -->
       <div class="math-card">
-        <div class="math-icon">➖</div>
+        <span class="math-icon">➖</span>
         <h2>Subtraction</h2>
-        <p>Subtraction means taking away.</p>
-        
+        <p>Subtraction means taking one number away from another.</p>
         <div class="example-box">
           <h4>📌 Example:</h4>
-          <div class="example-equation">
-            7 − 4 = 3
-          </div>
+          <div class="example-equation">7 − 4 = 3</div>
         </div>
-        
-        <button class="practice-btn" onclick="alert('Practice: 10 - 6 = ?')">
-          ✏️ Practice
-        </button>
+        <button class="practice-btn" onclick="openPractice('subtraction')">✏️ Practice</button>
       </div>
-      
-      <!-- MULTIPLICATION - YOUR EXACT WORDS -->
+
+      <!-- MULTIPLICATION -->
       <div class="math-card">
-        <div class="math-icon">✖️</div>
+        <span class="math-icon">✖️</span>
         <h2>Multiplication</h2>
-        <p>Multiplication means repeated addition.</p>
-        
+        <p>Multiplication means repeated addition — a faster way to add groups.</p>
         <div class="example-box">
           <h4>📌 Example:</h4>
-          <div class="example-equation">
-            3 × 4 = 12
-          </div>
+          <div class="example-equation">3 × 4 = 12</div>
         </div>
-        
-        <button class="practice-btn" onclick="alert('Practice: 6 × 3 = ?')">
-          ✏️ Practice
-        </button>
+        <button class="practice-btn" onclick="openPractice('multiplication')">✏️ Practice</button>
       </div>
-      
-      <!-- DIVISION - YOUR EXACT WORDS -->
+
+      <!-- DIVISION -->
       <div class="math-card">
-        <div class="math-icon">➗</div>
+        <span class="math-icon">➗</span>
         <h2>Division</h2>
-        <p>Division means sharing equally.</p>
-        
+        <p>Division means sharing equally into groups.</p>
         <div class="example-box">
           <h4>📌 Example:</h4>
-          <div class="example-equation">
-            12 ÷ 3 = 4
-          </div>
+          <div class="example-equation">12 ÷ 3 = 4</div>
         </div>
-        
-        <button class="practice-btn" onclick="alert('Practice: 20 ÷ 5 = ?')">
-          ✏️ Practice
-        </button>
+        <button class="practice-btn" onclick="openPractice('division')">✏️ Practice</button>
       </div>
-      
+
     </div>
-    
-    <!-- MORE TOPICS COMING SOON -->
-    <div style="text-align: center; margin-top: 50px; padding: 30px; background: #f0f7ff; border-radius: 15px;">
-      <p style="font-size: 1.2rem; color: #0f39ac; font-weight: bold;">
-        🚀 More math topics coming soon! Algebra, Geometry, Calculus, and more.
-      </p>
+
+    <!-- COMING SOON -->
+    <div class="coming-card">
+      <h3>🚀 More Topics Coming Soon!</h3>
+      <p>We're working on more math lessons just for you.</p>
+      <div class="coming-tags">
+        <span class="coming-tag">📊 Algebra</span>
+        <span class="coming-tag">📐 Geometry</span>
+        <span class="coming-tag">∫ Calculus</span>
+        <span class="coming-tag">📉 Statistics</span>
+        <span class="coming-tag">🔢 Fractions</span>
+      </div>
     </div>
-    
+
+    <!-- CTA -->
+    <div class="cta-strip">
+      <p>Want to test your math skills?</p>
+      <a href="Quiz.html" class="btn">Take the Quiz 🧠</a>
+      <a href="subject.html" class="btn btn-outline">Browse All Subjects →</a>
+    </div>
+
   </div>
 
+  <!-- ===== PRACTICE MODAL ===== -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+    <div class="modal-box" id="modalBox">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-topic" id="modalTopic">Math</div>
+
+      <!-- Progress dots -->
+      <div class="modal-progress" id="modalProgress"></div>
+
+      <!-- Question display -->
+      <div class="modal-eq" id="modalEq"></div>
+
+      <!-- Input + check -->
+      <div class="modal-input-wrap" id="inputWrap">
+        <input type="number" class="modal-input" id="modalInput"
+          placeholder="Your answer..."
+          onkeydown="if(event.key==='Enter') checkAnswer()">
+        <button class="modal-check" onclick="checkAnswer()">Check ✓</button>
+      </div>
+
+      <div class="modal-feedback" id="modalFeedback"></div>
+
+      <button class="modal-next" id="modalNext" onclick="nextQuestion()">Next →</button>
+
+      <!-- Final score (hidden until done) -->
+      <div id="modalScoreWrap" style="display:none;">
+        <div class="modal-score-wrap">
+          <div class="modal-score-num" id="modalScoreNum">0/3</div>
+          <div class="modal-score-label">Correct answers</div>
+        </div>
+        <button class="modal-next" style="display:block;" onclick="closeModal()">🎉 Done!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
   <footer>
-    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+    <p>&copy; 2026 KnotLearn. All rights reserved. Made with ❤️ for students.</p>
   </footer>
 
+  <!-- ===== JAVASCRIPT ===== -->
   <script>
-    // ===== KNOTLEARN - LANGUAGE & THEME CONTROLS =====
+    // ===== PRACTICE DATA =====
+    const practiceData = {
+      addition: {
+        topic: '➕ Addition',
+        questions: [
+          { eq: '5 + 4 = ?',  answer: 9  },
+          { eq: '12 + 8 = ?', answer: 20 },
+          { eq: '17 + 6 = ?', answer: 23 }
+        ]
+      },
+      subtraction: {
+        topic: '➖ Subtraction',
+        questions: [
+          { eq: '10 − 6 = ?', answer: 4  },
+          { eq: '15 − 9 = ?', answer: 6  },
+          { eq: '20 − 13 = ?',answer: 7  }
+        ]
+      },
+      multiplication: {
+        topic: '✖️ Multiplication',
+        questions: [
+          { eq: '6 × 3 = ?',  answer: 18 },
+          { eq: '7 × 4 = ?',  answer: 28 },
+          { eq: '9 × 5 = ?',  answer: 45 }
+        ]
+      },
+      division: {
+        topic: '➗ Division',
+        questions: [
+          { eq: '20 ÷ 5 = ?', answer: 4  },
+          { eq: '36 ÷ 6 = ?', answer: 6  },
+          { eq: '48 ÷ 8 = ?', answer: 6  }
+        ]
+      }
+    };
+
+    let currentTopic = null;
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+
+    function openPractice(topic) {
+      currentTopic = topic;
+      currentQ = 0;
+      score = 0;
+      answered = false;
+      document.getElementById('modalOverlay').classList.add('open');
+      document.getElementById('modalScoreWrap').style.display = 'none';
+      document.getElementById('inputWrap').style.display = 'flex';
+      loadQuestion();
+    }
+
+    function buildDots() {
+      const total = practiceData[currentTopic].questions.length;
+      const wrap = document.getElementById('modalProgress');
+      wrap.innerHTML = '';
+      for (let i = 0; i < total; i++) {
+        const d = document.createElement('div');
+        d.className = 'prog-dot' + (i < currentQ ? ' done' : i === currentQ ? ' current' : '');
+        wrap.appendChild(d);
+      }
+    }
+
+    function loadQuestion() {
+      answered = false;
+      const data = practiceData[currentTopic];
+      const q = data.questions[currentQ];
+
+      document.getElementById('modalTopic').textContent = data.topic;
+      document.getElementById('modalEq').textContent = q.eq;
+      document.getElementById('modalFeedback').className = 'modal-feedback';
+      document.getElementById('modalFeedback').textContent = '';
+      document.getElementById('modalNext').style.display = 'none';
+
+      const input = document.getElementById('modalInput');
+      input.value = '';
+      input.disabled = false;
+      input.focus();
+
+      buildDots();
+    }
+
+    function checkAnswer() {
+      if (answered) return;
+      const input = document.getElementById('modalInput');
+      const val = parseInt(input.value);
+      if (isNaN(val)) { input.focus(); return; }
+
+      answered = true;
+      input.disabled = true;
+
+      const correct = practiceData[currentTopic].questions[currentQ].answer;
+      const feedback = document.getElementById('modalFeedback');
+
+      if (val === correct) {
+        score++;
+        feedback.className = 'modal-feedback correct';
+        feedback.textContent = '✅ Correct! Well done!';
+      } else {
+        feedback.className = 'modal-feedback wrong';
+        feedback.textContent = `❌ Wrong! The answer is ${correct}.`;
+      }
+
+      const total = practiceData[currentTopic].questions.length;
+      const nextBtn = document.getElementById('modalNext');
+      nextBtn.textContent = currentQ + 1 < total ? 'Next Question →' : '🎉 See Results';
+      nextBtn.style.display = 'block';
+    }
+
+    function nextQuestion() {
+      const total = practiceData[currentTopic].questions.length;
+      currentQ++;
+      if (currentQ < total) {
+        loadQuestion();
+      } else {
+        // Show score
+        document.getElementById('modalNext').style.display = 'none';
+        document.getElementById('inputWrap').style.display = 'none';
+        document.getElementById('modalFeedback').className = 'modal-feedback';
+        document.getElementById('modalEq').textContent = score === total ? '🏆 Perfect!' : score >= total / 2 ? '👍 Good job!' : '💪 Keep practising!';
+        document.getElementById('modalScoreWrap').style.display = 'block';
+        document.getElementById('modalScoreNum').textContent = `${score} / ${total}`;
+        buildDots();
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('open');
+    }
+
+    function closeModalOutside(e) {
+      if (e.target === document.getElementById('modalOverlay')) closeModal();
+    }
+
+    // ===== LANGUAGE & THEME =====
     const textData = {
-      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
-      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
-      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+      en: { home:"Home", subjects:"Subjects", quiz:"Quiz", about:"About", contact:"Feedback", relax:"Relax" },
+      fr: { home:"Accueil", subjects:"Matières", quiz:"Quiz", about:"À propos", contact:"Contact", relax:"Détente" },
+      rw: { home:"Ahabanza", subjects:"Amasomo", quiz:"Ikizamini", about:"Ibyerekeye", contact:"Twandikire", relax:"Wuhura" }
     };
 
     function changeLanguage() {
@@ -367,7 +840,6 @@
       if (!langSelect) return;
       const lang = langSelect.value;
       localStorage.setItem("knotlearn_lang", lang);
-      
       document.getElementById("nav-home").innerText = textData[lang].home;
       document.getElementById("nav-subject").innerText = textData[lang].subjects;
       document.getElementById("nav-quiz").innerText = textData[lang].quiz;
@@ -380,26 +852,20 @@
       document.body.classList.toggle("dark");
       const isDark = document.body.classList.contains("dark");
       localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
-      const themeBtn = document.getElementById("themeToggle");
-      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+      document.getElementById("themeToggle").innerText = isDark ? "☀️" : "🌙";
     }
 
-    window.onload = function() {
+    function toggleMenu() {
+      document.getElementById("mainNav").classList.toggle("open");
+    }
+
+    window.onload = function () {
       const savedLang = localStorage.getItem("knotlearn_lang");
       const savedTheme = localStorage.getItem("knotlearn_theme");
-
-      if (savedLang) {
-        const langSelect = document.getElementById("languageSelect");
-        if (langSelect) {
-          langSelect.value = savedLang;
-          changeLanguage();
-        }
-      }
-
+      if (savedLang) { document.getElementById("languageSelect").value = savedLang; changeLanguage(); }
       if (savedTheme === "dark") {
         document.body.classList.add("dark");
-        const themeBtn = document.getElementById("themeToggle");
-        if (themeBtn) themeBtn.innerText = "☀️";
+        document.getElementById("themeToggle").innerText = "☀️";
       }
     };
   </script>

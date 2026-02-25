@@ -1,282 +1,444 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO META TAGS -->
   <meta name="description" content="KnotLearn - All Subjects. Search and explore all learning topics including Languages, Mathematics, Science, History, Geography, Art, Music, and Computer Studies.">
   <meta name="keywords" content="all subjects, search subjects, KnotLearn topics, learning resources">
   <meta name="author" content="KnotLearn">
-  
-  <!-- SOCIAL SHARING -->
   <meta property="og:title" content="KnotLearn - All Subjects">
   <meta property="og:description" content="Find any subject you want to learn. Search and start learning today.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="logo.png">
-  
   <title>KnotLearn - All Subjects</title>
-  
-  <!-- MASTER CSS FILE -->
-  <link rel="stylesheet" href="style.css">
-  
+
   <style>
-    /* ===== OTHERS PAGE (ALL SUBJECTS) - YOUR COLORS ===== */
-    .subjects-hero {
-      background: linear-gradient(135deg, #0f39ac 0%, #0b74de 100%);
-      color: white;
-      padding: 60px 20px;
+    :root {
+      --primary: #0f39ac;
+      --primary-light: #0b74de;
+      --accent: #00c2ff;
+      --bg: #f0f4ff;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --card-shadow: 0 8px 32px rgba(15,57,172,0.10);
+      --radius: 18px;
+      --transition: 0.3s cubic-bezier(.4,0,.2,1);
+    }
+
+    body.dark {
+      --bg: #0d1117;
+      --surface: #161b27;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --card-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--primary);
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(15,57,172,0.25);
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-wrap img { width: 48px; height: 48px; border-radius: 12px; object-fit: cover; }
+    .logo-name { font-size: 1.4rem; font-weight: 800; color: white; letter-spacing: -0.5px; }
+
+    nav ul { list-style: none; display: flex; align-items: center; gap: 6px; }
+
+    nav ul li a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none; font-weight: 500;
+      font-size: 0.9rem; padding: 6px 14px;
+      border-radius: 8px;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    nav ul li a:hover, nav ul li a.active { background: rgba(255,255,255,0.15); color: white; }
+
+    .nav-controls { display: flex; gap: 8px; align-items: center; margin-left: 10px; }
+
+    #languageSelect {
+      padding: 6px 10px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1); color: white; font-size: 13px; cursor: pointer;
+    }
+
+    #languageSelect option { color: #1e293b; background: white; }
+
+    #themeToggle {
+      padding: 6px 10px; background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white; border-radius: 8px; cursor: pointer; font-size: 16px;
+    }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; }
+
+    /* ===== PAGE HERO ===== */
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      padding: 70px 20px;
       text-align: center;
-      margin-bottom: 40px;
+      color: white;
+      position: relative;
+      overflow: hidden;
     }
-    
-    .subjects-hero h1 {
-      font-size: 3rem;
-      margin-bottom: 15px;
+
+    .page-hero::before {
+      content: ''; position: absolute;
+      width: 400px; height: 400px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%; top: -150px; right: -100px;
     }
-    
-    .subjects-hero p {
-      font-size: 1.3rem;
-      opacity: 0.95;
+
+    .page-hero::after {
+      content: ''; position: absolute;
+      width: 300px; height: 300px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%; bottom: -100px; left: -80px;
     }
-    
+
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 5px 18px; border-radius: 100px;
+      font-size: 0.82rem; font-weight: 600;
+      margin-bottom: 20px; position: relative; z-index: 1;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800; margin-bottom: 14px;
+      position: relative; z-index: 1;
+    }
+
+    .page-hero p {
+      font-size: 1.05rem; opacity: 0.88;
+      max-width: 500px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+
+    /* ===== MAIN CONTAINER ===== */
     .subjects-container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 20px 60px;
+      padding: 0 20px 80px;
     }
-    
-    /* SEARCH SECTION */
+
+    /* ===== SEARCH SECTION ===== */
     .search-section {
-      max-width: 600px;
-      margin: 0 auto 50px;
-      text-align: center;
+      max-width: 620px;
+      margin: 50px auto 16px;
+      position: relative;
     }
-    
+
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1rem;
+      pointer-events: none;
+    }
+
     .search-box {
       width: 100%;
-      padding: 18px 25px;
-      font-size: 1.1rem;
-      border: 3px solid #e0e7ff;
-      border-radius: 50px;
+      padding: 16px 20px 16px 50px;
+      font-size: 1rem;
+      border: 2px solid rgba(15,57,172,0.12);
+      border-radius: 100px;
       outline: none;
-      transition: all 0.3s;
-      background: white;
-      color: #1e293b;
+      background: var(--surface);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      box-shadow: var(--card-shadow);
+      transition: all var(--transition);
     }
-    
+
     .search-box:focus {
-      border-color: #0f39ac;
-      box-shadow: 0 0 0 4px rgba(15, 57, 172, 0.1);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(15,57,172,0.08), var(--card-shadow);
     }
-    
-    .search-box::placeholder {
-      color: #94a3b8;
-    }
-    
+
+    .search-box::placeholder { color: var(--text-muted); }
+
     .search-stats {
-      margin-top: 15px;
-      color: #64748b;
-      font-size: 0.95rem;
+      text-align: center;
+      margin-top: 14px;
+      color: var(--text-muted);
+      font-size: 0.88rem;
     }
-    
-    /* SUBJECTS GRID */
+
+    .search-stats strong { color: var(--primary); }
+    body.dark .search-stats strong { color: #7eb3ff; }
+
+    /* ===== FILTER TABS ===== */
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+
+    .filter-btn {
+      padding: 8px 20px;
+      border-radius: 100px;
+      border: 2px solid rgba(15,57,172,0.12);
+      background: var(--surface);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      transition: all var(--transition);
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* ===== SUBJECTS GRID ===== */
     .subjects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 30px;
-      margin-top: 30px;
+      gap: 24px;
     }
-    
+
+    /* ===== SUBJECT CARD ===== */
     .subject-item {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      border: 1px solid #e0e7ff;
-      transition: all 0.3s;
-      opacity: 1;
-      transform: scale(1);
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(15,57,172,0.07);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.5s ease both;
     }
-    
+
+    .subject-item:nth-child(1) { animation-delay: 0.05s; }
+    .subject-item:nth-child(2) { animation-delay: 0.08s; }
+    .subject-item:nth-child(3) { animation-delay: 0.11s; }
+    .subject-item:nth-child(4) { animation-delay: 0.14s; }
+    .subject-item:nth-child(5) { animation-delay: 0.17s; }
+    .subject-item:nth-child(6) { animation-delay: 0.20s; }
+    .subject-item:nth-child(7) { animation-delay: 0.23s; }
+
+    .subject-item::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+
+    .subject-item:hover::before { transform: scaleX(1); }
+
     .subject-item:hover {
       transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(15, 57, 172, 0.15);
-      border-color: #0f39ac;
+      box-shadow: 0 20px 50px rgba(15,57,172,0.15);
+      border-color: rgba(15,57,172,0.15);
     }
-    
+
+    /* Card header */
     .subject-header {
       display: flex;
       align-items: center;
-      gap: 15px;
-      margin-bottom: 20px;
-      border-bottom: 2px solid #eef2f6;
-      padding-bottom: 20px;
+      gap: 14px;
+      margin-bottom: 14px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(15,57,172,0.07);
     }
-    
-    .subject-icon {
-      font-size: 2.5rem;
-    }
-    
+
+    .subject-icon { font-size: 2.2rem; }
+
     .subject-header h2 {
-      color: #0f39ac;
-      font-size: 1.8rem;
-      margin: 0;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary);
     }
-    
+
+    body.dark .subject-header h2 { color: #7eb3ff; }
+
     .subject-description {
-      color: #555;
-      margin-bottom: 20px;
-      line-height: 1.6;
-      font-size: 1.05rem;
+      color: var(--text-muted);
+      font-size: 0.93rem;
+      margin-bottom: 18px;
+      line-height: 1.7;
     }
-    
+
+    /* Links box */
     .subject-links {
-      background: #f8fafc;
-      border-radius: 15px;
-      padding: 20px;
-      margin-top: 20px;
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 16px 18px;
+      border: 1px solid rgba(15,57,172,0.06);
     }
-    
+
     .subject-links h4 {
-      color: #0f39ac;
-      margin-bottom: 15px;
-      font-size: 1.1rem;
+      color: var(--primary);
+      margin-bottom: 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-    
+
+    body.dark .subject-links h4 { color: #7eb3ff; }
+
     .links-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
     }
-    
+
     .subject-link {
       display: block;
-      padding: 12px 15px;
-      background: white;
-      color: #0f39ac;
+      padding: 10px 12px;
+      background: var(--surface);
+      color: var(--primary);
       text-decoration: none;
       border-radius: 10px;
-      border: 1px solid #e2e8f0;
-      font-weight: 500;
-      transition: all 0.2s;
+      border: 1px solid rgba(15,57,172,0.1);
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all var(--transition);
       text-align: center;
     }
-    
+
     .subject-link:hover {
-      background: #0f39ac;
+      background: var(--primary);
       color: white;
-      border-color: #0f39ac;
+      border-color: var(--primary);
       transform: translateY(-2px);
     }
-    
-    /* NO RESULTS */
+
+    body.dark .subject-link { color: #7eb3ff; }
+    body.dark .subject-link:hover { color: white; }
+
+    /* ===== NO RESULTS ===== */
     .no-results {
+      display: none;
       text-align: center;
       padding: 60px 20px;
-      background: #f8fafc;
-      border-radius: 20px;
-      display: none;
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
     }
-    
+
     .no-results p {
-      font-size: 1.3rem;
-      color: #64748b;
-      margin-top: 15px;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-top: 14px;
     }
-    
-    /* DARK MODE */
-    body.dark .subject-item {
-      background: #1e1e1e;
-      border-color: #333;
-    }
-    
-    body.dark .subject-description {
-      color: #ccc;
-    }
-    
-    body.dark .subject-links {
-      background: #2d2d2d;
-    }
-    
-    body.dark .subject-link {
-      background: #1e1e1e;
-      border-color: #444;
+
+    /* ===== COMING SOON ===== */
+    .coming-card {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: var(--radius);
+      padding: 48px 40px;
+      text-align: center;
       color: white;
+      margin-top: 40px;
+      animation: fadeUp 0.5s 0.3s ease both;
     }
-    
-    body.dark .subject-link:hover {
-      background: #0f39ac;
-      color: white;
+
+    .coming-card h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; }
+    .coming-card p { opacity: 0.88; font-size: 0.97rem; margin-bottom: 24px; }
+
+    .coming-tags {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
-    
-    body.dark .search-box {
-      background: #1e1e1e;
-      border-color: #444;
-      color: white;
+
+    .coming-tag {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 7px 20px;
+      border-radius: 100px;
+      font-size: 0.88rem;
+      font-weight: 600;
     }
-    
-    body.dark .search-box::placeholder {
-      color: #94a3b8;
+
+    /* ===== FOOTER ===== */
+    footer { background: var(--primary); color: white; text-align: center; padding: 28px 20px; }
+    footer p { opacity: 0.85; font-size: 0.9rem; }
+
+    /* ===== ANIMATION ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    
-    body.dark .no-results {
-      background: #1e1e1e;
-    }
-    
-    /* RESPONSIVE */
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .subjects-hero h1 {
-        font-size: 2.2rem;
-      }
-      
-      .subjects-hero p {
-        font-size: 1.1rem;
-      }
-      
-      .subject-header {
-        flex-direction: column;
-        text-align: center;
-      }
-      
-      .subject-header h2 {
-        font-size: 1.6rem;
-      }
-      
-      .links-grid {
-        grid-template-columns: 1fr;
-      }
+      header { padding: 0 20px; }
+      nav { display: none; position: absolute; top: 72px; left: 0; right: 0;
+        background: var(--primary); padding: 20px; z-index: 99; }
+      nav.open { display: block; }
+      nav ul { flex-direction: column; gap: 8px; }
+      nav ul li a { display: block; padding: 10px 16px; }
+      .hamburger { display: flex; }
+      .subjects-grid { grid-template-columns: 1fr; }
+      .subject-item { padding: 22px; }
+      .coming-card { padding: 32px 22px; }
     }
-    
+
     @media (max-width: 480px) {
-      .subjects-hero {
-        padding: 40px 20px;
-      }
-      
-      .subjects-hero h1 {
-        font-size: 1.8rem;
-      }
-      
-      .subject-item {
-        padding: 25px;
-      }
-      
-      .subject-header h2 {
-        font-size: 1.5rem;
-      }
+      .links-grid { grid-template-columns: 1fr 1fr; }
+      .filter-tabs { gap: 8px; }
+      .filter-btn { padding: 7px 14px; font-size: 0.8rem; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ===== HEADER ===== -->
   <header>
-    <div>
-      <a href="index.html">
-        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
-      </a>
-    </div>
-    
-    <nav>
+    <a href="index.html" class="logo-wrap">
+      <img src="logo.png" alt="KnotLearn Logo">
+      <span class="logo-name">KnotLearn</span>
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="mainNav">
       <ul>
         <li><a href="index.html" id="nav-home">Home</a></li>
         <li><a href="subject.html" id="nav-subject">Subjects</a></li>
@@ -284,58 +446,66 @@
         <li><a href="about.html" id="nav-about">About</a></li>
         <li><a href="contact.html" id="nav-contact">Feedback</a></li>
         <li><a href="relax.html" id="nav-relax">Relax</a></li>
-        
         <li class="nav-controls">
           <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
             <option value="en">🇬🇧 English</option>
             <option value="fr">🇫🇷 Français</option>
             <option value="rw">🇷🇼 Kinyarwanda</option>
           </select>
-          
-          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
-            🌙
-          </button>
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">🌙</button>
         </li>
       </ul>
     </nav>
   </header>
 
-  <!-- ALL SUBJECTS HERO SECTION -->
-  <div class="subjects-hero">
-    <h1>📚 All Subjects</h1>
+  <!-- ===== PAGE HERO ===== -->
+  <section class="page-hero">
+    <div class="page-hero-badge">📚 Browse Everything</div>
+    <h1>All Subjects</h1>
     <p>Every topic. One place. Start learning today.</p>
-  </div>
+  </section>
 
-  <!-- SEARCH AND SUBJECTS - YOUR EXACT CONTENT -->
+  <!-- ===== MAIN CONTENT ===== -->
   <div class="subjects-container">
-    
-    <!-- SEARCH BOX - YOUR FUNCTIONALITY -->
+
+    <!-- SEARCH -->
     <div class="search-section">
-      <input
-        type="text"
-        id="searchBox"
-        class="search-box"
-        placeholder="🔍 Search any subject (Math, English, History...)"
-        onkeyup="searchSubjects()"
-      />
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          id="searchBox"
+          class="search-box"
+          placeholder="Search any subject (Math, English, History...)"
+          oninput="searchSubjects()"
+        />
+      </div>
       <div id="searchStats" class="search-stats">
-        Showing <span id="visibleCount">7</span> of 7 subjects
+        Showing <strong><span id="visibleCount">7</span></strong> of 7 subjects
       </div>
     </div>
-    
-    <!-- SUBJECTS GRID - YOUR EXACT CONTENT -->
+
+    <!-- FILTER TABS -->
+    <div class="filter-tabs">
+      <button class="filter-btn active" onclick="filterSubjects('all', this)">All</button>
+      <button class="filter-btn" onclick="filterSubjects('stem', this)">STEM</button>
+      <button class="filter-btn" onclick="filterSubjects('languages', this)">Languages</button>
+      <button class="filter-btn" onclick="filterSubjects('arts', this)">Arts</button>
+      <button class="filter-btn" onclick="filterSubjects('social', this)">Social</button>
+    </div>
+
+    <!-- SUBJECTS GRID -->
     <div id="subjectList" class="subjects-grid">
-      
-      <!-- LANGUAGES - YOUR EXACT CONTENT -->
-      <div class="subject-item" data-subject="languages english french kiswahili">
+
+      <!-- LANGUAGES -->
+      <div class="subject-item" data-subject="languages english french kiswahili" data-category="languages">
         <div class="subject-header">
           <span class="subject-icon">🌍</span>
           <h2>Languages</h2>
         </div>
         <p class="subject-description">English, French, Kiswahili — learn to speak, read, and write.</p>
-        
         <div class="subject-links">
-          <h4>📘 Start Learning:</h4>
+          <h4>Start Learning:</h4>
           <div class="links-grid">
             <a href="languages.html" class="subject-link">🇬🇧 English</a>
             <a href="languages.html" class="subject-link">🇫🇷 French</a>
@@ -343,17 +513,16 @@
           </div>
         </div>
       </div>
-      
-      <!-- MATHEMATICS - YOUR EXACT CONTENT -->
-      <div class="subject-item" data-subject="mathematics math numbers algebra geometry">
+
+      <!-- MATHEMATICS -->
+      <div class="subject-item" data-subject="mathematics math numbers algebra geometry" data-category="stem">
         <div class="subject-header">
           <span class="subject-icon">📐</span>
           <h2>Mathematics</h2>
         </div>
         <p class="subject-description">Numbers and problem solving — from basic math to advanced topics.</p>
-        
         <div class="subject-links">
-          <h4>📘 Start Learning:</h4>
+          <h4>Start Learning:</h4>
           <div class="links-grid">
             <a href="mathematics.html" class="subject-link">➕ Basic Math</a>
             <a href="mathematics.html" class="subject-link">✖️ Algebra</a>
@@ -361,17 +530,16 @@
           </div>
         </div>
       </div>
-      
-      <!-- SCIENCE - YOUR EXACT CONTENT -->
-      <div class="subject-item" data-subject="science biology chemistry physics">
+
+      <!-- SCIENCE -->
+      <div class="subject-item" data-subject="science biology chemistry physics" data-category="stem">
         <div class="subject-header">
           <span class="subject-icon">🔬</span>
           <h2>Science</h2>
         </div>
         <p class="subject-description">Biology, Chemistry, Physics — understand the world around you.</p>
-        
         <div class="subject-links">
-          <h4>📘 Start Learning:</h4>
+          <h4>Start Learning:</h4>
           <div class="links-grid">
             <a href="science.html" class="subject-link">🧬 Biology</a>
             <a href="science.html" class="subject-link">🧪 Chemistry</a>
@@ -379,134 +547,148 @@
           </div>
         </div>
       </div>
-      
-      <!-- HISTORY - YOUR EXACT CONTENT -->
-      <div class="subject-item" data-subject="history ancient medieval modern">
+
+      <!-- HISTORY -->
+      <div class="subject-item" data-subject="history ancient medieval modern" data-category="social">
         <div class="subject-header">
           <span class="subject-icon">📜</span>
           <h2>History</h2>
         </div>
-        <p class="subject-description">Ancient and modern history — learn from the past.</p>
-        
+        <p class="subject-description">Ancient and modern history — learn from the past to understand the present.</p>
         <div class="subject-links">
-          <h4>📘 Start Learning:</h4>
+          <h4>Start Learning:</h4>
           <div class="links-grid">
             <a href="history.html" class="subject-link">🏛️ History</a>
           </div>
         </div>
       </div>
-      
-      <!-- GEOGRAPHY - YOUR EXACT CONTENT -->
-      <div class="subject-item" data-subject="geography earth maps continents">
+
+      <!-- GEOGRAPHY -->
+      <div class="subject-item" data-subject="geography earth maps continents climate" data-category="social">
         <div class="subject-header">
           <span class="subject-icon">🌎</span>
           <h2>Geography</h2>
         </div>
-        <p class="subject-description">Earth, maps, and climate — explore our planet.</p>
-        
+        <p class="subject-description">Earth, maps, and climate — explore our incredible planet.</p>
         <div class="subject-links">
-          <h4>📘 Start Learning:</h4>
+          <h4>Start Learning:</h4>
           <div class="links-grid">
             <a href="geography.html" class="subject-link">🗺️ Geography</a>
           </div>
         </div>
       </div>
-      
-      <!-- ART & MUSIC - YOUR EXACT CONTENT -->
-      <div class="subject-item" data-subject="art music drawing painting sculpture creativity">
+
+      <!-- ART & MUSIC -->
+      <div class="subject-item" data-subject="art music drawing painting sculpture creativity" data-category="arts">
         <div class="subject-header">
-          <span class="subject-icon">🎨🎵</span>
+          <span class="subject-icon">🎨</span>
           <h2>Art & Music</h2>
         </div>
         <p class="subject-description">Creativity and sound — express yourself through art and music.</p>
-        
         <div class="subject-links">
-          <h4>📘 Start Learning:</h4>
+          <h4>Start Learning:</h4>
           <div class="links-grid">
             <a href="art-music.html" class="subject-link">🎨 Art & Music</a>
           </div>
         </div>
       </div>
-      
-      <!-- COMPUTER STUDIES - YOUR EXACT CONTENT -->
-      <div class="subject-item" data-subject="computer programming html css javascript vue">
+
+      <!-- COMPUTER STUDIES -->
+      <div class="subject-item" data-subject="computer programming html css javascript vue coding" data-category="stem">
         <div class="subject-header">
           <span class="subject-icon">💻</span>
           <h2>Computer Studies</h2>
         </div>
-        <p class="subject-description">Web and programming — learn to code and build websites.</p>
-        
+        <p class="subject-description">Web and programming — learn to code and build websites from scratch.</p>
         <div class="subject-links">
-          <h4>📘 Start Learning:</h4>
+          <h4>Start Learning:</h4>
           <div class="links-grid">
             <a href="HTML.html" class="subject-link">🌐 HTML</a>
             <a href="CSS.html" class="subject-link">🎨 CSS</a>
-            <a href="JavaScript.html" class="subject-link">⚡ JavaScript</a>
-            <a href="programming.html" class="subject-link">🖥️ Vue</a>
+            <a href="JavaScript.html" class="subject-link">⚡ JS</a>
+            <a href="programming.html" class="subject-link">🎮 Vue</a>
           </div>
         </div>
       </div>
-      
+
     </div>
-    
-    <!-- NO RESULTS MESSAGE -->
+
+    <!-- NO RESULTS -->
     <div id="noResults" class="no-results">
       <span style="font-size: 3rem;">🔍</span>
-      <p>No subjects found matching your search.</p>
-      <p style="font-size: 1rem; margin-top: 10px;">Try different keywords or browse all subjects above.</p>
+      <p>No subjects found for "<span id="searchTerm"></span>"</p>
+      <p style="font-size: 0.9rem; margin-top: 8px;">Try different keywords or browse all subjects above.</p>
     </div>
-    
-    <!-- MORE SUBJECTS COMING SOON -->
-    <div style="text-align: center; margin-top: 60px; padding: 40px; background: linear-gradient(145deg, #f0f7ff, #ffffff); border-radius: 20px;">
-      <span style="font-size: 2.5rem;">🚀</span>
-      <h3 style="color: #0f39ac; font-size: 1.8rem; margin: 15px 0;">More Subjects Coming Soon!</h3>
-      <p style="color: #555; font-size: 1.1rem;">Economics, Psychology, Engineering, Business, and many more.</p>
+
+    <!-- COMING SOON -->
+    <div class="coming-card">
+      <h3>🚀 More Subjects Coming Soon!</h3>
+      <p>We're constantly adding new topics to help you learn more.</p>
+      <div class="coming-tags">
+        <span class="coming-tag">📈 Economics</span>
+        <span class="coming-tag">🧠 Psychology</span>
+        <span class="coming-tag">⚙️ Engineering</span>
+        <span class="coming-tag">💼 Business</span>
+        <span class="coming-tag">🌿 Environmental Science</span>
+      </div>
     </div>
-    
+
   </div>
 
+  <!-- ===== FOOTER ===== -->
   <footer>
-    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+    <p>&copy; 2026 KnotLearn. All rights reserved. Made with ❤️ for students.</p>
   </footer>
 
+  <!-- ===== JAVASCRIPT ===== -->
   <script>
-    // ===== KNOTLEARN - SEARCH FUNCTIONALITY =====
-    // YOUR EXACT SEARCH CODE - ENHANCED WITH LIVE COUNT
-    
-    function searchSubjects() {
-      let input = document.getElementById("searchBox").value.toLowerCase();
-      let cards = document.querySelectorAll(".subject-item");
-      let visibleCount = 0;
-      
+    const totalSubjects = 7;
+    let currentFilter = 'all';
+    let currentSearch = '';
+
+    function updateVisibility() {
+      const cards = document.querySelectorAll('.subject-item');
+      let visible = 0;
+
       cards.forEach(card => {
-        let text = card.innerText.toLowerCase();
-        let matches = text.includes(input);
-        
-        if (matches) {
-          card.style.display = "block";
-          visibleCount++;
+        const text = (card.dataset.subject + ' ' + card.innerText).toLowerCase();
+        const category = card.dataset.category;
+
+        const matchesSearch = currentSearch === '' || text.includes(currentSearch);
+        const matchesFilter = currentFilter === 'all' || category === currentFilter;
+
+        if (matchesSearch && matchesFilter) {
+          card.style.display = 'block';
+          visible++;
         } else {
-          card.style.display = "none";
+          card.style.display = 'none';
         }
       });
-      
-      // Update visible count
-      document.getElementById("visibleCount").innerText = visibleCount;
-      
-      // Show/hide no results message
-      let noResults = document.getElementById("noResults");
-      if (visibleCount === 0) {
-        noResults.style.display = "block";
-      } else {
-        noResults.style.display = "none";
-      }
+
+      document.getElementById('visibleCount').textContent = visible;
+
+      const noResults = document.getElementById('noResults');
+      document.getElementById('searchTerm').textContent = currentSearch;
+      noResults.style.display = visible === 0 ? 'block' : 'none';
     }
-    
-    // ===== KNOTLEARN - LANGUAGE & THEME CONTROLS =====
+
+    function searchSubjects() {
+      currentSearch = document.getElementById('searchBox').value.toLowerCase().trim();
+      updateVisibility();
+    }
+
+    function filterSubjects(category, btn) {
+      currentFilter = category;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateVisibility();
+    }
+
+    // ===== LANGUAGE & THEME =====
     const textData = {
-      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
-      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
-      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+      en: { home:"Home", subjects:"Subjects", quiz:"Quiz", about:"About", contact:"Feedback", relax:"Relax" },
+      fr: { home:"Accueil", subjects:"Matières", quiz:"Quiz", about:"À propos", contact:"Contact", relax:"Détente" },
+      rw: { home:"Ahabanza", subjects:"Amasomo", quiz:"Ikizamini", about:"Ibyerekeye", contact:"Twandikire", relax:"Wuhura" }
     };
 
     function changeLanguage() {
@@ -514,7 +696,6 @@
       if (!langSelect) return;
       const lang = langSelect.value;
       localStorage.setItem("knotlearn_lang", lang);
-      
       document.getElementById("nav-home").innerText = textData[lang].home;
       document.getElementById("nav-subject").innerText = textData[lang].subjects;
       document.getElementById("nav-quiz").innerText = textData[lang].quiz;
@@ -527,30 +708,22 @@
       document.body.classList.toggle("dark");
       const isDark = document.body.classList.contains("dark");
       localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
-      const themeBtn = document.getElementById("themeToggle");
-      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+      document.getElementById("themeToggle").innerText = isDark ? "☀️" : "🌙";
     }
 
-    window.onload = function() {
+    function toggleMenu() {
+      document.getElementById("mainNav").classList.toggle("open");
+    }
+
+    window.onload = function () {
       const savedLang = localStorage.getItem("knotlearn_lang");
       const savedTheme = localStorage.getItem("knotlearn_theme");
-
-      if (savedLang) {
-        const langSelect = document.getElementById("languageSelect");
-        if (langSelect) {
-          langSelect.value = savedLang;
-          changeLanguage();
-        }
-      }
-
+      if (savedLang) { document.getElementById("languageSelect").value = savedLang; changeLanguage(); }
       if (savedTheme === "dark") {
         document.body.classList.add("dark");
-        const themeBtn = document.getElementById("themeToggle");
-        if (themeBtn) themeBtn.innerText = "☀️";
+        document.getElementById("themeToggle").innerText = "☀️";
       }
-      
-      // Initialize search count
-      searchSubjects();
+      updateVisibility();
     };
   </script>
 

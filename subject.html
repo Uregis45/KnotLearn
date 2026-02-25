@@ -1,167 +1,575 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO META TAGS -->
   <meta name="description" content="KnotLearn - All subjects. Free tutorials in Math, Science, Programming, Languages, History, Geography, Art & Music, and more.">
   <meta name="keywords" content="free learning, math, science, programming, languages, history, geography, art, music">
   <meta name="author" content="KnotLearn">
-  
-  <!-- SOCIAL SHARING -->
   <meta property="og:title" content="KnotLearn - All Subjects">
   <meta property="og:description" content="Free step-by-step tutorials for all subjects.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="logo.png">
-  
   <title>KnotLearn - All Subjects</title>
-  
-  <!-- MASTER CSS FILE -->
-  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --primary: #0f39ac;
+      --primary-light: #0b74de;
+      --accent: #00c2ff;
+      --bg: #f0f4ff;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --card-shadow: 0 8px 32px rgba(15,57,172,0.10);
+      --radius: 18px;
+      --transition: 0.3s cubic-bezier(.4,0,.2,1);
+    }
+
+    body.dark {
+      --bg: #0d1117;
+      --surface: #161b27;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --card-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--primary);
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(15,57,172,0.25);
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-wrap img {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .logo-name {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -0.5px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    nav ul li a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: rgba(255,255,255,0.15);
+      color: white;
+    }
+
+    .nav-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-left: 10px;
+    }
+
+    #languageSelect {
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    #languageSelect option { color: #1e293b; background: white; }
+
+    #themeToggle {
+      padding: 6px 10px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      background: none;
+      border: none;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: white;
+      border-radius: 2px;
+    }
+
+    /* ===== PAGE HERO ===== */
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      padding: 60px 20px;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      top: -150px; right: -100px;
+    }
+
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      bottom: -100px; left: -80px;
+    }
+
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 5px 18px;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 14px;
+      letter-spacing: -0.5px;
+    }
+
+    .page-hero p {
+      font-size: 1.05rem;
+      opacity: 0.88;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ===== SEARCH BAR ===== */
+    .search-wrap {
+      max-width: 500px;
+      margin: 0 auto;
+      margin-top: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      padding: 14px 50px 14px 20px;
+      border-radius: 12px;
+      border: none;
+      font-size: 1rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      outline: none;
+      background: white;
+      color: #1e293b;
+    }
+
+    .search-wrap::after {
+      content: '🔍';
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1rem;
+      pointer-events: none;
+    }
+
+    /* ===== FILTER TABS ===== */
+    .filter-wrap {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 32px 20px 10px;
+    }
+
+    .filter-btn {
+      padding: 8px 20px;
+      border-radius: 100px;
+      border: 2px solid rgba(15,57,172,0.2);
+      background: var(--surface);
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* ===== SUBJECTS GRID ===== */
+    .subjects-section {
+      padding: 20px 20px 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .subjects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .subject-card {
+      background: var(--surface);
+      padding: 32px 26px;
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      text-align: center;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition);
+      border: 1px solid rgba(15,57,172,0.06);
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .subject-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+
+    .subject-card:hover::before { transform: scaleX(1); }
+
+    .subject-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(15,57,172,0.15);
+    }
+
+    .subject-card.hidden { display: none; }
+
+    .card-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .subject-card h3 {
+      color: var(--primary);
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    body.dark .subject-card h3 { color: #7eb3ff; }
+
+    .subject-card p {
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      font-size: 0.93rem;
+      line-height: 1.6;
+    }
+
+    .card-tag {
+      display: inline-block;
+      background: rgba(15,57,172,0.08);
+      color: var(--primary);
+      padding: 3px 12px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    body.dark .card-tag {
+      background: rgba(11,116,222,0.15);
+      color: var(--accent);
+    }
+
+    .subject-card button {
+      padding: 11px 26px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      transition: background var(--transition), transform var(--transition);
+    }
+
+    .subject-card button:hover {
+      background: var(--primary-light);
+      transform: scale(1.04);
+    }
+
+    /* stagger animation */
+    .subject-card:nth-child(1) { animation-delay: 0.05s; }
+    .subject-card:nth-child(2) { animation-delay: 0.10s; }
+    .subject-card:nth-child(3) { animation-delay: 0.15s; }
+    .subject-card:nth-child(4) { animation-delay: 0.20s; }
+    .subject-card:nth-child(5) { animation-delay: 0.25s; }
+    .subject-card:nth-child(6) { animation-delay: 0.30s; }
+    .subject-card:nth-child(7) { animation-delay: 0.35s; }
+    .subject-card:nth-child(8) { animation-delay: 0.40s; }
+
+    /* no results */
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+      display: none;
+      grid-column: 1 / -1;
+    }
+
+    .no-results .no-icon { font-size: 3rem; margin-bottom: 16px; }
+    .no-results h3 { font-size: 1.2rem; margin-bottom: 8px; color: var(--text); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 28px 20px;
+    }
+
+    footer p { opacity: 0.85; font-size: 0.9rem; }
+
+    /* ===== ANIMATION ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      header { padding: 0 20px; }
+      nav { display: none; position: absolute; top: 72px; left: 0; right: 0;
+        background: var(--primary); padding: 20px; z-index: 99; }
+      nav.open { display: block; }
+      nav ul { flex-direction: column; gap: 8px; }
+      nav ul li a { display: block; padding: 10px 16px; }
+      .hamburger { display: flex; }
+    }
+
+    @media (max-width: 480px) {
+      .subjects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
+  <!-- ===== HEADER ===== -->
   <header>
-    <!-- YOUR LOGO -->
-    <div>
-      <a href="index.html">
-        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
-      </a>
-    </div>
-    
-    <nav>
+    <a href="index.html" class="logo-wrap">
+      <img src="logo.png" alt="KnotLearn Logo">
+      <span class="logo-name">KnotLearn</span>
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="mainNav">
       <ul>
         <li><a href="index.html" id="nav-home">Home</a></li>
-        <li><a href="subject.html" id="nav-subject">Subjects</a></li>
+        <li><a href="subject.html" id="nav-subject" class="active">Subjects</a></li>
         <li><a href="Quiz.html" id="nav-quiz">Quiz</a></li>
         <li><a href="about.html" id="nav-about">About</a></li>
         <li><a href="contact.html" id="nav-contact">Feedback</a></li>
         <li><a href="relax.html" id="nav-relax">Relax</a></li>
-        
-        <!-- LANGUAGE & THEME CONTROLS -->
         <li class="nav-controls">
           <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
             <option value="en">🇬🇧 English</option>
             <option value="fr">🇫🇷 Français</option>
             <option value="rw">🇷🇼 Kinyarwanda</option>
           </select>
-          
-          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
-            🌙
-          </button>
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">🌙</button>
         </li>
       </ul>
     </nav>
   </header>
 
-  <!-- ALL SUBJECTS SECTION -->
-  <section class="subjects-list" style="padding: 40px 20px; max-width: 1200px; margin: 0 auto;">
-    <h1 style="text-align: center; color: #0f39ac; margin-bottom: 40px; font-size: 2.5rem;">All Subjects</h1>
-
-    <div class="subjects-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
-      
-      <!-- MATHEMATICS -->
-      <div class="subject-card" style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;" onclick="location.href='mathematics.html'">
-        <h3 style="color: #0f39ac; margin-bottom: 15px; font-size: 1.5rem;">📐 Mathematics</h3>
-        <p style="color: #555; margin-bottom: 20px;">Numbers, algebra, geometry, calculus</p>
-        <button onclick="event.stopPropagation(); location.href='mathematics.html'" style="padding: 10px 20px; background-color: #0f39ac; color: white; border: none; border-radius: 5px; cursor: pointer;">Start Learning</button>
-      </div>
-      
-      <!-- SCIENCE -->
-      <div class="subject-card" style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;" onclick="location.href='science.html'">
-        <h3 style="color: #0f39ac; margin-bottom: 15px; font-size: 1.5rem;">🔬 Science</h3>
-        <p style="color: #555; margin-bottom: 20px;">Physics, chemistry, biology</p>
-        <button onclick="event.stopPropagation(); location.href='science.html'" style="padding: 10px 20px; background-color: #0f39ac; color: white; border: none; border-radius: 5px; cursor: pointer;">Start Learning</button>
-      </div>
-      
-      <!-- PROGRAMMING -->
-      <div class="subject-card" style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;" onclick="location.href='programming.html'">
-        <h3 style="color: #0f39ac; margin-bottom: 15px; font-size: 1.5rem;">💻 Programming</h3>
-        <p style="color: #555; margin-bottom: 20px;">HTML, CSS, JavaScript, Vue</p>
-        <button onclick="event.stopPropagation(); location.href='programming.html'" style="padding: 10px 20px; background-color: #0f39ac; color: white; border: none; border-radius: 5px; cursor: pointer;">Start Learning</button>
-      </div>
-      
-      <!-- LANGUAGES -->
-      <div class="subject-card" style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;" onclick="location.href='languages.html'">
-        <h3 style="color: #0f39ac; margin-bottom: 15px; font-size: 1.5rem;">🌍 Languages</h3>
-        <p style="color: #555; margin-bottom: 20px;">English, French, Kiswahili</p>
-        <button onclick="event.stopPropagation(); location.href='languages.html'" style="padding: 10px 20px; background-color: #0f39ac; color: white; border: none; border-radius: 5px; cursor: pointer;">Start Learning</button>
-      </div>
-      
-      <!-- HISTORY -->
-      <div class="subject-card" style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;" onclick="location.href='history.html'">
-        <h3 style="color: #0f39ac; margin-bottom: 15px; font-size: 1.5rem;">📜 History</h3>
-        <p style="color: #555; margin-bottom: 20px;">Ancient, medieval, modern history</p>
-        <button onclick="event.stopPropagation(); location.href='history.html'" style="padding: 10px 20px; background-color: #0f39ac; color: white; border: none; border-radius: 5px; cursor: pointer;">Start Learning</button>
-      </div>
-      
-      <!-- GEOGRAPHY -->
-      <div class="subject-card" style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;" onclick="location.href='geography.html'">
-        <h3 style="color: #0f39ac; margin-bottom: 15px; font-size: 1.5rem;">🌎 Geography</h3>
-        <p style="color: #555; margin-bottom: 20px;">Continents, maps, climate, people</p>
-        <button onclick="event.stopPropagation(); location.href='geography.html'" style="padding: 10px 20px; background-color: #0f39ac; color: white; border: none; border-radius: 5px; cursor: pointer;">Start Learning</button>
-      </div>
-      
-      <!-- ART & MUSIC -->
-      <div class="subject-card" style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;" onclick="location.href='art-music.html'">
-        <h3 style="color: #0f39ac; margin-bottom: 15px; font-size: 1.5rem;">🎨🎵 Art & Music</h3>
-        <p style="color: #555; margin-bottom: 20px;">Drawing, painting, instruments, singing</p>
-        <button onclick="event.stopPropagation(); location.href='art-music.html'" style="padding: 10px 20px; background-color: #0f39ac; color: white; border: none; border-radius: 5px; cursor: pointer;">Start Learning</button>
-      </div>
-      
-      <!-- OTHER SUBJECTS -->
-      <div class="subject-card" style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;" onclick="location.href='others.html'">
-        <h3 style="color: #0f39ac; margin-bottom: 15px; font-size: 1.5rem;">📚 Other Subjects</h3>
-        <p style="color: #555; margin-bottom: 20px;">More topics coming soon</p>
-        <button onclick="event.stopPropagation(); location.href='others.html'" style="padding: 10px 20px; background-color: #0f39ac; color: white; border: none; border-radius: 5px; cursor: pointer;">Start Learning</button>
-      </div>
-      
+  <!-- ===== PAGE HERO ===== -->
+  <section class="page-hero">
+    <div class="page-hero-badge">📚 All Subjects</div>
+    <h1>What do you want to learn?</h1>
+    <p>Browse all subjects and start learning step by step — completely free.</p>
+    <div class="search-wrap">
+      <input type="text" id="searchInput" placeholder="Search a subject..." oninput="filterSubjects()" />
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ===== FILTER TABS ===== -->
+  <div class="filter-wrap">
+    <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+    <button class="filter-btn" onclick="setFilter('stem', this)">STEM</button>
+    <button class="filter-btn" onclick="setFilter('language', this)">Languages</button>
+    <button class="filter-btn" onclick="setFilter('arts', this)">Arts</button>
+    <button class="filter-btn" onclick="setFilter('social', this)">Social</button>
+  </div>
+
+  <!-- ===== SUBJECTS GRID ===== -->
+  <section class="subjects-section">
+    <div class="subjects-grid" id="subjectsGrid">
+
+      <div class="subject-card" data-category="stem" data-name="mathematics" onclick="location.href='mathematics.html'">
+        <span class="card-icon">📐</span>
+        <span class="card-tag">STEM</span>
+        <h3>Mathematics</h3>
+        <p>Numbers, algebra, geometry, calculus and more with clear examples.</p>
+        <button onclick="event.stopPropagation(); location.href='mathematics.html'">Start Learning</button>
+      </div>
+
+      <div class="subject-card" data-category="stem" data-name="science" onclick="location.href='science.html'">
+        <span class="card-icon">🔬</span>
+        <span class="card-tag">STEM</span>
+        <h3>Science</h3>
+        <p>Physics, chemistry, and biology explained step by step.</p>
+        <button onclick="event.stopPropagation(); location.href='science.html'">Start Learning</button>
+      </div>
+
+      <div class="subject-card" data-category="stem" data-name="programming" onclick="location.href='programming.html'">
+        <span class="card-icon">💻</span>
+        <span class="card-tag">STEM</span>
+        <h3>Programming</h3>
+        <p>HTML, CSS, JavaScript, Vue — build real projects from day one.</p>
+        <button onclick="event.stopPropagation(); location.href='programming.html'">Start Learning</button>
+      </div>
+
+      <div class="subject-card" data-category="language" data-name="languages" onclick="location.href='languages.html'">
+        <span class="card-icon">🌍</span>
+        <span class="card-tag">Languages</span>
+        <h3>Languages</h3>
+        <p>English, French, Kiswahili — communicate with confidence.</p>
+        <button onclick="event.stopPropagation(); location.href='languages.html'">Start Learning</button>
+      </div>
+
+      <div class="subject-card" data-category="social" data-name="history" onclick="location.href='history.html'">
+        <span class="card-icon">📜</span>
+        <span class="card-tag">Social</span>
+        <h3>History</h3>
+        <p>Ancient, medieval, and modern history made interesting.</p>
+        <button onclick="event.stopPropagation(); location.href='history.html'">Start Learning</button>
+      </div>
+
+      <div class="subject-card" data-category="social" data-name="geography" onclick="location.href='geography.html'">
+        <span class="card-icon">🌎</span>
+        <span class="card-tag">Social</span>
+        <h3>Geography</h3>
+        <p>Continents, maps, climate, and people from around the world.</p>
+        <button onclick="event.stopPropagation(); location.href='geography.html'">Start Learning</button>
+      </div>
+
+      <div class="subject-card" data-category="arts" data-name="art music" onclick="location.href='art-music.html'">
+        <span class="card-icon">🎨</span>
+        <span class="card-tag">Arts</span>
+        <h3>Art & Music</h3>
+        <p>Drawing, painting, instruments, and singing for every skill level.</p>
+        <button onclick="event.stopPropagation(); location.href='art-music.html'">Start Learning</button>
+      </div>
+
+      <div class="subject-card" data-category="all" data-name="other subjects more" onclick="location.href='others.html'">
+        <span class="card-icon">📚</span>
+        <span class="card-tag">More</span>
+        <h3>Other Subjects</h3>
+        <p>More topics coming soon — keep checking back for new content!</p>
+        <button onclick="event.stopPropagation(); location.href='others.html'">Explore</button>
+      </div>
+
+      <!-- no results message -->
+      <div class="no-results" id="noResults">
+        <div class="no-icon">🔍</div>
+        <h3>No subjects found</h3>
+        <p>Try searching for something else.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
   <footer>
-    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+    <p>&copy; 2026 KnotLearn. All rights reserved. Made with ❤️ for students.</p>
   </footer>
 
-  <!-- JAVASCRIPT - SAME AS INDEX -->
+  <!-- ===== JAVASCRIPT ===== -->
   <script>
-    // ===== KNOTLEARN - LANGUAGE & THEME CONTROLS =====
     const textData = {
-      en: {
-        home: "Home",
-        subjects: "Subjects",
-        quiz: "Quiz",
-        about: "About",
-        contact: "Feedback",
-        relax: "Relax"
-      },
-      fr: {
-        home: "Accueil",
-        subjects: "Matières",
-        quiz: "Quiz",
-        about: "À propos",
-        contact: "Contact",
-        relax: "Détente"
-      },
-      rw: {
-        home: "Ahabanza",
-        subjects: "Amasomo",
-        quiz: "Ikizamini",
-        about: "Ibyerekeye",
-        contact: "Twandikire",
-        relax: "Wuhura"
-      }
+      en: { home:"Home", subjects:"Subjects", quiz:"Quiz", about:"About", contact:"Feedback", relax:"Relax" },
+      fr: { home:"Accueil", subjects:"Matières", quiz:"Quiz", about:"À propos", contact:"Contact", relax:"Détente" },
+      rw: { home:"Ahabanza", subjects:"Amasomo", quiz:"Ikizamini", about:"Ibyerekeye", contact:"Twandikire", relax:"Wuhura" }
     };
 
     function changeLanguage() {
       const langSelect = document.getElementById("languageSelect");
       if (!langSelect) return;
-      
       const lang = langSelect.value;
       localStorage.setItem("knotlearn_lang", lang);
-
       document.getElementById("nav-home").innerText = textData[lang].home;
       document.getElementById("nav-subject").innerText = textData[lang].subjects;
       document.getElementById("nav-quiz").innerText = textData[lang].quiz;
@@ -174,27 +582,55 @@
       document.body.classList.toggle("dark");
       const isDark = document.body.classList.contains("dark");
       localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
-      
-      const themeBtn = document.getElementById("themeToggle");
-      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+      document.getElementById("themeToggle").innerText = isDark ? "☀️" : "🌙";
     }
 
-    window.onload = function() {
+    function toggleMenu() {
+      document.getElementById("mainNav").classList.toggle("open");
+    }
+
+    // ===== SEARCH =====
+    let activeFilter = 'all';
+
+    function filterSubjects() {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      const cards = document.querySelectorAll(".subject-card");
+      let visible = 0;
+
+      cards.forEach(card => {
+        const name = card.dataset.name || "";
+        const cat = card.dataset.category || "";
+        const matchSearch = name.includes(query);
+        const matchFilter = activeFilter === 'all' || cat === activeFilter;
+
+        if (matchSearch && matchFilter) {
+          card.classList.remove("hidden");
+          visible++;
+        } else {
+          card.classList.add("hidden");
+        }
+      });
+
+      document.getElementById("noResults").style.display = visible === 0 ? "block" : "none";
+    }
+
+    function setFilter(filter, btn) {
+      activeFilter = filter;
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      filterSubjects();
+    }
+
+    window.onload = function () {
       const savedLang = localStorage.getItem("knotlearn_lang");
       const savedTheme = localStorage.getItem("knotlearn_theme");
-
       if (savedLang) {
-        const langSelect = document.getElementById("languageSelect");
-        if (langSelect) {
-          langSelect.value = savedLang;
-          changeLanguage();
-        }
+        document.getElementById("languageSelect").value = savedLang;
+        changeLanguage();
       }
-
       if (savedTheme === "dark") {
         document.body.classList.add("dark");
-        const themeBtn = document.getElementById("themeToggle");
-        if (themeBtn) themeBtn.innerText = "☀️";
+        document.getElementById("themeToggle").innerText = "☀️";
       }
     };
   </script>

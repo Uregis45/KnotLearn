@@ -1,240 +1,492 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO META TAGS -->
   <meta name="description" content="KnotLearn - Science tutorials. Learn biology, chemistry, physics, and more with simple step-by-step lessons.">
   <meta name="keywords" content="science lessons, biology, chemistry, physics, living things, non-living things, states of matter, energy">
   <meta name="author" content="KnotLearn">
-  
-  <!-- SOCIAL SHARING -->
   <meta property="og:title" content="KnotLearn - Science">
   <meta property="og:description" content="Explore and understand the world of science with easy lessons.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="logo.png">
-  
   <title>KnotLearn - Science</title>
-  
-  <!-- MASTER CSS FILE -->
-  <link rel="stylesheet" href="style.css">
-  
+
   <style>
-    /* ===== SCIENCE PAGE - YOUR COLORS ===== */
-    .science-hero {
-      background: linear-gradient(135deg, #0f39ac 0%, #0b74de 100%);
-      color: white;
-      padding: 60px 20px;
+    :root {
+      --primary: #0f39ac;
+      --primary-light: #0b74de;
+      --accent: #00c2ff;
+      --bg: #f0f4ff;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --card-shadow: 0 8px 32px rgba(15,57,172,0.10);
+      --radius: 18px;
+      --transition: 0.3s cubic-bezier(.4,0,.2,1);
+    }
+
+    body.dark {
+      --bg: #0d1117;
+      --surface: #161b27;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --card-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--primary);
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(15,57,172,0.25);
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-wrap img { width: 48px; height: 48px; border-radius: 12px; object-fit: cover; }
+    .logo-name { font-size: 1.4rem; font-weight: 800; color: white; letter-spacing: -0.5px; }
+
+    nav ul { list-style: none; display: flex; align-items: center; gap: 6px; }
+
+    nav ul li a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    nav ul li a:hover, nav ul li a.active { background: rgba(255,255,255,0.15); color: white; }
+
+    .nav-controls { display: flex; gap: 8px; align-items: center; margin-left: 10px; }
+
+    #languageSelect {
+      padding: 6px 10px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1); color: white; font-size: 13px; cursor: pointer;
+    }
+
+    #languageSelect option { color: #1e293b; background: white; }
+
+    #themeToggle {
+      padding: 6px 10px; background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3); color: white;
+      border-radius: 8px; cursor: pointer; font-size: 16px;
+    }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; }
+
+    /* ===== PAGE HERO ===== */
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      padding: 70px 20px;
       text-align: center;
-      margin-bottom: 40px;
+      color: white;
+      position: relative;
+      overflow: hidden;
     }
-    
-    .science-hero h1 {
-      font-size: 3rem;
-      margin-bottom: 15px;
+
+    .page-hero::before {
+      content: ''; position: absolute;
+      width: 400px; height: 400px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%; top: -150px; right: -100px;
     }
-    
-    .science-hero p {
-      font-size: 1.3rem;
-      opacity: 0.95;
+
+    .page-hero::after {
+      content: ''; position: absolute;
+      width: 300px; height: 300px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%; bottom: -100px; left: -80px;
     }
-    
+
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 5px 18px; border-radius: 100px;
+      font-size: 0.82rem; font-weight: 600;
+      margin-bottom: 20px; position: relative; z-index: 1;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800; margin-bottom: 14px;
+      letter-spacing: -0.5px; position: relative; z-index: 1;
+    }
+
+    .page-hero p {
+      font-size: 1.05rem; opacity: 0.88;
+      max-width: 500px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+
+    /* ===== BREADCRUMB ===== */
+    .breadcrumb {
+      max-width: 1200px; margin: 28px auto 0;
+      padding: 0 20px; font-size: 0.85rem; color: var(--text-muted);
+    }
+
+    .breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    /* ===== MAIN CONTENT ===== */
     .science-container {
       max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px 60px;
+      margin: 40px auto;
+      padding: 0 20px 80px;
     }
-    
-    .section-title {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-    
-    .section-title h2 {
-      color: #0f39ac;
-      font-size: 2.2rem;
-      position: relative;
+
+    /* ===== SECTION HEADER ===== */
+    .section-header { text-align: center; margin-bottom: 40px; }
+
+    .section-tag {
       display: inline-block;
-      padding-bottom: 15px;
+      background: rgba(15,57,172,0.08);
+      color: var(--primary);
+      padding: 4px 16px; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;
     }
-    
-    .section-title h2:after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: #0f39ac;
-      border-radius: 2px;
+
+    body.dark .section-tag { background: rgba(11,116,222,0.15); color: var(--accent); }
+
+    .section-header h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800; color: var(--text);
     }
-    
+
+    .section-header p { color: var(--text-muted); margin-top: 10px; font-size: 1rem; }
+
+    /* ===== TOPICS GRID ===== */
     .topics-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-      gap: 30px;
-      margin-top: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
     }
-    
+
+    /* ===== TOPIC CARD ===== */
     .topic-card {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      border: 1px solid #e0e7ff;
-      transition: transform 0.2s;
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(15,57,172,0.07);
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+      animation: fadeUp 0.5s ease both;
     }
-    
+
+    .topic-card:nth-child(1) { animation-delay: 0.05s; }
+    .topic-card:nth-child(2) { animation-delay: 0.10s; }
+    .topic-card:nth-child(3) { animation-delay: 0.15s; }
+    .topic-card:nth-child(4) { animation-delay: 0.20s; }
+
+    .topic-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+
+    .topic-card:hover::before { transform: scaleX(1); }
+
     .topic-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(15, 57, 172, 0.15);
+      box-shadow: 0 20px 50px rgba(15,57,172,0.15);
     }
-    
-    .topic-icon {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
-    }
-    
+
+    .topic-icon { font-size: 2.8rem; margin-bottom: 16px; display: block; }
+
     .topic-card h2 {
-      color: #0f39ac;
-      margin-bottom: 15px;
-      font-size: 1.8rem;
+      font-size: 1.5rem; font-weight: 800;
+      color: var(--primary); margin-bottom: 10px;
     }
-    
-    .topic-card p {
-      color: #555;
-      margin-bottom: 15px;
-      line-height: 1.6;
+
+    body.dark .topic-card h2 { color: #7eb3ff; }
+
+    .topic-card > p {
+      color: var(--text-muted); font-size: 0.97rem;
+      margin-bottom: 20px; line-height: 1.7;
     }
-    
+
+    /* ===== EXAMPLES LIST ===== */
     .examples-list {
-      background: #f8fafc;
-      border-radius: 15px;
-      padding: 20px;
-      margin: 20px 0;
+      background: var(--bg);
+      border-radius: 14px;
+      padding: 20px 22px;
+      margin-bottom: 22px;
+      border: 1px solid rgba(15,57,172,0.06);
     }
-    
+
     .examples-list h4 {
-      color: #0f39ac;
-      margin-bottom: 12px;
+      color: var(--primary); margin-bottom: 12px;
+      font-size: 0.95rem; font-weight: 700;
+    }
+
+    body.dark .examples-list h4 { color: #7eb3ff; }
+
+    .examples-list ul { list-style: none; padding: 0; }
+
+    .examples-list li {
+      padding: 9px 0 9px 26px;
+      position: relative;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(15,57,172,0.05);
+    }
+
+    .examples-list li:last-child { border-bottom: none; }
+
+    .examples-list li::before {
+      content: "•";
+      color: var(--primary);
+      font-weight: 800;
+      position: absolute;
+      left: 6px;
       font-size: 1.1rem;
     }
-    
-    .examples-list ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    
-    .examples-list li {
-      padding: 8px 0;
-      padding-left: 25px;
-      position: relative;
-      color: #555;
-    }
-    
-    .examples-list li:before {
-      content: "•";
-      color: #0f39ac;
-      font-weight: bold;
-      position: absolute;
-      left: 5px;
-    }
-    
+
+    body.dark .examples-list li::before { color: var(--accent); }
+
+    /* ===== PRACTICE MODAL ===== */
     .practice-btn {
-      background: #0f39ac;
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 50px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.2s;
-      margin-top: 15px;
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 11px 22px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      transition: all var(--transition);
+      box-shadow: 0 4px 16px rgba(15,57,172,0.2);
     }
-    
+
     .practice-btn:hover {
-      background: #0b74de;
+      background: var(--primary-light);
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(15, 57, 172, 0.3);
+      box-shadow: 0 8px 24px rgba(15,57,172,0.3);
     }
-    
-    /* DARK MODE */
-    body.dark .topic-card {
-      background: #1e1e1e;
-      border-color: #333;
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(4px);
     }
-    
-    body.dark .topic-card p {
-      color: #ccc;
+
+    .modal-overlay.open { display: flex; }
+
+    .modal-box {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 40px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+      position: relative;
+      animation: fadeUp 0.3s ease both;
     }
-    
-    body.dark .examples-list {
-      background: #2d2d2d;
+
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: var(--bg);
+      border: none;
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition);
     }
-    
-    body.dark .examples-list li {
-      color: #ccc;
+
+    .modal-close:hover { background: rgba(239,68,68,0.1); color: #ef4444; }
+
+    .modal-topic {
+      display: inline-block;
+      background: rgba(15,57,172,0.08);
+      color: var(--primary);
+      padding: 3px 14px; border-radius: 100px;
+      font-size: 0.78rem; font-weight: 700;
+      text-transform: uppercase; margin-bottom: 14px;
     }
-    
-    body.dark .examples-list li:before {
-      color: #60a5fa;
+
+    body.dark .modal-topic { background: rgba(11,116,222,0.15); color: var(--accent); }
+
+    .modal-question {
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--text); margin-bottom: 22px; line-height: 1.5;
     }
-    
-    /* RESPONSIVE */
+
+    .modal-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+
+    .modal-opt {
+      padding: 13px 18px;
+      border: 2px solid rgba(15,57,172,0.1);
+      border-radius: 12px;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.95rem; font-weight: 500;
+      cursor: pointer;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      text-align: left;
+      transition: all var(--transition);
+    }
+
+    .modal-opt:hover { border-color: var(--primary); background: rgba(15,57,172,0.05); }
+    .modal-opt.correct { border-color: #22c55e; background: rgba(34,197,94,0.08); color: #16a34a; }
+    .modal-opt.wrong { border-color: #ef4444; background: rgba(239,68,68,0.08); color: #dc2626; }
+
+    .modal-feedback {
+      padding: 12px 16px; border-radius: 10px;
+      font-weight: 600; font-size: 0.9rem; display: none;
+    }
+
+    .modal-feedback.correct {
+      background: rgba(34,197,94,0.1); color: #16a34a;
+      border: 1px solid rgba(34,197,94,0.3); display: block;
+    }
+
+    .modal-feedback.wrong {
+      background: rgba(239,68,68,0.1); color: #dc2626;
+      border: 1px solid rgba(239,68,68,0.3); display: block;
+    }
+
+    .modal-next {
+      display: block; width: 100%; margin-top: 16px;
+      padding: 13px; background: var(--primary); color: white;
+      border: none; border-radius: 12px; font-size: 0.95rem;
+      font-weight: 700; cursor: pointer;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      transition: all var(--transition);
+    }
+
+    .modal-next:hover { background: var(--primary-light); }
+
+    /* ===== COMING SOON STRIP ===== */
+    .coming-soon {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: var(--radius);
+      padding: 40px;
+      text-align: center;
+      color: white;
+      margin-top: 10px;
+      animation: fadeUp 0.5s 0.25s ease both;
+    }
+
+    .coming-soon h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; }
+    .coming-soon p { opacity: 0.88; font-size: 0.95rem; margin-bottom: 22px; }
+
+    .coming-tags { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+    .coming-tag {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 6px 18px; border-radius: 100px;
+      font-size: 0.85rem; font-weight: 600;
+    }
+
+    /* ===== CTA ===== */
+    .cta-strip { text-align: center; margin-top: 28px; animation: fadeUp 0.5s 0.3s ease both; }
+    .cta-strip p { color: var(--text-muted); margin-bottom: 16px; }
+
+    .btn {
+      display: inline-block; padding: 13px 28px;
+      background: var(--primary); color: white;
+      text-decoration: none; border-radius: 12px;
+      font-weight: 700; font-size: 0.95rem;
+      transition: all var(--transition);
+      box-shadow: 0 4px 20px rgba(15,57,172,0.25);
+      margin: 6px;
+    }
+
+    .btn:hover { background: var(--primary-light); transform: translateY(-2px); }
+
+    .btn-outline {
+      background: transparent; border: 2px solid var(--primary);
+      color: var(--primary); box-shadow: none;
+    }
+
+    .btn-outline:hover { background: var(--primary); color: white; }
+
+    /* ===== FOOTER ===== */
+    footer { background: var(--primary); color: white; text-align: center; padding: 28px 20px; }
+    footer p { opacity: 0.85; font-size: 0.9rem; }
+
+    /* ===== ANIMATION ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .science-hero h1 {
-        font-size: 2.2rem;
-      }
-      
-      .science-hero p {
-        font-size: 1.1rem;
-      }
-      
-      .topics-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .section-title h2 {
-        font-size: 1.8rem;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      .science-hero {
-        padding: 40px 20px;
-      }
-      
-      .science-hero h1 {
-        font-size: 1.8rem;
-      }
-      
-      .topic-card {
-        padding: 20px;
-      }
-      
-      .topic-card h2 {
-        font-size: 1.5rem;
-      }
+      header { padding: 0 20px; }
+      nav { display: none; position: absolute; top: 72px; left: 0; right: 0;
+        background: var(--primary); padding: 20px; z-index: 99; }
+      nav.open { display: block; }
+      nav ul { flex-direction: column; gap: 8px; }
+      nav ul li a { display: block; padding: 10px 16px; }
+      .hamburger { display: flex; }
+      .topics-grid { grid-template-columns: 1fr; }
+      .topic-card { padding: 24px; }
+      .modal-box { padding: 28px 22px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ===== HEADER ===== -->
   <header>
-    <div>
-      <a href="index.html">
-        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
-      </a>
-    </div>
-    
-    <nav>
+    <a href="index.html" class="logo-wrap">
+      <img src="logo.png" alt="KnotLearn Logo">
+      <span class="logo-name">KnotLearn</span>
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="mainNav">
       <ul>
         <li><a href="index.html" id="nav-home">Home</a></li>
         <li><a href="subject.html" id="nav-subject">Subjects</a></li>
@@ -242,44 +494,46 @@
         <li><a href="about.html" id="nav-about">About</a></li>
         <li><a href="contact.html" id="nav-contact">Feedback</a></li>
         <li><a href="relax.html" id="nav-relax">Relax</a></li>
-        
         <li class="nav-controls">
           <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
             <option value="en">🇬🇧 English</option>
             <option value="fr">🇫🇷 Français</option>
             <option value="rw">🇷🇼 Kinyarwanda</option>
           </select>
-          
-          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
-            🌙
-          </button>
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">🌙</button>
         </li>
       </ul>
     </nav>
   </header>
 
-  <!-- SCIENCE HERO SECTION -->
-  <div class="science-hero">
-    <h1>🔬 Science</h1>
-    <p>Explore and understand the world around you</p>
+  <!-- ===== PAGE HERO ===== -->
+  <section class="page-hero">
+    <div class="page-hero-badge">🔬 Natural Sciences</div>
+    <h1>Science</h1>
+    <p>Explore and understand the world around you — step by step.</p>
+  </section>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="index.html">Home</a> › <a href="subject.html">Subjects</a> › Science
   </div>
 
-  <!-- SCIENCE TOPICS - YOUR EXACT CONTENT -->
+  <!-- ===== MAIN CONTENT ===== -->
   <div class="science-container">
-    
-    <div class="section-title">
-      <h2>📚 Science Topics</h2>
-      <p style="color: #666; margin-top: 15px;">Learn step by step with simple explanations</p>
+
+    <div class="section-header">
+      <div class="section-tag">Lessons</div>
+      <h2>Science Topics</h2>
+      <p>Learn step by step with simple explanations and practice questions</p>
     </div>
-    
+
     <div class="topics-grid">
-      
-      <!-- LIVING THINGS - YOUR EXACT WORDS -->
+
+      <!-- LIVING THINGS -->
       <div class="topic-card">
-        <div class="topic-icon">🌱</div>
+        <span class="topic-icon">🌱</span>
         <h2>Living Things</h2>
-        <p>Living things can grow, move, breathe, and reproduce.</p>
-        
+        <p>Living things can grow, move, breathe, and reproduce. They need food, water, and air to survive.</p>
         <div class="examples-list">
           <h4>📌 Examples:</h4>
           <ul>
@@ -288,18 +542,14 @@
             <li>Plants</li>
           </ul>
         </div>
-        
-        <button class="practice-btn" onclick="alert('Question: Name one living thing')">
-          ✏️ Practice
-        </button>
+        <button class="practice-btn" onclick="openPractice('living')">✏️ Practice</button>
       </div>
-      
-      <!-- NON-LIVING THINGS - YOUR EXACT WORDS -->
+
+      <!-- NON-LIVING THINGS -->
       <div class="topic-card">
-        <div class="topic-icon">🪨</div>
+        <span class="topic-icon">🪨</span>
         <h2>Non-Living Things</h2>
-        <p>Non-living things do not grow or breathe.</p>
-        
+        <p>Non-living things do not grow, breathe, or reproduce. They do not need food or water to exist.</p>
         <div class="examples-list">
           <h4>📌 Examples:</h4>
           <ul>
@@ -308,18 +558,14 @@
             <li>Chair</li>
           </ul>
         </div>
-        
-        <button class="practice-btn" onclick="alert('Question: Name one non-living thing')">
-          ✏️ Practice
-        </button>
+        <button class="practice-btn" onclick="openPractice('nonliving')">✏️ Practice</button>
       </div>
-      
-      <!-- STATES OF MATTER - YOUR EXACT WORDS -->
+
+      <!-- STATES OF MATTER -->
       <div class="topic-card">
-        <div class="topic-icon">💧</div>
+        <span class="topic-icon">💧</span>
         <h2>States of Matter</h2>
-        <p>Matter exists in three main states.</p>
-        
+        <p>Matter exists in three main states — solid, liquid, and gas. Each has different properties.</p>
         <div class="examples-list">
           <h4>📌 Examples:</h4>
           <ul>
@@ -328,18 +574,14 @@
             <li><strong>Gas:</strong> Air</li>
           </ul>
         </div>
-        
-        <button class="practice-btn" onclick="alert('Question: What state is water?')">
-          ✏️ Practice
-        </button>
+        <button class="practice-btn" onclick="openPractice('matter')">✏️ Practice</button>
       </div>
-      
-      <!-- ENERGY - YOUR EXACT WORDS -->
+
+      <!-- ENERGY -->
       <div class="topic-card">
-        <div class="topic-icon">⚡</div>
+        <span class="topic-icon">⚡</span>
         <h2>Energy</h2>
-        <p>Energy helps us do work and move.</p>
-        
+        <p>Energy helps us do work and move. It cannot be created or destroyed — only transformed.</p>
         <div class="examples-list">
           <h4>📌 Examples:</h4>
           <ul>
@@ -348,33 +590,176 @@
             <li>Sound energy</li>
           </ul>
         </div>
-        
-        <button class="practice-btn" onclick="alert('Question: Name one type of energy')">
-          ✏️ Practice
-        </button>
+        <button class="practice-btn" onclick="openPractice('energy')">✏️ Practice</button>
       </div>
-      
+
     </div>
-    
-    <!-- MORE TOPICS COMING SOON -->
-    <div style="text-align: center; margin-top: 50px; padding: 30px; background: #f0f7ff; border-radius: 15px;">
-      <p style="font-size: 1.2rem; color: #0f39ac; font-weight: bold;">
-        🧪 More science topics coming soon! Chemistry, Physics, Biology, and more.
-      </p>
+
+    <!-- COMING SOON -->
+    <div class="coming-soon">
+      <h3>🧪 More Topics Coming Soon!</h3>
+      <p>We're working on more science lessons just for you.</p>
+      <div class="coming-tags">
+        <span class="coming-tag">⚗️ Chemistry</span>
+        <span class="coming-tag">🔭 Physics</span>
+        <span class="coming-tag">🧬 Biology</span>
+        <span class="coming-tag">🌍 Earth Science</span>
+        <span class="coming-tag">🌌 Astronomy</span>
+      </div>
     </div>
-    
+
+    <!-- CTA -->
+    <div class="cta-strip">
+      <p>Want to test what you've learned?</p>
+      <a href="Quiz.html" class="btn">Take the Quiz 🧠</a>
+      <a href="subject.html" class="btn btn-outline">Browse All Subjects →</a>
+    </div>
+
   </div>
 
+  <!-- ===== PRACTICE MODAL ===== -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+    <div class="modal-box" id="modalBox">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-topic" id="modalTopic">Science</div>
+      <div class="modal-question" id="modalQuestion"></div>
+      <div class="modal-options" id="modalOptions"></div>
+      <div class="modal-feedback" id="modalFeedback"></div>
+      <button class="modal-next" id="modalNext" onclick="nextPractice()" style="display:none;">Next Question →</button>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
   <footer>
-    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+    <p>&copy; 2026 KnotLearn. All rights reserved. Made with ❤️ for students.</p>
   </footer>
 
+  <!-- ===== JAVASCRIPT ===== -->
   <script>
-    // ===== KNOTLEARN - LANGUAGE & THEME CONTROLS =====
+    // ===== PRACTICE QUESTIONS =====
+    const practiceData = {
+      living: {
+        topic: '🌱 Living Things',
+        questions: [
+          { q: 'Which of these is a living thing?', options: ['Stone', 'Dog', 'Chair'], answer: 1 },
+          { q: 'What do living things need to survive?', options: ['Only water', 'Food, water, and air', 'Only sunlight'], answer: 1 },
+          { q: 'Which one can reproduce?', options: ['Rock', 'Table', 'Plant'], answer: 2 }
+        ]
+      },
+      nonliving: {
+        topic: '🪨 Non-Living Things',
+        questions: [
+          { q: 'Which of these is a NON-living thing?', options: ['Tree', 'Fish', 'Stone'], answer: 2 },
+          { q: 'Non-living things do NOT:', options: ['Take up space', 'Grow or breathe', 'Have weight'], answer: 1 },
+          { q: 'Which one is non-living?', options: ['Mushroom', 'Bacteria', 'Water'], answer: 2 }
+        ]
+      },
+      matter: {
+        topic: '💧 States of Matter',
+        questions: [
+          { q: 'What state of matter is ice?', options: ['Liquid', 'Gas', 'Solid'], answer: 2 },
+          { q: 'When water is heated, it becomes?', options: ['Ice', 'Steam (Gas)', 'Solid'], answer: 1 },
+          { q: 'Which state has no fixed shape or volume?', options: ['Solid', 'Liquid', 'Gas'], answer: 2 }
+        ]
+      },
+      energy: {
+        topic: '⚡ Energy',
+        questions: [
+          { q: 'Which is a type of energy?', options: ['Stone', 'Light energy', 'Water'], answer: 1 },
+          { q: 'The sun gives us which energy?', options: ['Sound energy', 'Light and heat energy', 'Electrical energy'], answer: 1 },
+          { q: 'Energy can be:', options: ['Created from nothing', 'Transformed from one form to another', 'Destroyed easily'], answer: 1 }
+        ]
+      }
+    };
+
+    let currentTopic = null;
+    let currentQIndex = 0;
+    let practiceAnswered = false;
+
+    function openPractice(topic) {
+      currentTopic = topic;
+      currentQIndex = 0;
+      document.getElementById('modalOverlay').classList.add('open');
+      loadPracticeQuestion();
+    }
+
+    function loadPracticeQuestion() {
+      practiceAnswered = false;
+      const data = practiceData[currentTopic];
+      const q = data.questions[currentQIndex];
+
+      document.getElementById('modalTopic').textContent = data.topic;
+      document.getElementById('modalQuestion').textContent = q.q;
+      document.getElementById('modalFeedback').className = 'modal-feedback';
+      document.getElementById('modalFeedback').textContent = '';
+      document.getElementById('modalNext').style.display = 'none';
+
+      const optionsEl = document.getElementById('modalOptions');
+      optionsEl.innerHTML = '';
+      q.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'modal-opt';
+        btn.textContent = opt;
+        btn.onclick = () => checkPractice(i);
+        optionsEl.appendChild(btn);
+      });
+    }
+
+    function checkPractice(selected) {
+      if (practiceAnswered) return;
+      practiceAnswered = true;
+
+      const q = practiceData[currentTopic].questions[currentQIndex];
+      const opts = document.querySelectorAll('.modal-opt');
+      const feedback = document.getElementById('modalFeedback');
+
+      opts.forEach((btn, i) => {
+        btn.style.pointerEvents = 'none';
+        if (i === q.answer) btn.classList.add('correct');
+        if (i === selected && selected !== q.answer) btn.classList.add('wrong');
+      });
+
+      if (selected === q.answer) {
+        feedback.className = 'modal-feedback correct';
+        feedback.textContent = '✅ Correct! Great job!';
+      } else {
+        feedback.className = 'modal-feedback wrong';
+        feedback.textContent = `❌ Wrong! Correct answer: ${q.options[q.answer]}`;
+      }
+
+      const total = practiceData[currentTopic].questions.length;
+      const nextBtn = document.getElementById('modalNext');
+      if (currentQIndex + 1 < total) {
+        nextBtn.textContent = 'Next Question →';
+      } else {
+        nextBtn.textContent = '🎉 Done!';
+      }
+      nextBtn.style.display = 'block';
+    }
+
+    function nextPractice() {
+      const total = practiceData[currentTopic].questions.length;
+      currentQIndex++;
+      if (currentQIndex < total) {
+        loadPracticeQuestion();
+      } else {
+        closeModal();
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('open');
+    }
+
+    function closeModalOutside(e) {
+      if (e.target === document.getElementById('modalOverlay')) closeModal();
+    }
+
+    // ===== LANGUAGE & THEME =====
     const textData = {
-      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
-      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
-      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+      en: { home:"Home", subjects:"Subjects", quiz:"Quiz", about:"About", contact:"Feedback", relax:"Relax" },
+      fr: { home:"Accueil", subjects:"Matières", quiz:"Quiz", about:"À propos", contact:"Contact", relax:"Détente" },
+      rw: { home:"Ahabanza", subjects:"Amasomo", quiz:"Ikizamini", about:"Ibyerekeye", contact:"Twandikire", relax:"Wuhura" }
     };
 
     function changeLanguage() {
@@ -382,7 +767,6 @@
       if (!langSelect) return;
       const lang = langSelect.value;
       localStorage.setItem("knotlearn_lang", lang);
-      
       document.getElementById("nav-home").innerText = textData[lang].home;
       document.getElementById("nav-subject").innerText = textData[lang].subjects;
       document.getElementById("nav-quiz").innerText = textData[lang].quiz;
@@ -395,26 +779,20 @@
       document.body.classList.toggle("dark");
       const isDark = document.body.classList.contains("dark");
       localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
-      const themeBtn = document.getElementById("themeToggle");
-      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+      document.getElementById("themeToggle").innerText = isDark ? "☀️" : "🌙";
     }
 
-    window.onload = function() {
+    function toggleMenu() {
+      document.getElementById("mainNav").classList.toggle("open");
+    }
+
+    window.onload = function () {
       const savedLang = localStorage.getItem("knotlearn_lang");
       const savedTheme = localStorage.getItem("knotlearn_theme");
-
-      if (savedLang) {
-        const langSelect = document.getElementById("languageSelect");
-        if (langSelect) {
-          langSelect.value = savedLang;
-          changeLanguage();
-        }
-      }
-
+      if (savedLang) { document.getElementById("languageSelect").value = savedLang; changeLanguage(); }
       if (savedTheme === "dark") {
         document.body.classList.add("dark");
-        const themeBtn = document.getElementById("themeToggle");
-        if (themeBtn) themeBtn.innerText = "☀️";
+        document.getElementById("themeToggle").innerText = "☀️";
       }
     };
   </script>

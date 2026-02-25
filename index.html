@@ -1,36 +1,609 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO META TAGS - HELPS STUDENTS FIND YOU -->
   <meta name="description" content="KnotLearn - Free step-by-step tutorials in Math, Science, Programming, and Languages. Learn anything, anytime, for free.">
   <meta name="keywords" content="free learning, math tutorials, programming for beginners, science lessons, language learning">
   <meta name="author" content="KnotLearn">
-  
-  <!-- SOCIAL SHARING META (WHEN STUDENTS SHARE YOUR LINK) -->
   <meta property="og:title" content="KnotLearn - Learn anything, anytime!">
   <meta property="og:description" content="Free step-by-step tutorials for students of all ages.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="logo.png">
-  
   <title>KnotLearn - Free Online Learning Platform</title>
-  
-  <!-- ONE MASTER CSS FILE FOR ALL PAGES -->
-  <link rel="stylesheet" href="style.css">
+
+
+
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --primary: #0f39ac;
+      --primary-light: #0b74de;
+      --accent: #00c2ff;
+      --bg: #f0f4ff;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --card-shadow: 0 8px 32px rgba(15,57,172,0.10);
+      --radius: 18px;
+      --transition: 0.3s cubic-bezier(.4,0,.2,1);
+    }
+
+    body.dark {
+      --bg: #0d1117;
+      --surface: #161b27;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --card-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+      overflow-x: hidden;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--primary);
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(15,57,172,0.25);
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-wrap img {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .logo-name {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; letter-spacing: -0.5px;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -0.5px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    nav ul li a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    nav ul li a:hover {
+      background: rgba(255,255,255,0.15);
+      color: white;
+    }
+
+    .nav-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-left: 10px;
+    }
+
+    #languageSelect {
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-size: 13px;
+      cursor: pointer;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    #languageSelect option { color: #1e293b; background: white; }
+
+    #themeToggle {
+      padding: 6px 10px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background var(--transition);
+    }
+
+    #themeToggle:hover { background: rgba(255,255,255,0.2); }
+
+    /* ===== HAMBURGER ===== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      background: none;
+      border: none;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: white;
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 20px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #e8eeff 0%, #dff0ff 50%, #e0f7ff 100%);
+      z-index: 0;
+    }
+
+    body.dark .hero-bg {
+      background: linear-gradient(135deg, #0d1117 0%, #111827 50%, #0a1628 100%);
+    }
+
+    /* Decorative blobs */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.25;
+      z-index: 0;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .blob-1 {
+      width: 500px; height: 500px;
+      background: var(--primary);
+      top: -150px; left: -100px;
+    }
+
+    .blob-2 {
+      width: 400px; height: 400px;
+      background: var(--accent);
+      bottom: -100px; right: -80px;
+      animation-delay: -4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(15,57,172,0.1);
+      color: var(--primary);
+      border: 1px solid rgba(15,57,172,0.2);
+      padding: 6px 18px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 28px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    body.dark .hero-badge {
+      background: rgba(11,116,222,0.15);
+      color: var(--accent);
+      border-color: rgba(11,116,222,0.3);
+    }
+
+    .hero h1 {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; letter-spacing: -0.5px;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.1;
+      margin-bottom: 22px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    body.dark .hero h1 { color: #7eb3ff; }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+      box-shadow: 0 4px 20px rgba(15,57,172,0.3);
+    }
+
+    .btn:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(15,57,172,0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      box-shadow: none;
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    body.dark .btn-outline {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    body.dark .btn-outline:hover {
+      background: var(--accent);
+      color: #0d1117;
+    }
+
+    /* ===== STATS STRIP ===== */
+    .stats {
+      background: var(--primary);
+      padding: 28px 40px;
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+      color: white;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .stat-num {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; letter-spacing: -0.5px;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      opacity: 0.85;
+      margin-top: 2px;
+    }
+
+    /* ===== SUBJECTS ===== */
+    .subjects {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      background: rgba(15,57,172,0.08);
+      color: var(--primary);
+      padding: 4px 16px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    body.dark .section-tag {
+      background: rgba(11,116,222,0.15);
+      color: var(--accent);
+    }
+
+    .section-header h2 {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; letter-spacing: -0.5px;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--surface);
+      padding: 32px 28px;
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      text-align: center;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition);
+      border: 1px solid rgba(15,57,172,0.06);
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+
+    .card:hover::before { transform: scaleX(1); }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(15,57,172,0.15);
+    }
+
+    .card-icon {
+      font-size: 2.8rem;
+      margin-bottom: 18px;
+      display: block;
+    }
+
+    .card h3 {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; letter-spacing: -0.5px;
+      color: var(--primary);
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+    }
+
+    body.dark .card h3 { color: #7eb3ff; }
+
+    .card p {
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .card button {
+      padding: 10px 24px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      transition: background var(--transition), transform var(--transition);
+    }
+
+    .card button:hover {
+      background: var(--primary-light);
+      transform: scale(1.04);
+    }
+
+    /* card stagger */
+    .card:nth-child(1) { animation-delay: 0.05s; }
+    .card:nth-child(2) { animation-delay: 0.1s; }
+    .card:nth-child(3) { animation-delay: 0.15s; }
+    .card:nth-child(4) { animation-delay: 0.2s; }
+
+    /* ===== WHY KNOTLEARN ===== */
+    .why-section {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      padding: 80px 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .why-section h2 {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; letter-spacing: -0.5px;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .why-section > p {
+      opacity: 0.85;
+      margin-bottom: 50px;
+      font-size: 1.05rem;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .why-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      padding: 30px 24px;
+      transition: transform var(--transition), background var(--transition);
+    }
+
+    .why-card:hover {
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.17);
+    }
+
+    .why-icon { font-size: 2.2rem; margin-bottom: 14px; }
+
+    .why-card h3 {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; letter-spacing: -0.5px;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .why-card p { opacity: 0.82; font-size: 0.9rem; line-height: 1.6; }
+
+    /* ===== CTA SECTION ===== */
+    .cta-section {
+      padding: 90px 20px;
+      text-align: center;
+      background: var(--bg);
+    }
+
+    .cta-box {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--surface);
+      border-radius: 24px;
+      padding: 60px 40px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(15,57,172,0.07);
+    }
+
+    .cta-box h2 {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; letter-spacing: -0.5px;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+
+    .cta-box p {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      font-size: 1rem;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 28px 20px;
+    }
+
+    footer p { opacity: 0.85; font-size: 0.9rem; }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      header { padding: 0 20px; }
+
+      .logo-name { font-size: 1.2rem; }
+
+      nav { display: none; position: absolute; top: 72px; left: 0; right: 0;
+        background: var(--primary); padding: 20px; z-index: 99; }
+      nav.open { display: block; }
+
+      nav ul { flex-direction: column; gap: 8px; }
+      nav ul li a { display: block; padding: 10px 16px; }
+
+      .hamburger { display: flex; }
+
+      .stats { gap: 30px; padding: 24px 20px; }
+
+      .why-grid { grid-template-columns: 1fr 1fr; }
+
+      .cta-box { padding: 40px 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .why-grid { grid-template-columns: 1fr; }
+      .hero-btns { flex-direction: column; align-items: center; }
+    }
+  </style>
 </head>
 <body>
 
+  <!-- ===== HEADER ===== -->
   <header>
-    <!-- YOUR LOGO - FIXED ALT TEXT FOR ACCESSIBILITY -->
-    <div>
-      <a href="index.html">
-        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
-      </a>
-    </div>
-    
-    <nav>
+    <a href="index.html" class="logo-wrap">
+      <img src="logo.png" alt="KnotLearn Logo">
+      <span class="logo-name">KnotLearn</span>
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="mainNav">
       <ul>
         <li><a href="index.html" id="nav-home">Home</a></li>
         <li><a href="subject.html" id="nav-subject">Subjects</a></li>
@@ -38,107 +611,149 @@
         <li><a href="about.html" id="nav-about">About</a></li>
         <li><a href="contact.html" id="nav-contact">Feedback</a></li>
         <li><a href="relax.html" id="nav-relax">Relax</a></li>
-        
-        <!-- LANGUAGE & THEME CONTROLS - VISIBLE TO ALL STUDENTS -->
         <li class="nav-controls">
           <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
             <option value="en">🇬🇧 English</option>
             <option value="fr">🇫🇷 Français</option>
             <option value="rw">🇷🇼 Kinyarwanda</option>
           </select>
-          
-          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
-            🌙
-          </button>
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">🌙</button>
         </li>
       </ul>
     </nav>
   </header>
 
-  <!-- HERO SECTION - YOUR EXACT WORDS -->
+  <!-- ===== HERO ===== -->
   <section class="hero">
-    <h1>Learn anything, anytime!</h1>
-    <p>Step-by-step tutorials and exercises for students of all ages.</p>
-    <a href="subject.html" class="btn">Start Learning</a>
-  </section>
+    <div class="hero-bg"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
 
-  <!-- FEATURED SUBJECTS - YOUR EXACT CONTENT -->
-  <section class="subjects">
-    <h2>Featured Subjects</h2>
-    <div class="cards">
-      
-      <div class="card" onclick="location.href='mathematics.html'" style="cursor: pointer;">
-        <h3>Math</h3>
-        <p>Master algebra, geometry, calculus, and more.</p>
-        <button onclick="event.stopPropagation(); location.href='mathematics.html'">Start Learning</button>
+    <div class="hero-content">
+      <span class="hero-badge">✨ Free for all students</span>
+      <h1>Learn anything,<br>anytime!</h1>
+      <p>Step-by-step tutorials and exercises for students of all ages — Math, Science, Programming, and Languages.</p>
+      <div class="hero-btns">
+        <a href="subject.html" class="btn">Start Learning →</a>
+        <a href="about.html" class="btn btn-outline">Learn More</a>
       </div>
-      
-      <div class="card" onclick="location.href='science.html'" style="cursor: pointer;">
-        <h3>Science</h3>
-        <p>Learn physics, chemistry, biology step by step.</p>
-        <button onclick="event.stopPropagation(); location.href='science.html'">Start Learning</button>
-      </div>
-      
-      <div class="card" onclick="location.href='programming.html'" style="cursor: pointer;">
-        <h3>Programming</h3>
-        <p>HTML, CSS, JavaScript, Game in Vue</p>
-        <button onclick="event.stopPropagation(); location.href='programming.html'">Start Learning</button>
-      </div>
-      
-      <div class="card" onclick="location.href='languages.html'" style="cursor: pointer;">
-        <h3>Languages</h3>
-        <p>Improve English, French, Spanish, and more.</p>
-        <button onclick="event.stopPropagation(); location.href='languages.html'">Start Learning</button>
-      </div>
-      
     </div>
   </section>
 
-  <!-- FOOTER - YOUR EXACT COPYRIGHT -->
+  <!-- ===== STATS STRIP ===== -->
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-num">4+</div>
+      <div class="stat-label">Subjects</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Free Forever</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Languages</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Learning Resources</div>
+    </div>
+  </div>
+
+  <!-- ===== FEATURED SUBJECTS ===== -->
+  <section class="subjects">
+    <div class="section-header">
+      <div class="section-tag">Explore</div>
+      <h2>Featured Subjects</h2>
+      <p>Pick a subject and start learning at your own pace, step by step.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card" onclick="location.href='mathematics.html'">
+        <span class="card-icon">📐</span>
+        <h3>Math</h3>
+        <p>Master algebra, geometry, calculus, and more with clear examples.</p>
+        <button onclick="event.stopPropagation(); location.href='mathematics.html'">Start Learning</button>
+      </div>
+
+      <div class="card" onclick="location.href='science.html'">
+        <span class="card-icon">🔬</span>
+        <h3>Science</h3>
+        <p>Learn physics, chemistry, and biology step by step with experiments.</p>
+        <button onclick="event.stopPropagation(); location.href='science.html'">Start Learning</button>
+      </div>
+
+      <div class="card" onclick="location.href='programming.html'">
+        <span class="card-icon">💻</span>
+        <h3>Programming</h3>
+        <p>HTML, CSS, JavaScript, and more — build real projects from day one.</p>
+        <button onclick="event.stopPropagation(); location.href='programming.html'">Start Learning</button>
+      </div>
+
+      <div class="card" onclick="location.href='languages.html'">
+        <span class="card-icon">🌍</span>
+        <h3>Languages</h3>
+        <p>Improve your English, French, Spanish and communicate confidently.</p>
+        <button onclick="event.stopPropagation(); location.href='languages.html'">Start Learning</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY KNOTLEARN ===== -->
+  <section class="why-section">
+    <h2>Why KnotLearn?</h2>
+    <p>Built for students, by students — here's what makes us different.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🆓</div>
+        <h3>100% Free</h3>
+        <p>No subscriptions, no paywalls. All content is free for every student.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📱</div>
+        <h3>Works Everywhere</h3>
+        <p>Learn on your phone, tablet, or computer — anytime, anywhere.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🌐</div>
+        <h3>Multilingual</h3>
+        <p>Available in English, French, and Kinyarwanda for local students.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🎯</div>
+        <h3>Step-by-Step</h3>
+        <p>Every lesson is broken down into simple, easy-to-follow steps.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA SECTION ===== -->
+  <section class="cta-section">
+    <div class="cta-box">
+      <h2>Ready to start learning? 🚀</h2>
+      <p>Join thousands of students already learning on KnotLearn — for free.</p>
+      <a href="subject.html" class="btn">Browse All Subjects</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
   <footer>
-    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+    <p>&copy; 2026 KnotLearn. All rights reserved. Made with ❤️ for students.</p>
   </footer>
 
-  <!-- JAVASCRIPT - FIXED LANGUAGE & THEME -->
+  <!-- ===== JAVASCRIPT ===== -->
   <script>
-    // ===== KNOTLEARN - LANGUAGE & THEME CONTROLS =====
-    // YOUR CODE - I ONLY FIXED WHAT WAS BROKEN
-    
     const textData = {
-      en: {
-        home: "Home",
-        subjects: "Subjects",
-        quiz: "Quiz",
-        about: "About",
-        contact: "Feedback",
-        relax: "Relax"
-      },
-      fr: {
-        home: "Accueil",
-        subjects: "Matières",
-        quiz: "Quiz",
-        about: "À propos",
-        contact: "Contact",
-        relax: "Détente"
-      },
-      rw: {
-        home: "Ahabanza",
-        subjects: "Amasomo",
-        quiz: "Ikizamini",
-        about: "Ibyerekeye",
-        contact: "Twandikire",
-        relax: "Wuhura"
-      }
+      en: { home:"Home", subjects:"Subjects", quiz:"Quiz", about:"About", contact:"Feedback", relax:"Relax" },
+      fr: { home:"Accueil", subjects:"Matières", quiz:"Quiz", about:"À propos", contact:"Contact", relax:"Détente" },
+      rw: { home:"Ahabanza", subjects:"Amasomo", quiz:"Ikizamini", about:"Ibyerekeye", contact:"Twandikire", relax:"Wuhura" }
     };
 
     function changeLanguage() {
       const langSelect = document.getElementById("languageSelect");
       if (!langSelect) return;
-      
       const lang = langSelect.value;
       localStorage.setItem("knotlearn_lang", lang);
-
-      // Update navigation text
       document.getElementById("nav-home").innerText = textData[lang].home;
       document.getElementById("nav-subject").innerText = textData[lang].subjects;
       document.getElementById("nav-quiz").innerText = textData[lang].quiz;
@@ -149,39 +764,36 @@
 
     function toggleTheme() {
       document.body.classList.toggle("dark");
-      
-      // Save theme preference
       const isDark = document.body.classList.contains("dark");
       localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
-      
-      // Update button icon
-      const themeBtn = document.getElementById("themeToggle");
-      if (themeBtn) {
-        themeBtn.innerText = isDark ? "☀️" : "🌙";
-      }
+      document.getElementById("themeToggle").innerText = isDark ? "☀️" : "🌙";
     }
 
-    // Load saved preferences
-    window.onload = function() {
+    function toggleMenu() {
+      document.getElementById("mainNav").classList.toggle("open");
+    }
+
+    window.onload = function () {
       const savedLang = localStorage.getItem("knotlearn_lang");
       const savedTheme = localStorage.getItem("knotlearn_theme");
-
-      // Restore language
       if (savedLang) {
-        const langSelect = document.getElementById("languageSelect");
-        if (langSelect) {
-          langSelect.value = savedLang;
-          changeLanguage();
-        }
+        document.getElementById("languageSelect").value = savedLang;
+        changeLanguage();
       }
-
-      // Restore theme
       if (savedTheme === "dark") {
         document.body.classList.add("dark");
-        const themeBtn = document.getElementById("themeToggle");
-        if (themeBtn) themeBtn.innerText = "☀️";
+        document.getElementById("themeToggle").innerText = "☀️";
       }
     };
+
+    // Animate cards on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.style.opacity = "1";
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.card, .why-card, .stat-item').forEach(el => observer.observe(el));
   </script>
 
 </body>

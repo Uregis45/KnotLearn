@@ -1,364 +1,609 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO META TAGS -->
   <meta name="description" content="KnotLearn - Send us your feedback. We value your questions, suggestions, and messages.">
   <meta name="keywords" content="contact KnotLearn, feedback, send message, support">
   <meta name="author" content="KnotLearn">
-  
-  <!-- SOCIAL SHARING -->
   <meta property="og:title" content="KnotLearn - Feedback">
   <meta property="og:description" content="Send us your message. We'd love to hear from you.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="logo.png">
-  
   <title>KnotLearn - Feedback</title>
-  
-  <!-- MASTER CSS FILE -->
-  <link rel="stylesheet" href="style.css">
-  
+
   <style>
-    /* ===== CONTACT PAGE - YOUR COLORS ===== */
-    .contact-wrapper {
-      max-width: 700px;
-      margin: 50px auto;
-      padding: 0 20px;
+    :root {
+      --primary: #0f39ac;
+      --primary-light: #0b74de;
+      --accent: #00c2ff;
+      --bg: #f0f4ff;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --card-shadow: 0 8px 32px rgba(15,57,172,0.10);
+      --radius: 18px;
+      --transition: 0.3s cubic-bezier(.4,0,.2,1);
     }
-    
-    .contact-card {
+
+    body.dark {
+      --bg: #0d1117;
+      --surface: #161b27;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --card-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--primary);
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(15,57,172,0.25);
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-wrap img {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .logo-name {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -0.5px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    nav ul li a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: rgba(255,255,255,0.15);
+      color: white;
+    }
+
+    .nav-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-left: 10px;
+    }
+
+    #languageSelect {
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    #languageSelect option { color: #1e293b; background: white; }
+
+    #themeToggle {
+      padding: 6px 10px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      background: none;
+      border: none;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
       background: white;
-      border-radius: 20px;
-      padding: 50px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      border: 1px solid #e0e7ff;
-    }
-    
-    .contact-header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    
-    .contact-header h1 {
-      color: #0f39ac;
-      font-size: 2.5rem;
-      margin-bottom: 15px;
-      position: relative;
-      display: inline-block;
-    }
-    
-    .contact-header h1:after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
-      height: 4px;
-      background: #0f39ac;
       border-radius: 2px;
     }
-    
-    .contact-header p {
-      color: #555;
-      font-size: 1.1rem;
-      margin-top: 20px;
+
+    /* ===== PAGE HERO ===== */
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      padding: 70px 20px;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
     }
-    
-    /* FORM STYLES */
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      top: -150px; right: -100px;
+    }
+
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      bottom: -100px; left: -80px;
+    }
+
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 5px 18px;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 14px;
+      letter-spacing: -0.5px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-hero p {
+      font-size: 1.05rem;
+      opacity: 0.88;
+      max-width: 500px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    .contact-wrapper {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* ===== FORM CARD ===== */
+    .form-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 44px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(15,57,172,0.07);
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .form-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+
+    .form-card h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .form-card .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 32px;
+    }
+
+    /* ===== FORM ===== */
     .contact-form {
       display: flex;
       flex-direction: column;
-      gap: 25px;
+      gap: 20px;
     }
-    
+
     .form-group {
       display: flex;
       flex-direction: column;
       gap: 8px;
     }
-    
+
     .form-group label {
-      font-weight: bold;
-      color: #0f39ac;
-      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
     }
-    
+
+    body.dark .form-group label { color: #7eb3ff; }
+
     .form-group input,
-    .form-group textarea {
-      padding: 15px;
-      border: 2px solid #e2e8f0;
-      border-radius: 10px;
-      font-size: 1rem;
-      transition: all 0.2s;
-      background: #f8fafc;
-    }
-    
-    .form-group input:focus,
-    .form-group textarea:focus {
-      border-color: #0f39ac;
+    .form-group textarea,
+    .form-group select {
+      padding: 14px 16px;
+      border: 2px solid rgba(15,57,172,0.12);
+      border-radius: 12px;
+      font-size: 0.97rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: all var(--transition);
       outline: none;
-      box-shadow: 0 0 0 3px rgba(15, 57, 172, 0.1);
-      background: white;
     }
-    
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--primary);
+      background: var(--surface);
+      box-shadow: 0 0 0 4px rgba(15,57,172,0.08);
+    }
+
     .form-group input:hover,
-    .form-group textarea:hover {
-      border-color: #0b74de;
+    .form-group textarea:hover,
+    .form-group select:hover {
+      border-color: var(--primary-light);
     }
-    
+
     .form-group textarea {
       resize: vertical;
-      min-height: 150px;
+      min-height: 140px;
+      line-height: 1.6;
     }
-    
+
+    /* character count */
+    .char-count {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: right;
+      margin-top: -4px;
+    }
+
     .submit-btn {
-      background: #0f39ac;
+      padding: 16px;
+      background: var(--primary);
       color: white;
       border: none;
-      padding: 18px 30px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border-radius: 50px;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s;
-      margin-top: 15px;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      transition: all var(--transition);
+      box-shadow: 0 4px 20px rgba(15,57,172,0.25);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
+      margin-top: 6px;
     }
-    
+
     .submit-btn:hover {
-      background: #0b74de;
+      background: var(--primary-light);
       transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(15, 57, 172, 0.2);
+      box-shadow: 0 8px 28px rgba(15,57,172,0.35);
     }
-    
-    .submit-btn:active {
-      transform: translateY(0);
-    }
-    
-    /* SUCCESS MESSAGE */
+
+    /* ===== SUCCESS MESSAGE ===== */
     .success-message {
       display: none;
-      background: #10b981;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
       color: white;
-      padding: 15px 20px;
+      padding: 18px 22px;
+      border-radius: 14px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-top: 6px;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .success-message.show { display: block; }
+
+    /* ===== SIDE INFO CARDS ===== */
+    .side-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      animation: fadeUp 0.5s 0.1s ease both;
+    }
+
+    .info-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 26px 24px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(15,57,172,0.07);
+      transition: transform var(--transition);
+    }
+
+    .info-card:hover { transform: translateY(-3px); }
+
+    .info-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .info-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .info-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* cta strip */
+    .side-cta {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      color: white;
+      text-align: center;
+    }
+
+    .side-cta h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 8px; }
+    .side-cta p { font-size: 0.85rem; opacity: 0.88; margin-bottom: 18px; }
+
+    .side-cta a {
+      display: inline-block;
+      background: white;
+      color: var(--primary);
+      padding: 10px 22px;
       border-radius: 10px;
-      margin-top: 20px;
-      text-align: center;
-      font-weight: bold;
-      animation: slideIn 0.3s ease;
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: transform var(--transition);
     }
-    
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    /* CONTACT INFO */
-    .contact-info {
-      margin-top: 40px;
-      padding-top: 30px;
-      border-top: 2px solid #e2e8f0;
-      text-align: center;
-      color: #555;
-    }
-    
-    .contact-info p {
-      margin-bottom: 10px;
-    }
-    
-    .contact-info i {
-      color: #0f39ac;
-      font-weight: bold;
-    }
-    
-    /* DARK MODE */
-    body.dark .contact-card {
-      background: #1e1e1e;
-      border-color: #333;
-    }
-    
-    body.dark .contact-header p {
-      color: #ccc;
-    }
-    
-    body.dark .form-group input,
-    body.dark .form-group textarea {
-      background: #2d2d2d;
-      border-color: #444;
+
+    .side-cta a:hover { transform: translateY(-2px); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--primary);
       color: white;
+      text-align: center;
+      padding: 28px 20px;
     }
-    
-    body.dark .form-group input:focus,
-    body.dark .form-group textarea:focus {
-      border-color: #0f39ac;
-      background: #333;
+
+    footer p { opacity: 0.85; font-size: 0.9rem; }
+
+    /* ===== ANIMATION ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    
-    body.dark .form-group label {
-      color: #60a5fa;
-    }
-    
-    body.dark .contact-info {
-      border-top-color: #444;
-      color: #ccc;
-    }
-    
-    /* RESPONSIVE */
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .contact-card {
-        padding: 35px;
-      }
-      
-      .contact-header h1 {
-        font-size: 2rem;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      .contact-card {
-        padding: 25px;
-      }
-      
-      .contact-header h1 {
-        font-size: 1.8rem;
-      }
-      
-      .submit-btn {
-        padding: 15px 20px;
-        font-size: 1.1rem;
-      }
+      header { padding: 0 20px; }
+      nav { display: none; position: absolute; top: 72px; left: 0; right: 0;
+        background: var(--primary); padding: 20px; z-index: 99; }
+      nav.open { display: block; }
+      nav ul { flex-direction: column; gap: 8px; }
+      nav ul li a { display: block; padding: 10px 16px; }
+      .hamburger { display: flex; }
+      .contact-wrapper { grid-template-columns: 1fr; }
+      .form-card { padding: 28px 22px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ===== HEADER ===== -->
   <header>
-    <div>
-      <a href="index.html">
-        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
-      </a>
-    </div>
-    
-    <nav>
+    <a href="index.html" class="logo-wrap">
+      <img src="logo.png" alt="KnotLearn Logo">
+      <span class="logo-name">KnotLearn</span>
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="mainNav">
       <ul>
         <li><a href="index.html" id="nav-home">Home</a></li>
         <li><a href="subject.html" id="nav-subject">Subjects</a></li>
         <li><a href="Quiz.html" id="nav-quiz">Quiz</a></li>
         <li><a href="about.html" id="nav-about">About</a></li>
-        <li><a href="contact.html" id="nav-contact">Feedback</a></li>
+        <li><a href="contact.html" id="nav-contact" class="active">Feedback</a></li>
         <li><a href="relax.html" id="nav-relax">Relax</a></li>
-        
-        <!-- LANGUAGE & THEME CONTROLS -->
         <li class="nav-controls">
           <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
             <option value="en">🇬🇧 English</option>
             <option value="fr">🇫🇷 Français</option>
             <option value="rw">🇷🇼 Kinyarwanda</option>
           </select>
-          
-          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
-            🌙
-          </button>
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">🌙</button>
         </li>
       </ul>
     </nav>
   </header>
 
+  <!-- ===== PAGE HERO ===== -->
+  <section class="page-hero">
+    <div class="page-hero-badge">📬 Get In Touch</div>
+    <h1>Send Us Feedback</h1>
+    <p>We'd love to hear your questions, suggestions, or anything on your mind!</p>
+  </section>
+
+  <!-- ===== MAIN CONTENT ===== -->
   <div class="contact-wrapper">
-    <div class="contact-card">
-      
-      <div class="contact-header">
-        <h1>📬 Feedback</h1>
-        <p>We'd love to hear from you. Send us your questions, suggestions, or feedback.</p>
-      </div>
-      
-      <!-- CONTACT FORM - YOUR EXACT FIELDS -->
+
+    <!-- FORM -->
+    <div class="form-card">
+      <h2>Send a Message</h2>
+      <p class="subtitle">Fill in the form below and we'll get back to you within 24–48 hours.</p>
+
       <form id="contactForm" class="contact-form" onsubmit="sendMessage(); return false;">
-        
+
         <div class="form-group">
           <label for="name">Full Name</label>
-          <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+          <input type="text" id="name" placeholder="Enter your full name" required>
         </div>
-        
+
         <div class="form-group">
           <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="Enter your email" required>
+          <input type="email" id="email" placeholder="Enter your email address" required>
         </div>
-        
+
+        <div class="form-group">
+          <label for="category">Feedback Type</label>
+          <select id="category">
+            <option value="">Select a type...</option>
+            <option value="suggestion">💡 Suggestion</option>
+            <option value="question">❓ Question</option>
+            <option value="bug">🐛 Report a Problem</option>
+            <option value="compliment">❤️ Compliment</option>
+            <option value="other">📝 Other</option>
+          </select>
+        </div>
+
         <div class="form-group">
           <label for="message">Your Message</label>
-          <textarea id="message" name="message" placeholder="Write your feedback, question, or suggestion here..." required></textarea>
+          <textarea id="message" placeholder="Write your feedback, question, or suggestion here..." maxlength="500" oninput="updateCount()" required></textarea>
+          <span class="char-count" id="charCount">0 / 500 characters</span>
         </div>
-        
+
         <button type="submit" class="submit-btn">
           📨 Send Message
         </button>
-        
-        <!-- SUCCESS MESSAGE (HIDDEN BY DEFAULT) -->
+
         <div id="successMessage" class="success-message">
-          ✅ Thank you! Your message has been sent successfully.
+          ✅ Thank you! Your message has been sent successfully. We'll respond within 24–48 hours.
         </div>
-        
+
       </form>
-      
-      <!-- CONTACT INFORMATION -->
-      <div class="contact-info">
-        <p>✉️ <span style="color: #0f39ac; font-weight: bold;">KnotLearn</span> values your feedback.</p>
-        <p>We typically respond within 24-48 hours.</p>
+    </div>
+
+    <!-- SIDE INFO CARDS -->
+    <div class="side-cards">
+
+      <div class="info-card">
+        <span class="info-icon">⏱️</span>
+        <h3>Response Time</h3>
+        <p>We typically respond to all messages within 24 to 48 hours.</p>
       </div>
-      
+
+      <div class="info-card">
+        <span class="info-icon">💡</span>
+        <h3>Got a Suggestion?</h3>
+        <p>We're always looking to improve KnotLearn. Your ideas help us grow!</p>
+      </div>
+
+      <div class="info-card">
+        <span class="info-icon">🐛</span>
+        <h3>Found a Problem?</h3>
+        <p>Let us know if something isn't working and we'll fix it quickly.</p>
+      </div>
+
+      <div class="side-cta">
+        <h3>Want to keep learning?</h3>
+        <p>While you wait, explore our subjects!</p>
+        <a href="subject.html">Browse Subjects →</a>
+      </div>
+
     </div>
   </div>
 
+  <!-- ===== FOOTER ===== -->
   <footer>
-    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+    <p>&copy; 2026 KnotLearn. All rights reserved. Made with ❤️ for students.</p>
   </footer>
 
+  <!-- ===== JAVASCRIPT ===== -->
   <script>
-    // ===== KNOTLEARN - CONTACT PAGE =====
-    
-    // Send message function - YOUR EXACT ALERT, PLUS BETTER VISUAL FEEDBACK
+    function updateCount() {
+      const msg = document.getElementById('message');
+      document.getElementById('charCount').innerText = `${msg.value.length} / 500 characters`;
+    }
+
     function sendMessage() {
-      // Get form values
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const message = document.getElementById('message').value;
-      
-      // Show success message
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !email || !message) {
+        alert("Please fill in all required fields.");
+        return false;
+      }
+
       const successMsg = document.getElementById('successMessage');
-      successMsg.style.display = 'block';
-      
-      // YOUR ORIGINAL ALERT - PRESERVED
-      alert("Thank you! Your message has been sent successfully.");
-      
-      // Clear form
+      successMsg.classList.add('show');
       document.getElementById('contactForm').reset();
-      
-      // Hide success message after 5 seconds
-      setTimeout(() => {
-        successMsg.style.display = 'none';
-      }, 5000);
-      
+      document.getElementById('charCount').innerText = '0 / 500 characters';
+
+      setTimeout(() => successMsg.classList.remove('show'), 6000);
       return false;
     }
-    
-    // ===== LANGUAGE & THEME CONTROLS =====
+
     const textData = {
-      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
-      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
-      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+      en: { home:"Home", subjects:"Subjects", quiz:"Quiz", about:"About", contact:"Feedback", relax:"Relax" },
+      fr: { home:"Accueil", subjects:"Matières", quiz:"Quiz", about:"À propos", contact:"Contact", relax:"Détente" },
+      rw: { home:"Ahabanza", subjects:"Amasomo", quiz:"Ikizamini", about:"Ibyerekeye", contact:"Twandikire", relax:"Wuhura" }
     };
 
     function changeLanguage() {
@@ -366,7 +611,6 @@
       if (!langSelect) return;
       const lang = langSelect.value;
       localStorage.setItem("knotlearn_lang", lang);
-      
       document.getElementById("nav-home").innerText = textData[lang].home;
       document.getElementById("nav-subject").innerText = textData[lang].subjects;
       document.getElementById("nav-quiz").innerText = textData[lang].quiz;
@@ -379,26 +623,23 @@
       document.body.classList.toggle("dark");
       const isDark = document.body.classList.contains("dark");
       localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
-      const themeBtn = document.getElementById("themeToggle");
-      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+      document.getElementById("themeToggle").innerText = isDark ? "☀️" : "🌙";
     }
 
-    window.onload = function() {
+    function toggleMenu() {
+      document.getElementById("mainNav").classList.toggle("open");
+    }
+
+    window.onload = function () {
       const savedLang = localStorage.getItem("knotlearn_lang");
       const savedTheme = localStorage.getItem("knotlearn_theme");
-
       if (savedLang) {
-        const langSelect = document.getElementById("languageSelect");
-        if (langSelect) {
-          langSelect.value = savedLang;
-          changeLanguage();
-        }
+        document.getElementById("languageSelect").value = savedLang;
+        changeLanguage();
       }
-
       if (savedTheme === "dark") {
         document.body.classList.add("dark");
-        const themeBtn = document.getElementById("themeToggle");
-        if (themeBtn) themeBtn.innerText = "☀️";
+        document.getElementById("themeToggle").innerText = "☀️";
       }
     };
   </script>

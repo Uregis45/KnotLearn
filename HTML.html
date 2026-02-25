@@ -1,282 +1,162 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO META TAGS -->
   <meta name="description" content="KnotLearn - HTML Tutorials. Learn HTML step by step with clear explanations and code examples. Perfect for beginners.">
   <meta name="keywords" content="HTML tutorial, learn HTML, web development, HTML basics, HTML tags, beginner coding">
   <meta name="author" content="KnotLearn">
-  
-  <!-- SOCIAL SHARING -->
   <meta property="og:title" content="KnotLearn - HTML Tutorials">
   <meta property="og:description" content="Learn HTML from scratch. Step-by-step lessons with live examples.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="logo.png">
-  
   <title>KnotLearn - HTML Tutorials</title>
-  
-  <!-- MASTER CSS FILE -->
-  <link rel="stylesheet" href="style.css">
-  
+
   <style>
-    /* ===== HTML TUTORIAL PAGE - YOUR COLORS ===== */
-    .tutorial-hero {
-      background: linear-gradient(135deg, #0f39ac 0%, #0b74de 100%);
-      color: white;
-      padding: 60px 20px;
-      text-align: center;
-      margin-bottom: 40px;
+    :root {
+      --primary: #0f39ac;
+      --primary-light: #0b74de;
+      --accent: #00c2ff;
+      --bg: #f0f4ff;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --card-shadow: 0 8px 32px rgba(15,57,172,0.10);
+      --radius: 18px;
+      --transition: 0.3s cubic-bezier(.4,0,.2,1);
     }
-    
-    .tutorial-hero h1 {
-      font-size: 3rem;
-      margin-bottom: 15px;
+    body.dark {
+      --bg: #0d1117; --surface: #161b27; --text: #e2e8f0;
+      --text-muted: #94a3b8; --card-shadow: 0 8px 32px rgba(0,0,0,0.4);
     }
-    
-    .tutorial-hero p {
-      font-size: 1.3rem;
-      opacity: 0.95;
-    }
-    
-    .tutorial-container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 20px 60px;
-    }
-    
-    .section-title {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-    
-    .section-title h2 {
-      color: #0f39ac;
-      font-size: 2.2rem;
-      position: relative;
-      display: inline-block;
-      padding-bottom: 15px;
-    }
-    
-    .section-title h2:after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: #0f39ac;
-      border-radius: 2px;
-    }
-    
-    /* SUB-NAVIGATION */
-    .sub-nav {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin: -20px 0 40px;
-      flex-wrap: wrap;
-    }
-    
-    .sub-nav a {
-      background: white;
-      color: #0f39ac;
-      text-decoration: none;
-      padding: 12px 25px;
-      border-radius: 50px;
-      font-weight: bold;
-      border: 2px solid #0f39ac;
-      transition: all 0.2s;
-    }
-    
-    .sub-nav a:hover {
-      background: #0f39ac;
-      color: white;
-    }
-    
-    .sub-nav a.active {
-      background: #0f39ac;
-      color: white;
-    }
-    
-    /* LESSON CARDS */
-    .lesson-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 30px;
-    }
-    
-    .lesson-card {
-      background: white;
-      border-radius: 20px;
-      padding: 35px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      border: 1px solid #e0e7ff;
-      transition: transform 0.2s;
-    }
-    
-    .lesson-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(15, 57, 172, 0.15);
-    }
-    
-    .lesson-header {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 20px;
-      border-bottom: 2px solid #eef2f6;
-      padding-bottom: 20px;
-    }
-    
-    .lesson-icon {
-      font-size: 2.2rem;
-    }
-    
-    .lesson-header h2 {
-      color: #0f39ac;
-      font-size: 1.8rem;
-      margin: 0;
-    }
-    
-    .lesson-content p {
-      color: #555;
-      margin-bottom: 20px;
-      line-height: 1.7;
-      font-size: 1.1rem;
-    }
-    
-    .code-block {
-      background: #1e1e1e;
-      color: #d4d4d4;
-      padding: 25px;
-      border-radius: 12px;
-      font-family: 'Courier New', monospace;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      overflow-x: auto;
-      margin: 25px 0;
-      border-left: 5px solid #0f39ac;
-    }
-    
-    .example-box {
-      background: #f0f7ff;
-      border-radius: 12px;
-      padding: 25px;
-      margin-top: 25px;
-      border: 1px solid #e0e7ff;
-    }
-    
-    .example-box h4 {
-      color: #0f39ac;
-      margin-bottom: 15px;
-      font-size: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .example-display {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      border: 1px solid #e2e8f0;
-    }
-    
-    /* DARK MODE */
-    body.dark .lesson-card {
-      background: #1e1e1e;
-      border-color: #333;
-    }
-    
-    body.dark .lesson-content p {
-      color: #ccc;
-    }
-    
-    body.dark .example-box {
-      background: #2d2d2d;
-      border-color: #444;
-    }
-    
-    body.dark .example-display {
-      background: #1e1e1e;
-      border-color: #444;
-      color: white;
-    }
-    
-    body.dark .sub-nav a {
-      background: #2d2d2d;
-      color: white;
-      border-color: #0f39ac;
-    }
-    
-    body.dark .sub-nav a:hover,
-    body.dark .sub-nav a.active {
-      background: #0f39ac;
-      color: white;
-    }
-    
-    /* RESPONSIVE */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; transition: background var(--transition), color var(--transition); }
+
+    header { background: var(--primary); padding: 0 40px; display: flex; justify-content: space-between; align-items: center; height: 72px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 20px rgba(15,57,172,0.25); }
+    .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-wrap img { width: 48px; height: 48px; border-radius: 12px; object-fit: cover; }
+    .logo-name { font-size: 1.4rem; font-weight: 800; color: white; letter-spacing: -0.5px; }
+    nav ul { list-style: none; display: flex; align-items: center; gap: 6px; }
+    nav ul li a { color: rgba(255,255,255,0.85); text-decoration: none; font-weight: 500; font-size: 0.9rem; padding: 6px 14px; border-radius: 8px; transition: background var(--transition), color var(--transition); }
+    nav ul li a:hover { background: rgba(255,255,255,0.15); color: white; }
+    .nav-controls { display: flex; gap: 8px; align-items: center; margin-left: 10px; }
+    #languageSelect { padding: 6px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; font-size: 13px; cursor: pointer; }
+    #languageSelect option { color: #1e293b; background: white; }
+    #themeToggle { padding: 6px 10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; border-radius: 8px; cursor: pointer; font-size: 16px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; }
+
+    .page-hero { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); padding: 70px 20px 50px; text-align: center; color: white; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; width: 400px; height: 400px; background: rgba(255,255,255,0.05); border-radius: 50%; top: -150px; right: -100px; }
+    .page-hero::after { content: ''; position: absolute; width: 300px; height: 300px; background: rgba(255,255,255,0.05); border-radius: 50%; bottom: -100px; left: -80px; }
+    .page-hero-badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); padding: 5px 18px; border-radius: 100px; font-size: 0.82rem; font-weight: 600; margin-bottom: 20px; position: relative; z-index: 1; }
+    .page-hero h1 { font-size: clamp(2rem,5vw,3rem); font-weight: 800; margin-bottom: 14px; position: relative; z-index: 1; }
+    .page-hero p { font-size: 1.05rem; opacity: 0.88; max-width: 500px; margin: 0 auto 32px; position: relative; z-index: 1; }
+    .sub-nav { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; position: relative; z-index: 1; }
+    .sub-nav a { background: rgba(255,255,255,0.12); border: 2px solid rgba(255,255,255,0.3); color: white; text-decoration: none; padding: 9px 22px; border-radius: 100px; font-weight: 700; font-size: 0.9rem; transition: all var(--transition); }
+    .sub-nav a:hover, .sub-nav a.active { background: white; color: var(--primary); border-color: white; }
+
+    .progress-wrap { max-width: 1000px; margin: 28px auto 0; padding: 0 20px; }
+    .progress-card { background: var(--surface); border-radius: 14px; padding: 18px 24px; box-shadow: var(--card-shadow); border: 1px solid rgba(15,57,172,0.07); display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .progress-label { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); white-space: nowrap; }
+    .progress-bar-track { flex: 1; min-width: 120px; height: 8px; background: rgba(15,57,172,0.1); border-radius: 100px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 100px; width: 0%; transition: width 1s ease; }
+    .progress-pct { font-size: 0.85rem; font-weight: 700; color: var(--primary); white-space: nowrap; }
+    body.dark .progress-pct { color: #7eb3ff; }
+
+    .breadcrumb { max-width: 1000px; margin: 16px auto 0; padding: 0 20px; font-size: 0.85rem; color: var(--text-muted); }
+    .breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .tutorial-container { max-width: 1000px; margin: 36px auto; padding: 0 20px 80px; }
+    .section-header { text-align: center; margin-bottom: 40px; }
+    .section-tag { display: inline-block; background: rgba(15,57,172,0.08); color: var(--primary); padding: 4px 16px; border-radius: 100px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+    body.dark .section-tag { background: rgba(11,116,222,0.15); color: var(--accent); }
+    .section-header h2 { font-size: clamp(1.6rem,3vw,2.2rem); font-weight: 800; color: var(--text); }
+    .section-header p { color: var(--text-muted); margin-top: 10px; }
+
+    .lesson-grid { display: grid; grid-template-columns: 1fr; gap: 22px; margin-bottom: 40px; }
+
+    .lesson-card { background: var(--surface); border-radius: var(--radius); padding: 32px; box-shadow: var(--card-shadow); border: 1px solid rgba(15,57,172,0.07); position: relative; overflow: hidden; transition: transform var(--transition), box-shadow var(--transition); animation: fadeUp 0.5s ease both; }
+    .lesson-card:nth-child(odd)  { animation-delay: 0.04s; }
+    .lesson-card:nth-child(even) { animation-delay: 0.08s; }
+    .lesson-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--primary), var(--accent)); transform: scaleX(0); transform-origin: left; transition: transform var(--transition); }
+    .lesson-card:hover::before { transform: scaleX(1); }
+    .lesson-card:hover { transform: translateY(-3px); box-shadow: 0 20px 50px rgba(15,57,172,0.13); }
+
+    .lesson-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid rgba(15,57,172,0.07); }
+    .lesson-icon { font-size: 2rem; }
+    .lesson-meta h2 { font-size: 1.35rem; font-weight: 800; color: var(--primary); margin-bottom: 4px; }
+    body.dark .lesson-meta h2 { color: #7eb3ff; }
+    .lesson-num { display: inline-block; background: rgba(15,57,172,0.08); color: var(--primary); padding: 2px 12px; border-radius: 100px; font-size: 0.75rem; font-weight: 700; }
+    body.dark .lesson-num { background: rgba(11,116,222,0.15); color: var(--accent); }
+    .lesson-content > p { color: var(--text-muted); font-size: 0.97rem; line-height: 1.75; margin-bottom: 16px; }
+
+    .code-block { background: #0d1117; color: #e2e8f0; padding: 22px 24px; border-radius: 14px; font-family: 'Courier New', Consolas, monospace; font-size: 0.9rem; line-height: 1.75; overflow-x: auto; margin: 16px 0; border-left: 4px solid var(--primary); position: relative; }
+    .code-label { position: absolute; top: 10px; right: 14px; font-size: 0.72rem; font-weight: 700; color: var(--accent); font-family: 'Segoe UI', system-ui, sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+    .code-tag   { color: #4ec9b0; }
+    .code-attr  { color: #9cdcfe; }
+    .code-val   { color: #ce9178; }
+    .code-text  { color: #d4d4d4; }
+
+    .key-box { background: var(--bg); border-radius: 14px; padding: 18px 22px; border: 1px solid rgba(15,57,172,0.08); margin-top: 14px; }
+    .key-box h4 { color: var(--primary); font-size: 0.88rem; font-weight: 700; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+    body.dark .key-box h4 { color: #7eb3ff; }
+    .key-inner { background: var(--surface); border-radius: 10px; padding: 16px 18px; border: 1px solid rgba(15,57,172,0.07); font-size: 0.95rem; color: var(--text); }
+
+    .live-preview { background: var(--bg); border-radius: 14px; padding: 18px 22px; border: 1px solid rgba(15,57,172,0.08); margin-top: 14px; }
+    .live-preview h4 { color: var(--primary); font-size: 0.88rem; font-weight: 700; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; }
+    body.dark .live-preview h4 { color: #7eb3ff; }
+    .preview-inner { background: var(--surface); border-radius: 10px; padding: 18px 20px; border: 1px solid rgba(15,57,172,0.07); }
+
+    .next-card { background: linear-gradient(135deg, var(--primary), var(--primary-light)); border-radius: var(--radius); padding: 48px 40px; text-align: center; color: white; margin-bottom: 28px; animation: fadeUp 0.5s 0.3s ease both; }
+    .next-card h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 10px; }
+    .next-card p { opacity: 0.88; font-size: 0.97rem; margin-bottom: 28px; }
+    .path-row { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+    .path-pill { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 8px 20px; border-radius: 100px; font-size: 0.88rem; font-weight: 700; }
+    .path-pill.done { background: rgba(255,255,255,0.3); }
+    .path-arrow { opacity: 0.7; }
+    .next-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-white { padding: 13px 30px; background: white; color: var(--primary); border: none; border-radius: 12px; font-size: 0.95rem; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; transition: all var(--transition); }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+    .btn-ghost { padding: 13px 30px; background: rgba(255,255,255,0.12); border: 2px solid rgba(255,255,255,0.3); color: white; border-radius: 12px; font-size: 0.95rem; font-weight: 700; text-decoration: none; display: inline-block; transition: all var(--transition); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.2); }
+
+    footer { background: var(--primary); color: white; text-align: center; padding: 28px 20px; }
+    footer p { opacity: 0.85; font-size: 0.9rem; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
     @media (max-width: 768px) {
-      .tutorial-hero h1 {
-        font-size: 2.2rem;
-      }
-      
-      .tutorial-hero p {
-        font-size: 1.1rem;
-      }
-      
-      .lesson-header {
-        flex-direction: column;
-        text-align: center;
-      }
-      
-      .lesson-header h2 {
-        font-size: 1.6rem;
-      }
-      
-      .code-block {
-        font-size: 0.85rem;
-        padding: 20px;
-      }
+      header { padding: 0 20px; }
+      nav { display: none; position: absolute; top: 72px; left: 0; right: 0; background: var(--primary); padding: 20px; z-index: 99; }
+      nav.open { display: block; }
+      nav ul { flex-direction: column; gap: 8px; }
+      nav ul li a { display: block; padding: 10px 16px; }
+      .hamburger { display: flex; }
+      .lesson-card { padding: 22px; }
+      .next-card { padding: 32px 22px; }
+      .progress-card { flex-direction: column; align-items: flex-start; }
+      .progress-bar-track { width: 100%; }
     }
-    
     @media (max-width: 480px) {
-      .tutorial-hero {
-        padding: 40px 20px;
-      }
-      
-      .tutorial-hero h1 {
-        font-size: 1.8rem;
-      }
-      
-      .lesson-card {
-        padding: 25px;
-      }
-      
-      .lesson-header h2 {
-        font-size: 1.5rem;
-      }
-      
-      .sub-nav a {
-        width: 100%;
-        text-align: center;
-      }
+      .sub-nav a { width: 100%; text-align: center; }
+      .code-block { font-size: 0.82rem; padding: 16px; }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div>
-      <a href="index.html">
-        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
-      </a>
-    </div>
-    
-    <nav>
+    <a href="index.html" class="logo-wrap">
+      <img src="logo.png" alt="KnotLearn Logo">
+      <span class="logo-name">KnotLearn</span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="mainNav">
       <ul>
         <li><a href="index.html" id="nav-home">Home</a></li>
         <li><a href="subject.html" id="nav-subject">Subjects</a></li>
@@ -284,276 +164,226 @@
         <li><a href="about.html" id="nav-about">About</a></li>
         <li><a href="contact.html" id="nav-contact">Feedback</a></li>
         <li><a href="relax.html" id="nav-relax">Relax</a></li>
-        
         <li class="nav-controls">
           <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
             <option value="en">🇬🇧 English</option>
             <option value="fr">🇫🇷 Français</option>
             <option value="rw">🇷🇼 Kinyarwanda</option>
           </select>
-          
-          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
-            🌙
-          </button>
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">🌙</button>
         </li>
       </ul>
     </nav>
   </header>
 
-  <!-- TUTORIAL HERO SECTION -->
-  <div class="tutorial-hero">
+  <section class="page-hero">
+    <div class="page-hero-badge">💻 Web Development</div>
     <h1>🌐 HTML Tutorial</h1>
-    <p>Learn HTML step by step — from zero to your first webpage</p>
-  </div>
-  
-  <!-- SUB-NAVIGATION - YOUR EXACT LINKS -->
-  <div class="sub-nav">
-    <a href="HTML.html" class="active">HTML</a>
-    <a href="CSS.html">CSS</a>
-    <a href="JavaScript.html">JavaScript</a>
+    <p>Learn HTML step by step — from zero to your first webpage.</p>
+    <div class="sub-nav">
+      <a href="HTML.html" class="active">🌐 HTML</a>
+      <a href="CSS.html">🎨 CSS</a>
+      <a href="JavaScript.html">⚡ JavaScript</a>
+    </div>
+  </section>
+
+  <div class="progress-wrap">
+    <div class="progress-card">
+      <span class="progress-label">📖 Your Progress</span>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progressFill"></div>
+      </div>
+      <span class="progress-pct" id="progressPct">0 / 10 lessons</span>
+    </div>
   </div>
 
-  <!-- HTML LESSONS - YOUR EXACT CONTENT -->
+  <div class="breadcrumb">
+    <a href="index.html">Home</a> › <a href="subject.html">Subjects</a> › <a href="programming.html">Programming</a> › HTML
+  </div>
+
   <div class="tutorial-container">
-    
-    <div class="section-title">
-      <h2>📖 HTML Basics</h2>
-      <p style="color: #666; margin-top: 15px;">10 lessons to get you started with web development</p>
+
+    <div class="section-header">
+      <div class="section-tag">10 Lessons</div>
+      <h2>HTML Basics</h2>
+      <p>Everything you need to build your first webpage — step by step</p>
     </div>
-    
-    <div class="lesson-grid">
-      
-      <!-- LESSON 1: WHAT IS HTML? - YOUR EXACT WORDS -->
-      <div class="lesson-card">
+
+    <div class="lesson-grid" id="lessonGrid">
+
+      <div class="lesson-card" data-lesson="1">
         <div class="lesson-header">
           <span class="lesson-icon">💡</span>
-          <h2>1. What is HTML?</h2>
+          <div class="lesson-meta"><h2>What is HTML?</h2><span class="lesson-num">Lesson 1 of 10</span></div>
         </div>
         <div class="lesson-content">
-          <p>
-            HTML stands for <strong>HyperText Markup Language</strong>.<br>
-            It is used to create webpages and structure content on the internet.
-          </p>
-          
-          <div class="example-box">
-            <h4>📌 Key Point:</h4>
-            <div class="example-display">
-              HTML is the structure of a website — like the skeleton of a building.
-            </div>
-          </div>
+          <p>HTML stands for <strong>HyperText Markup Language</strong>. It is used to create webpages and structure content on the internet.</p>
+          <div class="key-box"><h4>📌 Key Point</h4><div class="key-inner">HTML is the <strong>structure</strong> of a website — like the skeleton of a building. Every webpage you visit is built with HTML.</div></div>
         </div>
       </div>
-      
-      <!-- LESSON 2: BASIC HTML STRUCTURE - YOUR EXACT WORDS -->
-      <div class="lesson-card">
+
+      <div class="lesson-card" data-lesson="2">
         <div class="lesson-header">
           <span class="lesson-icon">📄</span>
-          <h2>2. Basic HTML Structure</h2>
+          <div class="lesson-meta"><h2>Basic HTML Structure</h2><span class="lesson-num">Lesson 2 of 10</span></div>
         </div>
         <div class="lesson-content">
-          <p>This is the basic structure of every HTML page:</p>
-          
-          <div class="code-block">
-&lt;!DOCTYPE html&gt;<br>
-&lt;html&gt;<br>
-&nbsp;&nbsp;&lt;head&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;My Page&lt;/title&gt;<br>
-&nbsp;&nbsp;&lt;/head&gt;<br>
-&nbsp;&nbsp;&lt;body&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Hello World!<br>
-&nbsp;&nbsp;&lt;/body&gt;<br>
-&lt;/html&gt;
-          </div>
+          <p>This is the basic structure of every HTML page — every HTML file must include these elements:</p>
+          <div class="code-block"><span class="code-label">HTML</span>&lt;<span class="code-tag">!DOCTYPE html</span>&gt;<br>&lt;<span class="code-tag">html</span>&gt;<br>&nbsp;&nbsp;&lt;<span class="code-tag">head</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="code-tag">title</span>&gt;<span class="code-text">My Page</span>&lt;/<span class="code-tag">title</span>&gt;<br>&nbsp;&nbsp;&lt;/<span class="code-tag">head</span>&gt;<br>&nbsp;&nbsp;&lt;<span class="code-tag">body</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-text">Hello World!</span><br>&nbsp;&nbsp;&lt;/<span class="code-tag">body</span>&gt;<br>&lt;/<span class="code-tag">html</span>&gt;</div>
         </div>
       </div>
-      
-      <!-- LESSON 3: HTML HEADINGS - YOUR EXACT WORDS -->
-      <div class="lesson-card">
+
+      <div class="lesson-card" data-lesson="3">
         <div class="lesson-header">
           <span class="lesson-icon">🔤</span>
-          <h2>3. HTML Headings</h2>
+          <div class="lesson-meta"><h2>HTML Headings</h2><span class="lesson-num">Lesson 3 of 10</span></div>
         </div>
         <div class="lesson-content">
-          <p>HTML has headings from <strong>&lt;h1&gt;</strong> to <strong>&lt;h6&gt;</strong>:</p>
-          
-          <div class="code-block">
-&lt;h1&gt;Heading 1 - Most Important&lt;/h1&gt;<br>
-&lt;h2&gt;Heading 2&lt;/h2&gt;<br>
-&lt;h3&gt;Heading 3&lt;/h3&gt;<br>
-&lt;h4&gt;Heading 4&lt;/h4&gt;<br>
-&lt;h5&gt;Heading 5&lt;/h5&gt;<br>
-&lt;h6&gt;Heading 6 - Least Important&lt;/h6&gt;
-          </div>
-          
-          <div class="example-box">
-            <h4>🎯 Live Example:</h4>
-            <div class="example-display">
-              <h1 style="font-size: 1.8rem; margin: 0; color: #0f39ac;">Heading 1</h1>
-              <h2 style="font-size: 1.5rem; margin: 10px 0 0; color: #0b74de;">Heading 2</h2>
-              <h3 style="font-size: 1.2rem; margin: 10px 0 0; color: #2563eb;">Heading 3</h3>
-            </div>
-          </div>
+          <p>HTML has 6 heading levels from <strong>&lt;h1&gt;</strong> (most important) to <strong>&lt;h6&gt;</strong> (least important):</p>
+          <div class="code-block"><span class="code-label">HTML</span>&lt;<span class="code-tag">h1</span>&gt;<span class="code-text">Heading 1 — Most Important</span>&lt;/<span class="code-tag">h1</span>&gt;<br>&lt;<span class="code-tag">h2</span>&gt;<span class="code-text">Heading 2</span>&lt;/<span class="code-tag">h2</span>&gt;<br>&lt;<span class="code-tag">h3</span>&gt;<span class="code-text">Heading 3</span>&lt;/<span class="code-tag">h3</span>&gt;<br>&lt;<span class="code-tag">h6</span>&gt;<span class="code-text">Heading 6 — Least Important</span>&lt;/<span class="code-tag">h6</span>&gt;</div>
+          <div class="live-preview"><h4>🎯 Live Preview:</h4><div class="preview-inner"><div style="font-size:1.8rem;font-weight:800;color:var(--primary);margin-bottom:6px;">Heading 1</div><div style="font-size:1.4rem;font-weight:700;color:var(--primary-light);margin-bottom:6px;">Heading 2</div><div style="font-size:1.15rem;font-weight:700;color:#2563eb;">Heading 3</div></div></div>
         </div>
       </div>
-      
-      <!-- LESSON 4: HTML PARAGRAPH - YOUR EXACT WORDS -->
-      <div class="lesson-card">
+
+      <div class="lesson-card" data-lesson="4">
         <div class="lesson-header">
           <span class="lesson-icon">📝</span>
-          <h2>4. HTML Paragraph</h2>
+          <div class="lesson-meta"><h2>HTML Paragraphs</h2><span class="lesson-num">Lesson 4 of 10</span></div>
         </div>
         <div class="lesson-content">
-          <p>The <strong>&lt;p&gt;</strong> tag is used to write text:</p>
-          
-          <div class="code-block">
-&lt;p&gt;This is a paragraph of text.&lt;/p&gt;<br>
-&lt;p&gt;This is another paragraph.&lt;/p&gt;
-          </div>
+          <p>The <strong>&lt;p&gt;</strong> tag is used to write blocks of text. Each paragraph is separated automatically.</p>
+          <div class="code-block"><span class="code-label">HTML</span>&lt;<span class="code-tag">p</span>&gt;<span class="code-text">This is a paragraph of text.</span>&lt;/<span class="code-tag">p</span>&gt;<br>&lt;<span class="code-tag">p</span>&gt;<span class="code-text">This is another paragraph.</span>&lt;/<span class="code-tag">p</span>&gt;</div>
+          <div class="live-preview"><h4>🎯 Live Preview:</h4><div class="preview-inner"><p style="color:var(--text);margin-bottom:10px;">This is a paragraph of text.</p><p style="color:var(--text);">This is another paragraph.</p></div></div>
         </div>
       </div>
-      
-      <!-- LESSON 5: HTML LINKS - YOUR EXACT WORDS -->
-      <div class="lesson-card">
+
+      <div class="lesson-card" data-lesson="5">
         <div class="lesson-header">
           <span class="lesson-icon">🔗</span>
-          <h2>5. HTML Links</h2>
+          <div class="lesson-meta"><h2>HTML Links</h2><span class="lesson-num">Lesson 5 of 10</span></div>
         </div>
         <div class="lesson-content">
-          <p>Use the <strong>&lt;a&gt;</strong> tag to create links:</p>
-          
-          <div class="code-block">
-&lt;a href="https://www.google.com"&gt;Go to Google&lt;/a&gt;
-          </div>
-          
-          <div class="example-box">
-            <h4>🎯 Live Example:</h4>
-            <div class="example-display">
-              <a href="#" style="color: #0f39ac; text-decoration: underline;">This is a sample link</a>
-            </div>
-          </div>
+          <p>Use the <strong>&lt;a&gt;</strong> tag to create clickable links. The <code style="background:var(--bg);padding:2px 8px;border-radius:6px;font-family:monospace;color:var(--primary);">href</code> attribute holds the URL.</p>
+          <div class="code-block"><span class="code-label">HTML</span>&lt;<span class="code-tag">a</span> <span class="code-attr">href</span>=<span class="code-val">"https://www.google.com"</span>&gt;<span class="code-text">Go to Google</span>&lt;/<span class="code-tag">a</span>&gt;</div>
+          <div class="live-preview"><h4>🎯 Live Preview:</h4><div class="preview-inner"><a href="#" style="color:var(--primary);font-weight:600;text-decoration:underline;">This is a sample link</a></div></div>
         </div>
       </div>
-      
-      <!-- LESSON 6: HTML IMAGES - YOUR EXACT WORDS -->
-      <div class="lesson-card">
+
+      <div class="lesson-card" data-lesson="6">
         <div class="lesson-header">
           <span class="lesson-icon">🖼️</span>
-          <h2>6. HTML Images</h2>
+          <div class="lesson-meta"><h2>HTML Images</h2><span class="lesson-num">Lesson 6 of 10</span></div>
         </div>
         <div class="lesson-content">
-          <p>Use the <strong>&lt;img&gt;</strong> tag to add images:</p>
-          
-          <div class="code-block">
-&lt;img src="image.jpg" alt="Description of image"&gt;
-          </div>
+          <p>Use the <strong>&lt;img&gt;</strong> tag to embed images. It's a self-closing tag — it has no closing tag.</p>
+          <div class="code-block"><span class="code-label">HTML</span>&lt;<span class="code-tag">img</span> <span class="code-attr">src</span>=<span class="code-val">"image.jpg"</span> <span class="code-attr">alt</span>=<span class="code-val">"Description of image"</span>&gt;</div>
+          <div class="key-box"><h4>📌 Key Point</h4><div class="key-inner">Always add an <strong>alt</strong> attribute — it describes the image for accessibility and shows when the image can't load.</div></div>
         </div>
       </div>
-      
-      <!-- LESSON 7: HTML LISTS - YOUR EXACT WORDS -->
-      <div class="lesson-card">
+
+      <div class="lesson-card" data-lesson="7">
         <div class="lesson-header">
           <span class="lesson-icon">📋</span>
-          <h2>7. HTML Lists</h2>
+          <div class="lesson-meta"><h2>HTML Lists</h2><span class="lesson-num">Lesson 7 of 10</span></div>
         </div>
         <div class="lesson-content">
-          <p>Unordered list (bullets):</p>
-          
-          <div class="code-block">
-&lt;ul&gt;<br>
-&nbsp;&nbsp;&lt;li&gt;HTML&lt;/li&gt;<br>
-&nbsp;&nbsp;&lt;li&gt;CSS&lt;/li&gt;<br>
-&nbsp;&nbsp;&lt;li&gt;JavaScript&lt;/li&gt;<br>
-&lt;/ul&gt;
-          </div>
-          
-          <p style="margin-top: 15px;">Ordered list (numbers):</p>
-          
-          <div class="code-block">
-&lt;ol&gt;<br>
-&nbsp;&nbsp;&lt;li&gt;First step&lt;/li&gt;<br>
-&nbsp;&nbsp;&lt;li&gt;Second step&lt;/li&gt;<br>
-&nbsp;&nbsp;&lt;li&gt;Third step&lt;/li&gt;<br>
-&lt;/ol&gt;
-          </div>
+          <p>HTML has two types of lists. <strong>Unordered</strong> uses bullet points; <strong>ordered</strong> uses numbers.</p>
+          <div class="code-block"><span class="code-label">HTML — Unordered</span>&lt;<span class="code-tag">ul</span>&gt;<br>&nbsp;&nbsp;&lt;<span class="code-tag">li</span>&gt;<span class="code-text">HTML</span>&lt;/<span class="code-tag">li</span>&gt;<br>&nbsp;&nbsp;&lt;<span class="code-tag">li</span>&gt;<span class="code-text">CSS</span>&lt;/<span class="code-tag">li</span>&gt;<br>&lt;/<span class="code-tag">ul</span>&gt;</div>
+          <div class="code-block" style="margin-top:0"><span class="code-label">HTML — Ordered</span>&lt;<span class="code-tag">ol</span>&gt;<br>&nbsp;&nbsp;&lt;<span class="code-tag">li</span>&gt;<span class="code-text">First step</span>&lt;/<span class="code-tag">li</span>&gt;<br>&nbsp;&nbsp;&lt;<span class="code-tag">li</span>&gt;<span class="code-text">Second step</span>&lt;/<span class="code-tag">li</span>&gt;<br>&lt;/<span class="code-tag">ol</span>&gt;</div>
+          <div class="live-preview"><h4>🎯 Live Preview:</h4><div class="preview-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;"><div><strong style="color:var(--primary);font-size:0.85rem;">Unordered</strong><ul style="margin-top:8px;padding-left:18px;color:var(--text);"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul></div><div><strong style="color:var(--primary);font-size:0.85rem;">Ordered</strong><ol style="margin-top:8px;padding-left:18px;color:var(--text);"><li>First step</li><li>Second step</li><li>Third step</li></ol></div></div></div>
         </div>
       </div>
-      
-      <!-- LESSON 8: HTML BUTTONS - YOUR EXACT WORDS -->
-      <div class="lesson-card">
+
+      <div class="lesson-card" data-lesson="8">
         <div class="lesson-header">
           <span class="lesson-icon">🔘</span>
-          <h2>8. HTML Buttons</h2>
+          <div class="lesson-meta"><h2>HTML Buttons</h2><span class="lesson-num">Lesson 8 of 10</span></div>
         </div>
         <div class="lesson-content">
-          <p>Use the <strong>&lt;button&gt;</strong> tag to create clickable buttons:</p>
-          
-          <div class="code-block">
-&lt;button&gt;Click Me&lt;/button&gt;
-          </div>
-          
-          <div class="example-box">
-            <h4>🎯 Live Example:</h4>
-            <div class="example-display">
-              <button style="background: #0f39ac; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="alert('Hello from KnotLearn!')">Click Me</button>
-            </div>
-          </div>
+          <p>Use the <strong>&lt;button&gt;</strong> tag to create clickable buttons. Pair with JavaScript to make them interactive.</p>
+          <div class="code-block"><span class="code-label">HTML</span>&lt;<span class="code-tag">button</span>&gt;<span class="code-text">Click Me</span>&lt;/<span class="code-tag">button</span>&gt;</div>
+          <div class="live-preview"><h4>🎯 Live Preview:</h4><div class="preview-inner"><button style="background:var(--primary);color:white;border:none;padding:11px 24px;border-radius:10px;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:inherit;" onclick="alert('Hello from KnotLearn!')">Click Me</button><p style="color:var(--text-muted);font-size:0.85rem;margin-top:10px;">Click it — it triggers a JavaScript alert!</p></div></div>
         </div>
       </div>
-      
-      <!-- LESSON 9: HTML FORMS - YOUR EXACT WORDS -->
-      <div class="lesson-card">
+
+      <div class="lesson-card" data-lesson="9">
         <div class="lesson-header">
           <span class="lesson-icon">📨</span>
-          <h2>9. HTML Forms</h2>
+          <div class="lesson-meta"><h2>HTML Forms</h2><span class="lesson-num">Lesson 9 of 10</span></div>
         </div>
         <div class="lesson-content">
-          <p>Forms collect user input:</p>
-          
-          <div class="code-block">
-&lt;form&gt;<br>
-&nbsp;&nbsp;&lt;input type="text" placeholder="Your name"&gt;<br>
-&nbsp;&nbsp;&lt;button type="submit"&gt;Submit&lt;/button&gt;<br>
-&lt;/form&gt;
-          </div>
+          <p>Forms collect user input. The <strong>&lt;form&gt;</strong> tag wraps <strong>&lt;input&gt;</strong> fields and a submit button.</p>
+          <div class="code-block"><span class="code-label">HTML</span>&lt;<span class="code-tag">form</span>&gt;<br>&nbsp;&nbsp;&lt;<span class="code-tag">input</span> <span class="code-attr">type</span>=<span class="code-val">"text"</span> <span class="code-attr">placeholder</span>=<span class="code-val">"Your name"</span>&gt;<br>&nbsp;&nbsp;&lt;<span class="code-tag">button</span> <span class="code-attr">type</span>=<span class="code-val">"submit"</span>&gt;<span class="code-text">Submit</span>&lt;/<span class="code-tag">button</span>&gt;<br>&lt;/<span class="code-tag">form</span>&gt;</div>
+          <div class="live-preview"><h4>🎯 Live Preview:</h4><div class="preview-inner" style="display:flex;gap:10px;flex-wrap:wrap;"><input type="text" placeholder="Your name" style="padding:10px 14px;border:2px solid rgba(15,57,172,0.15);border-radius:10px;font-size:0.95rem;background:var(--bg);color:var(--text);font-family:inherit;outline:none;"><button style="padding:10px 20px;background:var(--primary);color:white;border:none;border-radius:10px;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:inherit;">Submit</button></div></div>
         </div>
       </div>
-      
-      <!-- LESSON 10: CONCLUSION - YOUR EXACT WORDS -->
-      <div class="lesson-card">
+
+      <div class="lesson-card" data-lesson="10">
         <div class="lesson-header">
           <span class="lesson-icon">🚀</span>
-          <h2>10. Conclusion</h2>
+          <div class="lesson-meta"><h2>Conclusion</h2><span class="lesson-num">Lesson 10 of 10</span></div>
         </div>
         <div class="lesson-content">
-          <p>
-            HTML is easy to learn and very important.<br>
-            After HTML, you should learn <strong>CSS</strong> and <strong>JavaScript</strong>.
-          </p>
-          
-          <div class="example-box" style="background: #e8f0fe; text-align: center;">
-            <h4 style="color: #0f39ac;">🎉 You've completed HTML Basics!</h4>
-            <p style="margin-top: 10px;">Next: Learn CSS to style your webpages.</p>
-            <div style="margin-top: 20px;">
-              <a href="CSS.html" style="display: inline-block; background: #0f39ac; color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold;">Continue to CSS →</a>
-            </div>
-          </div>
+          <p>HTML is easy to learn and very important. After HTML, learn <strong>CSS</strong> to style your pages, then <strong>JavaScript</strong> to make them interactive.</p>
+          <div class="key-box"><h4>🎉 You've completed HTML Basics!</h4><div class="key-inner" style="text-align:center;"><p style="color:var(--text-muted);margin-bottom:16px;">You now know the foundation of every website on the internet!</p><a href="CSS.html" style="display:inline-block;background:var(--primary);color:white;padding:12px 28px;border-radius:12px;text-decoration:none;font-weight:700;font-size:0.95rem;box-shadow:0 4px 16px rgba(15,57,172,0.2);">Continue to CSS 🎨 →</a></div></div>
         </div>
       </div>
-      
+
     </div>
-    
+
+    <div class="next-card">
+      <h3>🎓 Ready for the Next Step?</h3>
+      <p>HTML gives your page structure. Now add beautiful style with CSS.</p>
+      <div class="path-row">
+        <span class="path-pill done">🌐 HTML ✓</span>
+        <span class="path-arrow">→</span>
+        <span class="path-pill">🎨 CSS</span>
+        <span class="path-arrow">→</span>
+        <span class="path-pill">⚡ JavaScript</span>
+      </div>
+      <div class="next-btns">
+        <a href="CSS.html" class="btn-white">Continue to CSS →</a>
+        <a href="programming.html" class="btn-ghost">All Programming</a>
+        <a href="Quiz.html" class="btn-ghost">Take Quiz 🧠</a>
+      </div>
+    </div>
+
   </div>
 
   <footer>
-    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+    <p>&copy; 2026 KnotLearn. All rights reserved. Made with ❤️ for students.</p>
   </footer>
 
   <script>
-    // ===== KNOTLEARN - LANGUAGE & THEME CONTROLS =====
+    const totalLessons = 10;
+    let seenLessons = new Set(JSON.parse(localStorage.getItem('html_seen') || '[]'));
+
+    function updateProgress() {
+      const count = seenLessons.size;
+      const pct = Math.round((count / totalLessons) * 100);
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressPct').textContent = count + ' / ' + totalLessons + ' lessons';
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const num = entry.target.dataset.lesson;
+          if (num && !seenLessons.has(num)) {
+            seenLessons.add(num);
+            localStorage.setItem('html_seen', JSON.stringify([...seenLessons]));
+            updateProgress();
+          }
+        }
+      });
+    }, { threshold: 0.4 });
+
+    document.querySelectorAll('.lesson-card[data-lesson]').forEach(card => observer.observe(card));
+
     const textData = {
-      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
-      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
-      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+      en: { home:"Home", subjects:"Subjects", quiz:"Quiz", about:"About", contact:"Feedback", relax:"Relax" },
+      fr: { home:"Accueil", subjects:"Matières", quiz:"Quiz", about:"À propos", contact:"Contact", relax:"Détente" },
+      rw: { home:"Ahabanza", subjects:"Amasomo", quiz:"Ikizamini", about:"Ibyerekeye", contact:"Twandikire", relax:"Wuhura" }
     };
 
     function changeLanguage() {
@@ -561,7 +391,6 @@
       if (!langSelect) return;
       const lang = langSelect.value;
       localStorage.setItem("knotlearn_lang", lang);
-      
       document.getElementById("nav-home").innerText = textData[lang].home;
       document.getElementById("nav-subject").innerText = textData[lang].subjects;
       document.getElementById("nav-quiz").innerText = textData[lang].quiz;
@@ -574,27 +403,22 @@
       document.body.classList.toggle("dark");
       const isDark = document.body.classList.contains("dark");
       localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
-      const themeBtn = document.getElementById("themeToggle");
-      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+      document.getElementById("themeToggle").innerText = isDark ? "☀️" : "🌙";
     }
 
-    window.onload = function() {
+    function toggleMenu() {
+      document.getElementById("mainNav").classList.toggle("open");
+    }
+
+    window.onload = function () {
       const savedLang = localStorage.getItem("knotlearn_lang");
       const savedTheme = localStorage.getItem("knotlearn_theme");
-
-      if (savedLang) {
-        const langSelect = document.getElementById("languageSelect");
-        if (langSelect) {
-          langSelect.value = savedLang;
-          changeLanguage();
-        }
-      }
-
+      if (savedLang) { document.getElementById("languageSelect").value = savedLang; changeLanguage(); }
       if (savedTheme === "dark") {
         document.body.classList.add("dark");
-        const themeBtn = document.getElementById("themeToggle");
-        if (themeBtn) themeBtn.innerText = "☀️";
+        document.getElementById("themeToggle").innerText = "☀️";
       }
+      setTimeout(updateProgress, 300);
     };
   </script>
 

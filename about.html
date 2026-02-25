@@ -1,308 +1,570 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO META TAGS -->
   <meta name="description" content="KnotLearn - About Us. We help students learn difficult topics in a simple, clear way. Free education for everyone.">
   <meta name="keywords" content="about KnotLearn, free learning platform, educational mission, learn easily">
   <meta name="author" content="KnotLearn">
-  
-  <!-- SOCIAL SHARING -->
   <meta property="og:title" content="KnotLearn - About Us">
   <meta property="og:description" content="Making complex topics simple and clear for all students.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="logo.png">
-  
   <title>KnotLearn - About Us</title>
-  
-  <!-- MASTER CSS FILE -->
-  <link rel="stylesheet" href="style.css">
-  
+
   <style>
-    /* ===== ABOUT PAGE - YOUR COLORS ===== */
-    .about-wrapper {
-      max-width: 900px;
-      margin: 50px auto;
-      padding: 0 20px;
+    :root {
+      --primary: #0f39ac;
+      --primary-light: #0b74de;
+      --accent: #00c2ff;
+      --bg: #f0f4ff;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --card-shadow: 0 8px 32px rgba(15,57,172,0.10);
+      --radius: 18px;
+      --transition: 0.3s cubic-bezier(.4,0,.2,1);
     }
-    
-    .about-card {
-      background: white;
-      border-radius: 20px;
-      padding: 50px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      border: 1px solid #e0e7ff;
+
+    body.dark {
+      --bg: #0d1117;
+      --surface: #161b27;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --card-shadow: 0 8px 32px rgba(0,0,0,0.4);
     }
-    
-    .about-header {
-      text-align: center;
-      margin-bottom: 40px;
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
     }
-    
-    .about-header h1 {
-      color: #0f39ac;
-      font-size: 2.8rem;
-      margin-bottom: 15px;
-      position: relative;
-      display: inline-block;
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--primary);
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(15,57,172,0.25);
     }
-    
-    .about-header h1:after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: #0f39ac;
-      border-radius: 2px;
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
     }
-    
-    .about-mission {
-      background: #f0f7ff;
-      border-left: 6px solid #0f39ac;
-      padding: 30px;
-      border-radius: 10px;
-      margin-bottom: 30px;
+
+    .logo-wrap img {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      object-fit: cover;
     }
-    
-    .about-mission p {
-      font-size: 1.2rem;
-      line-height: 1.8;
-      color: #1e293b;
-      margin: 0;
+
+    .logo-name {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -0.5px;
     }
-    
-    .about-content {
-      color: #334155;
-      line-height: 1.8;
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
-    
-    .about-content p {
-      margin-bottom: 25px;
-      font-size: 1.1rem;
+
+    nav ul li a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: background var(--transition), color var(--transition);
     }
-    
-    .about-highlight {
-      font-weight: bold;
-      color: #0f39ac;
-    }
-    
-    .values-section {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 25px;
-      margin-top: 40px;
-    }
-    
-    .value-item {
-      text-align: center;
-      padding: 25px;
-      background: #f8fafc;
-      border-radius: 15px;
-      transition: transform 0.2s;
-    }
-    
-    .value-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(15, 57, 172, 0.1);
-    }
-    
-    .value-icon {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
-    }
-    
-    .value-item h3 {
-      color: #0f39ac;
-      margin-bottom: 10px;
-    }
-    
-    .value-item p {
-      color: #555;
-      font-size: 0.95rem;
-      margin: 0;
-    }
-    
-    /* DARK MODE */
-    body.dark .about-card {
-      background: #1e1e1e;
-      border-color: #333;
-    }
-    
-    body.dark .about-mission {
-      background: #2d2d2d;
-    }
-    
-    body.dark .about-mission p {
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: rgba(255,255,255,0.15);
       color: white;
     }
-    
-    body.dark .about-content p {
-      color: #e0e0e0;
+
+    .nav-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-left: 10px;
     }
-    
-    body.dark .value-item {
-      background: #2d2d2d;
+
+    #languageSelect {
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-size: 13px;
+      cursor: pointer;
     }
-    
-    body.dark .value-item p {
-      color: #ccc;
+
+    #languageSelect option { color: #1e293b; background: white; }
+
+    #themeToggle {
+      padding: 6px 10px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
     }
-    
-    /* RESPONSIVE */
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      background: none;
+      border: none;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: white;
+      border-radius: 2px;
+    }
+
+    /* ===== PAGE HERO ===== */
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      padding: 70px 20px;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      top: -150px; right: -100px;
+    }
+
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      bottom: -100px; left: -80px;
+    }
+
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 5px 18px;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 14px;
+      letter-spacing: -0.5px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-hero p {
+      font-size: 1.05rem;
+      opacity: 0.88;
+      max-width: 520px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .about-wrapper {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    /* ===== MISSION BLOCK ===== */
+    .mission-block {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 50px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(15,57,172,0.07);
+      margin-bottom: 30px;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .mission-quote {
+      background: linear-gradient(135deg, #e8eeff, #dff0ff);
+      border-left: 5px solid var(--primary);
+      padding: 28px 32px;
+      border-radius: 12px;
+      margin-bottom: 32px;
+    }
+
+    body.dark .mission-quote {
+      background: rgba(15,57,172,0.12);
+    }
+
+    .mission-quote p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .highlight { color: var(--primary); font-weight: 700; }
+    body.dark .highlight { color: #7eb3ff; }
+
+    .about-content p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+      line-height: 1.8;
+    }
+
+    .about-content p:last-child { margin-bottom: 0; }
+
+    .mission-statement {
+      text-align: center;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-top: 36px;
+      padding: 24px;
+      border-radius: 12px;
+      background: rgba(15,57,172,0.06);
+      border: 1px dashed rgba(15,57,172,0.2);
+    }
+
+    body.dark .mission-statement {
+      background: rgba(11,116,222,0.1);
+      border-color: rgba(11,116,222,0.25);
+      color: #7eb3ff;
+    }
+
+    /* ===== VALUES SECTION ===== */
+    .values-wrap {
+      animation: fadeUp 0.5s 0.15s ease both;
+    }
+
+    .section-label {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .section-label .tag {
+      display: inline-block;
+      background: rgba(15,57,172,0.08);
+      color: var(--primary);
+      padding: 4px 16px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    body.dark .section-label .tag {
+      background: rgba(11,116,222,0.15);
+      color: var(--accent);
+    }
+
+    .section-label h2 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 20px;
+    }
+
+    .value-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 30px 22px;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(15,57,172,0.06);
+      transition: transform var(--transition), box-shadow var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .value-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+
+    .value-card:hover::before { transform: scaleX(1); }
+
+    .value-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(15,57,172,0.15);
+    }
+
+    .value-icon {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .value-card h3 {
+      color: var(--primary);
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    body.dark .value-card h3 { color: #7eb3ff; }
+
+    .value-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* ===== TEAM / CTA STRIP ===== */
+    .cta-strip {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border-radius: var(--radius);
+      padding: 50px 40px;
+      text-align: center;
+      color: white;
+      margin-top: 30px;
+      animation: fadeUp 0.5s 0.25s ease both;
+    }
+
+    .cta-strip h2 {
+      font-size: 1.7rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .cta-strip p {
+      opacity: 0.88;
+      margin-bottom: 28px;
+      font-size: 1rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 30px;
+      background: white;
+      color: var(--primary);
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: transform var(--transition), box-shadow var(--transition);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 28px 20px;
+      margin-top: 60px;
+    }
+
+    footer p { opacity: 0.85; font-size: 0.9rem; }
+
+    /* ===== ANIMATION ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .about-card {
-        padding: 30px;
-      }
-      
-      .about-header h1 {
-        font-size: 2.2rem;
-      }
-      
-      .about-mission p {
-        font-size: 1.1rem;
-      }
-      
-      .about-content p {
-        font-size: 1rem;
-      }
+      header { padding: 0 20px; }
+      nav { display: none; position: absolute; top: 72px; left: 0; right: 0;
+        background: var(--primary); padding: 20px; z-index: 99; }
+      nav.open { display: block; }
+      nav ul { flex-direction: column; gap: 8px; }
+      nav ul li a { display: block; padding: 10px 16px; }
+      .hamburger { display: flex; }
+      .mission-block { padding: 30px; }
+      .cta-strip { padding: 36px 24px; }
     }
-    
+
     @media (max-width: 480px) {
-      .about-card {
-        padding: 25px;
-      }
-      
-      .about-header h1 {
-        font-size: 1.8rem;
-      }
-      
-      .values-section {
-        grid-template-columns: 1fr;
-      }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .mission-block { padding: 24px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ===== HEADER ===== -->
   <header>
-    <div>
-      <a href="index.html">
-        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
-      </a>
-    </div>
-    
-    <nav>
+    <a href="index.html" class="logo-wrap">
+      <img src="logo.png" alt="KnotLearn Logo">
+      <span class="logo-name">KnotLearn</span>
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="mainNav">
       <ul>
         <li><a href="index.html" id="nav-home">Home</a></li>
         <li><a href="subject.html" id="nav-subject">Subjects</a></li>
         <li><a href="Quiz.html" id="nav-quiz">Quiz</a></li>
-        <li><a href="about.html" id="nav-about">About</a></li>
+        <li><a href="about.html" id="nav-about" class="active">About</a></li>
         <li><a href="contact.html" id="nav-contact">Feedback</a></li>
         <li><a href="relax.html" id="nav-relax">Relax</a></li>
-        
-        <!-- LANGUAGE & THEME CONTROLS -->
         <li class="nav-controls">
           <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
             <option value="en">🇬🇧 English</option>
             <option value="fr">🇫🇷 Français</option>
             <option value="rw">🇷🇼 Kinyarwanda</option>
           </select>
-          
-          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
-            🌙
-          </button>
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">🌙</button>
         </li>
       </ul>
     </nav>
   </header>
 
+  <!-- ===== PAGE HERO ===== -->
+  <section class="page-hero">
+    <div class="page-hero-badge">👋 Who We Are</div>
+    <h1>About KnotLearn</h1>
+    <p>Making complex topics simple and clear for every student — for free.</p>
+  </section>
+
+  <!-- ===== MAIN CONTENT ===== -->
   <div class="about-wrapper">
-    <div class="about-card">
-      
-      <div class="about-header">
-        <h1>About Us</h1>
-      </div>
-      
-      <!-- MISSION STATEMENT - YOUR EXACT WORDS -->
-      <div class="about-mission">
+
+    <!-- MISSION -->
+    <div class="mission-block">
+      <div class="mission-quote">
         <p>
-          <span class="about-highlight">KnotLearn</span> is an educational platform created to help students understand difficult topics in a simple and clear way.
+          <span class="highlight">KnotLearn</span> is an educational platform created to help students understand difficult topics in a simple and clear way.
         </p>
       </div>
-      
-      <!-- ABOUT CONTENT - YOUR EXACT WORDS, NOTHING CHANGED -->
+
       <div class="about-content">
         <p>
-          We believe that learning should not feel confusing or overwhelming.
-          Our goal is to untangle complex ideas and turn them into easy, understandable lessons.
+          We believe that learning should not feel confusing or overwhelming. Our goal is to untangle complex ideas and turn them into easy, understandable lessons.
         </p>
-        
         <p>
-          At KnotLearn, we focus on <span class="about-highlight">clarity, simplicity, and real understanding</span>.
-          We break down hard concepts into smaller parts, use clear explanations, and present
-          knowledge in a way that makes sense for every learner.
+          At KnotLearn, we focus on <span class="highlight">clarity, simplicity, and real understanding</span>. We break down hard concepts into smaller parts, use clear explanations, and present knowledge in a way that makes sense for every learner.
         </p>
-        
         <p>
-          KnotLearn is built for students who want to learn smarter, not harder.
-          Whether you are struggling with a topic or just want to improve your understanding,
-          we are here to support your learning journey.
-        </p>
-        
-        <p style="font-size: 1.2rem; font-weight: bold; color: #0f39ac; text-align: center; margin-top: 40px;">
-          Our mission is to make education accessible, engaging, and effective for everyone.
+          KnotLearn is built for students who want to learn smarter, not harder. Whether you are struggling with a topic or just want to improve your understanding, we are here to support your learning journey.
         </p>
       </div>
-      
-      <!-- OUR VALUES - ADDED TO MAKE PAGE MORE VISUALLY APPEALING (YOUR MESSAGE INTACT) -->
-      <div style="margin-top: 50px;">
-        <h2 style="color: #0f39ac; text-align: center; margin-bottom: 30px;">What We Believe</h2>
-        
-        <div class="values-section">
-          <div class="value-item">
-            <div class="value-icon">🧩</div>
-            <h3>Simple</h3>
-            <p>We break down complex topics into small, easy steps.</p>
-          </div>
-          
-          <div class="value-item">
-            <div class="value-icon">🎯</div>
-            <h3>Clear</h3>
-            <p>No confusion. No unnecessary jargon. Just clear explanations.</p>
-          </div>
-          
-          <div class="value-item">
-            <div class="value-icon">🌍</div>
-            <h3>Free</h3>
-            <p>Education should be accessible to everyone, anywhere.</p>
-          </div>
-          
-          <div class="value-item">
-            <div class="value-icon">💡</div>
-            <h3>Effective</h3>
-            <p>We help students truly understand, not just memorize.</p>
-          </div>
+
+      <div class="mission-statement">
+        🎯 Our mission is to make education accessible, engaging, and effective for everyone.
+      </div>
+    </div>
+
+    <!-- VALUES -->
+    <div class="values-wrap">
+      <div class="section-label">
+        <div class="tag">Our Values</div>
+        <h2>What We Believe</h2>
+      </div>
+
+      <div class="values-grid">
+        <div class="value-card">
+          <span class="value-icon">🧩</span>
+          <h3>Simple</h3>
+          <p>We break down complex topics into small, easy steps anyone can follow.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">🎯</span>
+          <h3>Clear</h3>
+          <p>No confusion. No unnecessary jargon. Just clear, direct explanations.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">🌍</span>
+          <h3>Free</h3>
+          <p>Education should be accessible to every student, anywhere in the world.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">💡</span>
+          <h3>Effective</h3>
+          <p>We help students truly understand topics, not just memorize answers.</p>
         </div>
       </div>
-      
     </div>
+
+    <!-- CTA STRIP -->
+    <div class="cta-strip">
+      <h2>Ready to start your journey? 🚀</h2>
+      <p>Explore our subjects and start learning today — completely free.</p>
+      <a href="subject.html" class="btn">Browse Subjects →</a>
+    </div>
+
   </div>
 
+  <!-- ===== FOOTER ===== -->
   <footer>
-    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+    <p>&copy; 2026 KnotLearn. All rights reserved. Made with ❤️ for students.</p>
   </footer>
 
+  <!-- ===== JAVASCRIPT ===== -->
   <script>
-    // ===== KNOTLEARN - LANGUAGE & THEME CONTROLS =====
     const textData = {
-      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
-      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
-      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+      en: { home:"Home", subjects:"Subjects", quiz:"Quiz", about:"About", contact:"Feedback", relax:"Relax" },
+      fr: { home:"Accueil", subjects:"Matières", quiz:"Quiz", about:"À propos", contact:"Contact", relax:"Détente" },
+      rw: { home:"Ahabanza", subjects:"Amasomo", quiz:"Ikizamini", about:"Ibyerekeye", contact:"Twandikire", relax:"Wuhura" }
     };
 
     function changeLanguage() {
@@ -310,7 +572,6 @@
       if (!langSelect) return;
       const lang = langSelect.value;
       localStorage.setItem("knotlearn_lang", lang);
-      
       document.getElementById("nav-home").innerText = textData[lang].home;
       document.getElementById("nav-subject").innerText = textData[lang].subjects;
       document.getElementById("nav-quiz").innerText = textData[lang].quiz;
@@ -323,26 +584,23 @@
       document.body.classList.toggle("dark");
       const isDark = document.body.classList.contains("dark");
       localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
-      const themeBtn = document.getElementById("themeToggle");
-      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+      document.getElementById("themeToggle").innerText = isDark ? "☀️" : "🌙";
     }
 
-    window.onload = function() {
+    function toggleMenu() {
+      document.getElementById("mainNav").classList.toggle("open");
+    }
+
+    window.onload = function () {
       const savedLang = localStorage.getItem("knotlearn_lang");
       const savedTheme = localStorage.getItem("knotlearn_theme");
-
       if (savedLang) {
-        const langSelect = document.getElementById("languageSelect");
-        if (langSelect) {
-          langSelect.value = savedLang;
-          changeLanguage();
-        }
+        document.getElementById("languageSelect").value = savedLang;
+        changeLanguage();
       }
-
       if (savedTheme === "dark") {
         document.body.classList.add("dark");
-        const themeBtn = document.getElementById("themeToggle");
-        if (themeBtn) themeBtn.innerText = "☀️";
+        document.getElementById("themeToggle").innerText = "☀️";
       }
     };
   </script>

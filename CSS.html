@@ -1,348 +1,511 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO META TAGS -->
   <meta name="description" content="KnotLearn - CSS Tutorials. Learn CSS step by step with clear explanations and live examples. Master colors, layouts, flexbox, and more.">
   <meta name="keywords" content="CSS tutorial, learn CSS, web design, styling, flexbox, box model, CSS basics">
   <meta name="author" content="KnotLearn">
-  
-  <!-- SOCIAL SHARING -->
   <meta property="og:title" content="KnotLearn - CSS Tutorials">
   <meta property="og:description" content="Learn CSS from scratch. Style your webpages with colors, layouts, and modern design.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="logo.png">
-  
   <title>KnotLearn - CSS Tutorials</title>
-  
-  <!-- MASTER CSS FILE -->
-  <link rel="stylesheet" href="style.css">
-  
+
   <style>
-    /* ===== CSS TUTORIAL PAGE - YOUR COLORS ===== */
-    .tutorial-hero {
-      background: linear-gradient(135deg, #0f39ac 0%, #0b74de 100%);
-      color: white;
-      padding: 60px 20px;
+    :root {
+      --primary: #0f39ac;
+      --primary-light: #0b74de;
+      --accent: #00c2ff;
+      --bg: #f0f4ff;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --card-shadow: 0 8px 32px rgba(15,57,172,0.10);
+      --radius: 18px;
+      --transition: 0.3s cubic-bezier(.4,0,.2,1);
+    }
+
+    body.dark {
+      --bg: #0d1117;
+      --surface: #161b27;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --card-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--primary);
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(15,57,172,0.25);
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-wrap img { width: 48px; height: 48px; border-radius: 12px; object-fit: cover; }
+    .logo-name { font-size: 1.4rem; font-weight: 800; color: white; letter-spacing: -0.5px; }
+
+    nav ul { list-style: none; display: flex; align-items: center; gap: 6px; }
+
+    nav ul li a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none; font-weight: 500;
+      font-size: 0.9rem; padding: 6px 14px;
+      border-radius: 8px;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    nav ul li a:hover { background: rgba(255,255,255,0.15); color: white; }
+
+    .nav-controls { display: flex; gap: 8px; align-items: center; margin-left: 10px; }
+
+    #languageSelect {
+      padding: 6px 10px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1); color: white; font-size: 13px; cursor: pointer;
+    }
+
+    #languageSelect option { color: #1e293b; background: white; }
+
+    #themeToggle {
+      padding: 6px 10px; background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white; border-radius: 8px; cursor: pointer; font-size: 16px;
+    }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; }
+
+    /* ===== PAGE HERO ===== */
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      padding: 70px 20px 50px;
       text-align: center;
-      margin-bottom: 40px;
+      color: white;
+      position: relative;
+      overflow: hidden;
     }
-    
-    .tutorial-hero h1 {
-      font-size: 3rem;
-      margin-bottom: 15px;
+
+    .page-hero::before {
+      content: ''; position: absolute;
+      width: 400px; height: 400px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%; top: -150px; right: -100px;
     }
-    
-    .tutorial-hero p {
-      font-size: 1.3rem;
-      opacity: 0.95;
+
+    .page-hero::after {
+      content: ''; position: absolute;
+      width: 300px; height: 300px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%; bottom: -100px; left: -80px;
     }
-    
+
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 5px 18px; border-radius: 100px;
+      font-size: 0.82rem; font-weight: 600;
+      margin-bottom: 20px; position: relative; z-index: 1;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800; margin-bottom: 14px;
+      position: relative; z-index: 1;
+    }
+
+    .page-hero p {
+      font-size: 1.05rem; opacity: 0.88;
+      max-width: 500px; margin: 0 auto 32px;
+      position: relative; z-index: 1;
+    }
+
+    .sub-nav {
+      display: flex; justify-content: center;
+      gap: 10px; flex-wrap: wrap;
+      position: relative; z-index: 1;
+    }
+
+    .sub-nav a {
+      background: rgba(255,255,255,0.12);
+      border: 2px solid rgba(255,255,255,0.3);
+      color: white; text-decoration: none;
+      padding: 9px 22px; border-radius: 100px;
+      font-weight: 700; font-size: 0.9rem;
+      transition: all var(--transition);
+    }
+
+    .sub-nav a:hover, .sub-nav a.active {
+      background: white; color: var(--primary); border-color: white;
+    }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-bar-wrap {
+      max-width: 1000px; margin: 28px auto 0; padding: 0 20px;
+    }
+
+    .progress-bar-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 20px 28px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(15,57,172,0.07);
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    }
+
+    .progress-label { font-size: 0.88rem; font-weight: 700; color: var(--primary); white-space: nowrap; }
+    body.dark .progress-label { color: #7eb3ff; }
+
+    .progress-track {
+      flex: 1; height: 8px;
+      background: rgba(15,57,172,0.08);
+      border-radius: 100px; overflow: hidden; min-width: 120px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 100px; width: 0%;
+      transition: width 1s ease;
+    }
+
+    .progress-count { font-size: 0.88rem; font-weight: 700; color: var(--text-muted); white-space: nowrap; }
+
+    /* ===== BREADCRUMB ===== */
+    .breadcrumb {
+      max-width: 1000px; margin: 16px auto 0;
+      padding: 0 20px; font-size: 0.85rem; color: var(--text-muted);
+    }
+
+    .breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    /* ===== MAIN CONTENT ===== */
     .tutorial-container {
       max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 20px 60px;
+      margin: 36px auto;
+      padding: 0 20px 80px;
     }
-    
-    .section-title {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-    
-    .section-title h2 {
-      color: #0f39ac;
-      font-size: 2.2rem;
-      position: relative;
+
+    .section-header { text-align: center; margin-bottom: 36px; }
+
+    .section-tag {
       display: inline-block;
-      padding-bottom: 15px;
+      background: rgba(15,57,172,0.08); color: var(--primary);
+      padding: 4px 16px; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;
     }
-    
-    .section-title h2:after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: #0f39ac;
-      border-radius: 2px;
-    }
-    
-    /* SUB-NAVIGATION */
-    .sub-nav {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin: -20px 0 40px;
-      flex-wrap: wrap;
-    }
-    
-    .sub-nav a {
-      background: white;
-      color: #0f39ac;
-      text-decoration: none;
-      padding: 12px 25px;
-      border-radius: 50px;
-      font-weight: bold;
-      border: 2px solid #0f39ac;
-      transition: all 0.2s;
-    }
-    
-    .sub-nav a:hover {
-      background: #0f39ac;
-      color: white;
-    }
-    
-    .sub-nav a.active {
-      background: #0f39ac;
-      color: white;
-    }
-    
-    /* LESSON CARDS */
-    .lesson-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 30px;
-    }
-    
+
+    body.dark .section-tag { background: rgba(11,116,222,0.15); color: var(--accent); }
+
+    .section-header h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; color: var(--text); }
+    .section-header p { color: var(--text-muted); margin-top: 10px; }
+
+    /* ===== LESSON GRID ===== */
+    .lesson-grid { display: grid; grid-template-columns: 1fr; gap: 22px; margin-bottom: 36px; }
+
+    /* ===== LESSON CARD ===== */
     .lesson-card {
-      background: white;
-      border-radius: 20px;
-      padding: 35px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      border: 1px solid #e0e7ff;
-      transition: transform 0.2s;
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(15,57,172,0.07);
+      position: relative; overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+      animation: fadeUp 0.4s ease both;
     }
-    
-    .lesson-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(15, 57, 172, 0.15);
+
+    .lesson-card:nth-child(1) { animation-delay: 0.04s; }
+    .lesson-card:nth-child(2) { animation-delay: 0.08s; }
+    .lesson-card:nth-child(3) { animation-delay: 0.12s; }
+    .lesson-card:nth-child(4) { animation-delay: 0.16s; }
+    .lesson-card:nth-child(5) { animation-delay: 0.20s; }
+    .lesson-card:nth-child(6) { animation-delay: 0.24s; }
+
+    .lesson-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform var(--transition);
     }
-    
+
+    .lesson-card:hover::before { transform: scaleX(1); }
+    .lesson-card:hover { transform: translateY(-3px); box-shadow: 0 20px 50px rgba(15,57,172,0.13); }
+
     .lesson-header {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 20px;
-      border-bottom: 2px solid #eef2f6;
-      padding-bottom: 20px;
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 16px; padding-bottom: 16px;
+      border-bottom: 1px solid rgba(15,57,172,0.07);
     }
-    
-    .lesson-icon {
-      font-size: 2.2rem;
+
+    .lesson-icon { font-size: 2rem; }
+
+    .lesson-meta h2 {
+      font-size: 1.35rem; font-weight: 800;
+      color: var(--primary); margin-bottom: 4px;
     }
-    
-    .lesson-header h2 {
-      color: #0f39ac;
-      font-size: 1.8rem;
-      margin: 0;
+
+    body.dark .lesson-meta h2 { color: #7eb3ff; }
+
+    .lesson-num {
+      display: inline-block;
+      background: rgba(15,57,172,0.08); color: var(--primary);
+      padding: 2px 12px; border-radius: 100px;
+      font-size: 0.75rem; font-weight: 700;
     }
-    
-    .lesson-content p {
-      color: #555;
-      margin-bottom: 20px;
-      line-height: 1.7;
-      font-size: 1.1rem;
+
+    body.dark .lesson-num { background: rgba(11,116,222,0.15); color: var(--accent); }
+
+    .lesson-content > p {
+      color: var(--text-muted); font-size: 0.97rem;
+      margin-bottom: 16px; line-height: 1.7;
     }
-    
+
+    /* ===== CODE BLOCK ===== */
     .code-block {
-      background: #1e1e1e;
-      color: #d4d4d4;
-      padding: 25px;
-      border-radius: 12px;
-      font-family: 'Courier New', monospace;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      overflow-x: auto;
-      margin: 25px 0;
-      border-left: 5px solid #0f39ac;
+      background: #0d1117; color: #e2e8f0;
+      padding: 22px 24px; border-radius: 14px;
+      font-family: 'Courier New', Consolas, monospace;
+      font-size: 0.88rem; line-height: 1.75;
+      overflow-x: auto; margin: 16px 0;
+      border-left: 4px solid var(--primary);
+      position: relative;
     }
-    
-    .example-box {
-      background: #f0f7ff;
-      border-radius: 12px;
-      padding: 25px;
-      margin-top: 25px;
-      border: 1px solid #e0e7ff;
+
+    .code-label {
+      position: absolute; top: 10px; right: 14px;
+      font-size: 0.72rem; font-weight: 700; color: var(--accent);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      text-transform: uppercase; letter-spacing: 1px;
     }
-    
-    .example-box h4 {
-      color: #0f39ac;
-      margin-bottom: 15px;
-      font-size: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .example-display {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      border: 1px solid #e2e8f0;
-    }
-    
-    /* LIVE DEMO STYLES */
+
+    .c-sel   { color: #4ec9b0; }
+    .c-prop  { color: #9cdcfe; }
+    .c-val   { color: #ce9178; }
+    .c-comment { color: #6a9955; }
+    .c-num   { color: #b5cea8; }
+    .c-pseudo { color: #c586c0; }
+
+    /* ===== DEMO BOX ===== */
     .demo-box {
-      width: 120px;
-      height: 120px;
-      background-color: #0f39ac;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8px;
-      margin: 10px 0;
-      font-weight: bold;
+      background: var(--bg); border-radius: 14px;
+      padding: 20px 22px; border: 1px solid rgba(15,57,172,0.08);
+      margin-top: 14px;
     }
-    
-    .demo-btn {
-      padding: 12px 20px;
-      background-color: #0f39ac;
-      color: white;
-      border: none;
-      border-radius: 6px;
+
+    .demo-box h4 {
+      color: var(--primary); font-size: 0.9rem; font-weight: 700;
+      margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+    }
+
+    body.dark .demo-box h4 { color: #7eb3ff; }
+
+    .demo-inner {
+      background: var(--surface); border-radius: 10px;
+      padding: 18px 20px; border: 1px solid rgba(15,57,172,0.07);
+    }
+
+    /* Key point */
+    .key-point {
+      background: linear-gradient(135deg, #e8eeff, #dff0ff);
+      border-left: 5px solid var(--primary);
+      padding: 16px 20px; border-radius: 12px;
+      margin-top: 14px; font-size: 0.97rem;
+      color: var(--text); line-height: 1.7;
+    }
+
+    body.dark .key-point { background: rgba(15,57,172,0.12); }
+
+    /* ===== LIVE DEMOS ===== */
+
+    /* Color swatches */
+    .color-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+    .swatch {
+      width: 48px; height: 48px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 700; color: white;
+    }
+
+    .text-demos { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+
+    /* Box model visual */
+    .box-model-outer {
+      background: rgba(15,57,172,0.06);
+      border: 2px dashed rgba(15,57,172,0.3);
+      border-radius: 14px; padding: 16px;
+      text-align: center; display: inline-block;
+      font-size: 0.8rem; color: var(--text-muted); font-weight: 600;
+    }
+
+    .box-model-border {
+      background: rgba(15,57,172,0.1);
+      border: 3px solid var(--primary);
+      border-radius: 10px; padding: 16px;
+      margin: 4px;
+    }
+
+    .box-model-padding {
+      background: rgba(0,194,255,0.1);
+      border-radius: 8px; padding: 16px;
+    }
+
+    .box-model-content {
+      background: var(--primary);
+      color: white; border-radius: 6px;
+      padding: 12px 16px; font-weight: 700; font-size: 0.9rem;
+    }
+
+    /* Button demo */
+    .live-btn {
+      padding: 12px 28px;
+      background: var(--primary); color: white;
+      border: none; border-radius: 100px;
+      font-size: 0.95rem; font-weight: 700;
       cursor: pointer;
-      font-size: 1rem;
-      transition: all 0.2s;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      transition: all var(--transition);
+      box-shadow: 0 4px 16px rgba(15,57,172,0.2);
     }
-    
-    .demo-btn:hover {
-      background-color: #0b74de;
-      transform: scale(1.05);
-    }
-    
-    .demo-card {
-      width: 200px;
-      padding: 20px;
-      border-radius: 12px;
-      background: white;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-      border: 1px solid #e2e8f0;
-    }
-    
+
+    .live-btn:hover { background: var(--primary-light); transform: translateY(-2px); }
+
+    /* Flexbox demo */
     .flex-demo {
-      display: flex;
-      gap: 10px;
-      background: #e2e8f0;
-      padding: 20px;
-      border-radius: 8px;
-      flex-wrap: wrap;
+      display: flex; gap: 10px;
+      background: rgba(15,57,172,0.06);
+      padding: 16px; border-radius: 12px; flex-wrap: wrap;
     }
-    
+
     .flex-item {
-      background: #0f39ac;
-      color: white;
-      padding: 15px;
-      border-radius: 6px;
-      min-width: 60px;
-      text-align: center;
+      background: var(--primary); color: white;
+      padding: 14px 18px; border-radius: 10px;
+      font-weight: 700; min-width: 50px; text-align: center;
     }
-    
-    /* DARK MODE */
-    body.dark .lesson-card {
-      background: #1e1e1e;
-      border-color: #333;
+
+    /* Card demo */
+    .live-card {
+      background: var(--surface);
+      padding: 22px; border-radius: 14px;
+      box-shadow: 0 8px 28px rgba(15,57,172,0.12);
+      border: 1px solid rgba(15,57,172,0.07);
+      max-width: 220px;
+      transition: transform var(--transition), box-shadow var(--transition);
     }
-    
-    body.dark .lesson-content p {
-      color: #ccc;
+
+    .live-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(15,57,172,0.18); }
+
+    .live-card h3 { color: var(--primary); margin-bottom: 8px; font-size: 1rem; }
+    body.dark .live-card h3 { color: #7eb3ff; }
+    .live-card p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 14px; line-height: 1.5; }
+
+    .live-card-btn {
+      padding: 8px 18px; background: var(--primary); color: white;
+      border: none; border-radius: 8px; font-size: 0.85rem;
+      font-weight: 700; cursor: pointer;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      transition: all var(--transition);
     }
-    
-    body.dark .example-box {
-      background: #2d2d2d;
-      border-color: #444;
+
+    .live-card-btn:hover { background: var(--primary-light); }
+
+    /* ===== COMPLETION CARD ===== */
+    .completion-card {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: var(--radius); padding: 48px 40px;
+      text-align: center; color: white;
+      animation: fadeUp 0.5s 0.3s ease both;
     }
-    
-    body.dark .example-display {
-      background: #1e1e1e;
-      border-color: #444;
-      color: white;
+
+    .completion-card .big-emoji { font-size: 3rem; display: block; margin-bottom: 14px; }
+    .completion-card h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 10px; }
+    .completion-card p { opacity: 0.88; font-size: 0.97rem; margin-bottom: 28px; }
+
+    .completion-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    .btn-white {
+      padding: 13px 30px; background: white; color: var(--primary);
+      border: none; border-radius: 12px; font-size: 0.95rem; font-weight: 700;
+      text-decoration: none; display: inline-block; transition: all var(--transition);
     }
-    
-    body.dark .sub-nav a {
-      background: #2d2d2d;
-      color: white;
-      border-color: #0f39ac;
+
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+    .btn-ghost {
+      padding: 13px 28px; background: rgba(255,255,255,0.12);
+      border: 2px solid rgba(255,255,255,0.3); color: white;
+      border-radius: 12px; font-size: 0.95rem; font-weight: 700;
+      text-decoration: none; display: inline-block; transition: all var(--transition);
     }
-    
-    body.dark .sub-nav a:hover,
-    body.dark .sub-nav a.active {
-      background: #0f39ac;
-      color: white;
+
+    .btn-ghost:hover { background: rgba(255,255,255,0.2); }
+
+    /* ===== FOOTER ===== */
+    footer { background: var(--primary); color: white; text-align: center; padding: 28px 20px; }
+    footer p { opacity: 0.85; font-size: 0.9rem; }
+
+    /* ===== ANIMATION ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    
-    body.dark .demo-card {
-      background: #2d2d2d;
-      border-color: #444;
-    }
-    
-    body.dark .flex-demo {
-      background: #2d2d2d;
-    }
-    
-    /* RESPONSIVE */
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .tutorial-hero h1 {
-        font-size: 2.2rem;
-      }
-      
-      .tutorial-hero p {
-        font-size: 1.1rem;
-      }
-      
-      .lesson-header {
-        flex-direction: column;
-        text-align: center;
-      }
-      
-      .lesson-header h2 {
-        font-size: 1.6rem;
-      }
-      
-      .code-block {
-        font-size: 0.85rem;
-        padding: 20px;
-      }
+      header { padding: 0 20px; }
+      nav { display: none; position: absolute; top: 72px; left: 0; right: 0;
+        background: var(--primary); padding: 20px; z-index: 99; }
+      nav.open { display: block; }
+      nav ul { flex-direction: column; gap: 8px; }
+      nav ul li a { display: block; padding: 10px 16px; }
+      .hamburger { display: flex; }
+      .lesson-card { padding: 22px; }
+      .completion-card { padding: 32px 22px; }
+      .code-block { font-size: 0.82rem; padding: 16px; }
     }
-    
+
     @media (max-width: 480px) {
-      .tutorial-hero {
-        padding: 40px 20px;
-      }
-      
-      .tutorial-hero h1 {
-        font-size: 1.8rem;
-      }
-      
-      .lesson-card {
-        padding: 25px;
-      }
-      
-      .lesson-header h2 {
-        font-size: 1.5rem;
-      }
-      
-      .sub-nav a {
-        width: 100%;
-        text-align: center;
-      }
+      .sub-nav a { width: 100%; text-align: center; }
+      .progress-bar-card { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ===== HEADER ===== -->
   <header>
-    <div>
-      <a href="index.html">
-        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
-      </a>
-    </div>
-    
-    <nav>
+    <a href="index.html" class="logo-wrap">
+      <img src="logo.png" alt="KnotLearn Logo">
+      <span class="logo-name">KnotLearn</span>
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="mainNav">
       <ul>
         <li><a href="index.html" id="nav-home">Home</a></li>
         <li><a href="subject.html" id="nav-subject">Subjects</a></li>
@@ -350,259 +513,319 @@
         <li><a href="about.html" id="nav-about">About</a></li>
         <li><a href="contact.html" id="nav-contact">Feedback</a></li>
         <li><a href="relax.html" id="nav-relax">Relax</a></li>
-        
         <li class="nav-controls">
           <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
             <option value="en">🇬🇧 English</option>
             <option value="fr">🇫🇷 Français</option>
             <option value="rw">🇷🇼 Kinyarwanda</option>
           </select>
-          
-          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
-            🌙
-          </button>
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">🌙</button>
         </li>
       </ul>
     </nav>
   </header>
 
-  <!-- TUTORIAL HERO SECTION -->
-  <div class="tutorial-hero">
+  <!-- ===== PAGE HERO ===== -->
+  <section class="page-hero">
+    <div class="page-hero-badge">💻 Web Development</div>
     <h1>🎨 CSS Tutorial</h1>
-    <p>Learn CSS step by step — style your webpages beautifully</p>
-  </div>
-  
-  <!-- SUB-NAVIGATION - YOUR EXACT LINKS -->
-  <div class="sub-nav">
-    <a href="HTML.html">HTML</a>
-    <a href="CSS.html" class="active">CSS</a>
-    <a href="JavaScript.html">JavaScript</a>
+    <p>Learn CSS step by step — style your webpages beautifully.</p>
+    <div class="sub-nav">
+      <a href="HTML.html">🌐 HTML</a>
+      <a href="CSS.html" class="active">🎨 CSS</a>
+      <a href="JavaScript.html">⚡ JavaScript</a>
+    </div>
+  </section>
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-card">
+      <span class="progress-label">📖 Your Progress</span>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <span class="progress-count" id="progressCount">0 / 6 lessons</span>
+    </div>
   </div>
 
-  <!-- CSS LESSONS - YOUR EXACT CONTENT -->
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="index.html">Home</a> › <a href="subject.html">Subjects</a> › <a href="programming.html">Programming</a> › CSS
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
   <div class="tutorial-container">
-    
-    <div class="section-title">
-      <h2>🎯 CSS Fundamentals</h2>
-      <p style="color: #666; margin-top: 15px;">6 lessons to master cascading style sheets</p>
+
+    <div class="section-header">
+      <div class="section-tag">6 Lessons</div>
+      <h2>CSS Fundamentals</h2>
+      <p>Master cascading style sheets — with live, interactive previews</p>
     </div>
-    
-    <div class="lesson-grid">
-      
-      <!-- LESSON 1: WHAT IS CSS? - YOUR EXACT WORDS -->
-      <div class="lesson-card">
+
+    <div class="lesson-grid" id="lessonGrid">
+
+      <!-- LESSON 1: WHAT IS CSS? -->
+      <div class="lesson-card" data-lesson="1">
         <div class="lesson-header">
           <span class="lesson-icon">💅</span>
-          <h2>1. What is CSS?</h2>
+          <div class="lesson-meta">
+            <h2>What is CSS?</h2>
+            <span class="lesson-num">Lesson 1 of 6</span>
+          </div>
         </div>
         <div class="lesson-content">
-          <p>
-            CSS stands for <strong>Cascading Style Sheets</strong>.<br>
-            CSS styles a web page — colors, size, layout, and design.
-          </p>
-          
+          <p>CSS stands for <strong>Cascading Style Sheets</strong>. It styles a web page — colors, size, layout, and design.</p>
           <div class="code-block">
-body {<br>
-&nbsp;&nbsp;background-color: lightblue;<br>
-&nbsp;&nbsp;font-family: Arial, sans-serif;<br>
-}
+            <span class="code-label">CSS</span>
+            <span class="c-sel">body</span> {<br>
+            &nbsp;&nbsp;<span class="c-prop">background-color</span>: <span class="c-val">lightblue</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">font-family</span>: <span class="c-val">Arial, sans-serif</span>;<br>
+            }
           </div>
-          
-          <div class="example-box">
-            <h4>📌 Key Point:</h4>
-            <div class="example-display">
-              HTML = structure, CSS = style, JavaScript = behavior
-            </div>
+          <div class="key-point">
+            🧱 <strong>HTML = structure</strong> &nbsp;|&nbsp; 🎨 <strong>CSS = style</strong> &nbsp;|&nbsp; ⚡ <strong>JavaScript = behavior</strong><br>
+            <span style="font-size:0.9rem;opacity:0.8;">Think of HTML as the skeleton, CSS as the clothes, and JS as the movement.</span>
           </div>
         </div>
       </div>
-      
-      <!-- LESSON 2: COLORS & TEXT - YOUR EXACT WORDS -->
-      <div class="lesson-card">
+
+      <!-- LESSON 2: COLORS & TEXT -->
+      <div class="lesson-card" data-lesson="2">
         <div class="lesson-header">
           <span class="lesson-icon">🎨</span>
-          <h2>2. Colors & Text</h2>
+          <div class="lesson-meta">
+            <h2>Colors & Text</h2>
+            <span class="lesson-num">Lesson 2 of 6</span>
+          </div>
         </div>
         <div class="lesson-content">
-          <p>Change text color, size, and font family:</p>
-          
+          <p>Change text color, font size, weight, and alignment using CSS properties:</p>
           <div class="code-block">
-h2 {<br>
-&nbsp;&nbsp;color: red;<br>
-&nbsp;&nbsp;font-size: 24px;<br>
-&nbsp;&nbsp;font-weight: bold;<br>
-&nbsp;&nbsp;text-align: center;<br>
-}
+            <span class="code-label">CSS</span>
+            <span class="c-sel">h2</span> {<br>
+            &nbsp;&nbsp;<span class="c-prop">color</span>: <span class="c-val">red</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">font-size</span>: <span class="c-val">24px</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">font-weight</span>: <span class="c-val">bold</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">text-align</span>: <span class="c-val">center</span>;<br>
+            }
           </div>
-          
-          <div class="example-box">
-            <h4>🎯 Live Example:</h4>
-            <div class="example-display">
-              <h2 style="color: #0f39ac; font-size: 24px; font-weight: bold; margin: 0;">This text is KnotLearn blue</h2>
-              <p style="color: #0b74de; margin-top: 10px;">This text is lighter blue</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- LESSON 3: BOX MODEL - YOUR EXACT WORDS -->
-      <div class="lesson-card">
-        <div class="lesson-header">
-          <span class="lesson-icon">📦</span>
-          <h2>3. Box Model</h2>
-        </div>
-        <div class="lesson-content">
-          <p>
-            Every element is a box with margin, border, padding, and content.
-          </p>
-          
-          <div class="code-block">
-div {<br>
-&nbsp;&nbsp;width: 200px;<br>
-&nbsp;&nbsp;padding: 20px;<br>
-&nbsp;&nbsp;margin: 10px;<br>
-&nbsp;&nbsp;border: 2px solid black;<br>
-&nbsp;&nbsp;border-radius: 8px;<br>
-}
-          </div>
-          
-          <div class="example-box">
-            <h4>🎯 Live Example:</h4>
-            <div class="example-display">
-              <div style="width: 200px; padding: 20px; margin: 10px; border: 2px solid #0f39ac; border-radius: 8px; background: white;">
-                <strong>Content</strong><br>
-                Padding inside<br>
-                Border around
+          <div class="demo-box">
+            <h4>🎯 Live Preview:</h4>
+            <div class="demo-inner">
+              <div class="color-row" style="margin-bottom:14px;">
+                <div class="swatch" style="background:#0f39ac;">#0f39ac</div>
+                <div class="swatch" style="background:#0b74de;">#0b74de</div>
+                <div class="swatch" style="background:#00c2ff;">#00c2ff</div>
+                <div class="swatch" style="background:#22c55e;">#22c55e</div>
+                <div class="swatch" style="background:#ef4444;">#ef4444</div>
+              </div>
+              <div class="text-demos">
+                <div style="font-size:1.4rem;font-weight:800;color:var(--primary);">Bold heading — KnotLearn blue</div>
+                <div style="font-size:1rem;color:var(--primary-light);">Regular text — lighter blue</div>
+                <div style="font-size:0.9rem;font-style:italic;color:var(--text-muted);">Italic muted text — for captions</div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
-      <!-- LESSON 4: BUTTONS - YOUR EXACT WORDS -->
-      <div class="lesson-card">
+
+      <!-- LESSON 3: BOX MODEL -->
+      <div class="lesson-card" data-lesson="3">
         <div class="lesson-header">
-          <span class="lesson-icon">🔘</span>
-          <h2>4. Buttons</h2>
+          <span class="lesson-icon">📦</span>
+          <div class="lesson-meta">
+            <h2>The Box Model</h2>
+            <span class="lesson-num">Lesson 3 of 6</span>
+          </div>
         </div>
         <div class="lesson-content">
-          <p>Style buttons with CSS:</p>
-          
+          <p>Every HTML element is a box with four layers: <strong>margin</strong> (outside space), <strong>border</strong> (frame), <strong>padding</strong> (inside space), and <strong>content</strong> (the actual text/image).</p>
           <div class="code-block">
-button {<br>
-&nbsp;&nbsp;background-color: #0f39ac;<br>
-&nbsp;&nbsp;color: white;<br>
-&nbsp;&nbsp;padding: 12px 24px;<br>
-&nbsp;&nbsp;border: none;<br>
-&nbsp;&nbsp;border-radius: 50px;<br>
-&nbsp;&nbsp;cursor: pointer;<br>
-&nbsp;&nbsp;font-size: 16px;<br>
-}
+            <span class="code-label">CSS</span>
+            <span class="c-sel">div</span> {<br>
+            &nbsp;&nbsp;<span class="c-prop">width</span>: <span class="c-num">200px</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">padding</span>: <span class="c-num">20px</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">margin</span>: <span class="c-num">10px</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">border</span>: <span class="c-val">2px solid #0f39ac</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">border-radius</span>: <span class="c-num">8px</span>;<br>
+            }
           </div>
-          
-          <div class="example-box">
-            <h4>🎯 Live Example:</h4>
-            <div class="example-display">
-              <button class="demo-btn" onclick="alert('CSS Button Clicked!')">Click Me</button>
+          <div class="demo-box">
+            <h4>🎯 Live Preview — Box Model Diagram:</h4>
+            <div class="demo-inner" style="display:flex;justify-content:center;align-items:center;">
+              <div class="box-model-outer">
+                Margin
+                <div class="box-model-border">
+                  Border
+                  <div class="box-model-padding">
+                    Padding
+                    <div class="box-model-content">Content</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      
-      <!-- LESSON 5: FLEXBOX - YOUR EXACT WORDS -->
-      <div class="lesson-card">
+
+      <!-- LESSON 4: BUTTONS -->
+      <div class="lesson-card" data-lesson="4">
         <div class="lesson-header">
-          <span class="lesson-icon">📐</span>
-          <h2>5. Flexbox</h2>
+          <span class="lesson-icon">🔘</span>
+          <div class="lesson-meta">
+            <h2>Styling Buttons</h2>
+            <span class="lesson-num">Lesson 4 of 6</span>
+          </div>
         </div>
         <div class="lesson-content">
-          <p>Align items easily with Flexbox:</p>
-          
+          <p>Style buttons to look modern and professional. Use <strong>border-radius</strong> for rounded corners and <strong>transition</strong> for smooth hover effects:</p>
           <div class="code-block">
-.container {<br>
-&nbsp;&nbsp;display: flex;<br>
-&nbsp;&nbsp;justify-content: center;<br>
-&nbsp;&nbsp;align-items: center;<br>
-&nbsp;&nbsp;gap: 10px;<br>
-}
+            <span class="code-label">CSS</span>
+            <span class="c-sel">button</span> {<br>
+            &nbsp;&nbsp;<span class="c-prop">background-color</span>: <span class="c-val">#0f39ac</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">color</span>: <span class="c-val">white</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">padding</span>: <span class="c-val">12px 24px</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">border</span>: <span class="c-val">none</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">border-radius</span>: <span class="c-num">50px</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">transition</span>: <span class="c-val">all 0.2s</span>;<br>
+            }<br>
+            <span class="c-sel">button</span><span class="c-pseudo">:hover</span> {<br>
+            &nbsp;&nbsp;<span class="c-prop">transform</span>: <span class="c-val">translateY(-2px)</span>;<br>
+            }
           </div>
-          
-          <div class="example-box">
-            <h4>🎯 Live Example:</h4>
-            <div class="example-display">
+          <div class="demo-box">
+            <h4>🎯 Live Preview — hover over the buttons:</h4>
+            <div class="demo-inner" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+              <button class="live-btn" onclick="alert('Pill button clicked!')">Pill Button</button>
+              <button class="live-btn" style="border-radius:10px;" onclick="alert('Square button clicked!')">Square Button</button>
+              <button class="live-btn" style="background:transparent;border:2px solid var(--primary);color:var(--primary);" onclick="alert('Outline button!')">Outline</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LESSON 5: FLEXBOX -->
+      <div class="lesson-card" data-lesson="5">
+        <div class="lesson-header">
+          <span class="lesson-icon">📐</span>
+          <div class="lesson-meta">
+            <h2>Flexbox Layout</h2>
+            <span class="lesson-num">Lesson 5 of 6</span>
+          </div>
+        </div>
+        <div class="lesson-content">
+          <p>Flexbox makes it easy to align and arrange items in a row or column. It's the most useful CSS layout tool:</p>
+          <div class="code-block">
+            <span class="code-label">CSS</span>
+            <span class="c-sel">.container</span> {<br>
+            &nbsp;&nbsp;<span class="c-prop">display</span>: <span class="c-val">flex</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">justify-content</span>: <span class="c-val">center</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">align-items</span>: <span class="c-val">center</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">gap</span>: <span class="c-num">10px</span>;<br>
+            }
+          </div>
+          <div class="demo-box">
+            <h4>🎯 Live Preview — items in a flex row with gap:</h4>
+            <div class="demo-inner">
               <div class="flex-demo">
                 <div class="flex-item">1</div>
                 <div class="flex-item">2</div>
                 <div class="flex-item">3</div>
+                <div class="flex-item" style="background:var(--accent);color:#0f39ac;">4</div>
               </div>
-              <p style="margin-top: 10px; color: #555;">Items are aligned in a row with gap</p>
+              <p style="color:var(--text-muted);font-size:0.85rem;margin-top:10px;">Items automatically align in a row with equal spacing.</p>
             </div>
           </div>
         </div>
       </div>
-      
-      <!-- LESSON 6: CARD DESIGN - YOUR EXACT WORDS -->
-      <div class="lesson-card">
+
+      <!-- LESSON 6: CARD DESIGN -->
+      <div class="lesson-card" data-lesson="6">
         <div class="lesson-header">
           <span class="lesson-icon">🃏</span>
-          <h2>6. Card Design</h2>
+          <div class="lesson-meta">
+            <h2>Card Design</h2>
+            <span class="lesson-num">Lesson 6 of 6</span>
+          </div>
         </div>
         <div class="lesson-content">
-          <p>Modern UI using CSS:</p>
-          
+          <p>Cards are one of the most popular UI patterns. Use <strong>box-shadow</strong> for depth and <strong>transition</strong> for a smooth hover lift effect:</p>
           <div class="code-block">
-.card {<br>
-&nbsp;&nbsp;background: white;<br>
-&nbsp;&nbsp;padding: 20px;<br>
-&nbsp;&nbsp;border-radius: 12px;<br>
-&nbsp;&nbsp;box-shadow: 0 4px 15px rgba(0,0,0,0.1);<br>
-&nbsp;&nbsp;transition: transform 0.2s;<br>
-}<br>
-.card:hover {<br>
-&nbsp;&nbsp;transform: translateY(-5px);<br>
-}
+            <span class="code-label">CSS</span>
+            <span class="c-sel">.card</span> {<br>
+            &nbsp;&nbsp;<span class="c-prop">background</span>: <span class="c-val">white</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">padding</span>: <span class="c-val">20px</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">border-radius</span>: <span class="c-num">12px</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">box-shadow</span>: <span class="c-val">0 4px 15px rgba(0,0,0,0.1)</span>;<br>
+            &nbsp;&nbsp;<span class="c-prop">transition</span>: <span class="c-val">transform 0.2s</span>;<br>
+            }<br>
+            <span class="c-sel">.card</span><span class="c-pseudo">:hover</span> {<br>
+            &nbsp;&nbsp;<span class="c-prop">transform</span>: <span class="c-val">translateY(-5px)</span>;<br>
+            }
           </div>
-          
-          <div class="example-box">
-            <h4>🎯 Live Example:</h4>
-            <div class="example-display" style="display: flex; justify-content: center;">
-              <div class="demo-card">
-                <h3 style="color: #0f39ac; margin-bottom: 10px;">CSS Card</h3>
-                <p style="color: #555; margin-bottom: 15px;">This is a simple card with shadow and hover effect.</p>
-                <button style="background: #0f39ac; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer;">Learn More</button>
+          <div class="demo-box">
+            <h4>🎯 Live Preview — hover over the card:</h4>
+            <div class="demo-inner" style="display:flex;justify-content:center;">
+              <div class="live-card">
+                <h3>CSS Card</h3>
+                <p>This card has shadow, rounded corners, and a smooth hover lift.</p>
+                <button class="live-card-btn" onclick="alert('Learn More clicked!')">Learn More</button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
+
     </div>
-    
-    <!-- NEXT STEPS -->
-    <div style="text-align: center; margin-top: 50px; padding: 40px; background: linear-gradient(145deg, #f0f7ff, #ffffff); border-radius: 20px;">
-      <span style="font-size: 2.5rem;">⚡</span>
-      <h3 style="color: #0f39ac; font-size: 1.8rem; margin: 15px 0;">Ready for JavaScript?</h3>
-      <p style="color: #555; font-size: 1.1rem; margin-bottom: 25px;">
-        Make your websites interactive and dynamic.
-      </p>
-      <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-        <a href="JavaScript.html" style="display: inline-block; background: #0f39ac; color: white; padding: 14px 35px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem;">Start JavaScript →</a>
-        <a href="HTML.html" style="display: inline-block; background: white; color: #0f39ac; padding: 14px 35px; border-radius: 50px; text-decoration: none; font-weight: bold; border: 2px solid #0f39ac;">Review HTML</a>
+
+    <!-- COMPLETION CARD -->
+    <div class="completion-card">
+      <span class="big-emoji">⚡</span>
+      <h3>Ready for JavaScript?</h3>
+      <p>You've styled your pages — now make them interactive and dynamic!</p>
+      <div class="completion-btns">
+        <a href="JavaScript.html" class="btn-white">Start JavaScript ⚡</a>
+        <a href="HTML.html" class="btn-ghost">Review HTML 🌐</a>
+        <a href="programming.html" class="btn-ghost">All Programming →</a>
       </div>
     </div>
-    
+
   </div>
 
+  <!-- ===== FOOTER ===== -->
   <footer>
-    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+    <p>&copy; 2026 KnotLearn. All rights reserved. Made with ❤️ for students.</p>
   </footer>
 
+  <!-- ===== JAVASCRIPT ===== -->
   <script>
-    // ===== KNOTLEARN - LANGUAGE & THEME CONTROLS =====
+    // ===== SCROLL PROGRESS TRACKER =====
+    const TOTAL = 6;
+    let seen = new Set();
+
+    function updateProgress() {
+      const pct = Math.round((seen.size / TOTAL) * 100);
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressCount').textContent = seen.size + ' / ' + TOTAL + ' lessons';
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const n = e.target.dataset.lesson;
+          if (n && !seen.has(n)) { seen.add(n); updateProgress(); }
+        }
+      });
+    }, { threshold: 0.4 });
+
+    document.querySelectorAll('.lesson-card').forEach(c => observer.observe(c));
+    setTimeout(() => { document.getElementById('progressFill').style.transition = 'width 1s ease'; }, 100);
+
+    // ===== LANGUAGE & THEME =====
     const textData = {
-      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
-      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
-      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+      en: { home:"Home", subjects:"Subjects", quiz:"Quiz", about:"About", contact:"Feedback", relax:"Relax" },
+      fr: { home:"Accueil", subjects:"Matières", quiz:"Quiz", about:"À propos", contact:"Contact", relax:"Détente" },
+      rw: { home:"Ahabanza", subjects:"Amasomo", quiz:"Ikizamini", about:"Ibyerekeye", contact:"Twandikire", relax:"Wuhura" }
     };
 
     function changeLanguage() {
@@ -610,7 +833,6 @@ button {<br>
       if (!langSelect) return;
       const lang = langSelect.value;
       localStorage.setItem("knotlearn_lang", lang);
-      
       document.getElementById("nav-home").innerText = textData[lang].home;
       document.getElementById("nav-subject").innerText = textData[lang].subjects;
       document.getElementById("nav-quiz").innerText = textData[lang].quiz;
@@ -623,26 +845,20 @@ button {<br>
       document.body.classList.toggle("dark");
       const isDark = document.body.classList.contains("dark");
       localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
-      const themeBtn = document.getElementById("themeToggle");
-      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+      document.getElementById("themeToggle").innerText = isDark ? "☀️" : "🌙";
     }
 
-    window.onload = function() {
+    function toggleMenu() {
+      document.getElementById("mainNav").classList.toggle("open");
+    }
+
+    window.onload = function () {
       const savedLang = localStorage.getItem("knotlearn_lang");
       const savedTheme = localStorage.getItem("knotlearn_theme");
-
-      if (savedLang) {
-        const langSelect = document.getElementById("languageSelect");
-        if (langSelect) {
-          langSelect.value = savedLang;
-          changeLanguage();
-        }
-      }
-
+      if (savedLang) { document.getElementById("languageSelect").value = savedLang; changeLanguage(); }
       if (savedTheme === "dark") {
         document.body.classList.add("dark");
-        const themeBtn = document.getElementById("themeToggle");
-        if (themeBtn) themeBtn.innerText = "☀️";
+        document.getElementById("themeToggle").innerText = "☀️";
       }
     };
   </script>

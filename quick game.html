@@ -1,262 +1,636 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO META TAGS -->
   <meta name="description" content="KnotLearn - Think Fast! Critical thinking game for students. Improve logic, digital safety, and problem solving skills.">
   <meta name="keywords" content="educational game, critical thinking, logic puzzle, digital safety, student game">
   <meta name="author" content="KnotLearn">
-  
   <title>KnotLearn - Think Fast! Critical Thinking Game</title>
-  
-  <!-- MASTER CSS FILE -->
-  <link rel="stylesheet" href="style.css">
-  
+
   <style>
-    /* ===== GAME-SPECIFIC STYLES - YOUR COLORS ===== */
-    .game-container {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 0 20px;
+    :root {
+      --primary: #0f39ac;
+      --primary-light: #0b74de;
+      --accent: #00c2ff;
+      --bg: #f0f4ff;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --card-shadow: 0 8px 32px rgba(15,57,172,0.10);
+      --radius: 18px;
+      --transition: 0.3s cubic-bezier(.4,0,.2,1);
     }
-    
-    .game-header {
+
+    body.dark {
+      --bg: #0d1117;
+      --surface: #161b27;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --card-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--primary);
+      padding: 0 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #0f39ac;
+      height: 72px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(15,57,172,0.25);
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-wrap img {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .logo-name {
+      font-size: 1.4rem;
+      font-weight: 800;
       color: white;
-      padding: 15px 25px;
-      border-radius: 10px 10px 0 0;
+      letter-spacing: -0.5px;
     }
-    
-    .score-box, .level-box {
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    nav ul li a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    nav ul li a:hover { background: rgba(255,255,255,0.15); color: white; }
+
+    .nav-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-left: 10px;
+    }
+
+    #languageSelect {
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    #languageSelect option { color: #1e293b; background: white; }
+
+    #themeToggle {
+      padding: 6px 10px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      background: none;
+      border: none;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
       background: white;
-      color: #0f39ac;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-weight: bold;
+      border-radius: 2px;
     }
-    
+
+    /* ===== PAGE HERO ===== */
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      padding: 60px 20px;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      top: -150px; right: -100px;
+    }
+
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      bottom: -100px; left: -80px;
+    }
+
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 5px 18px;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-hero p {
+      font-size: 1.05rem;
+      opacity: 0.88;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== GAME WRAPPER ===== */
+    .game-wrapper {
+      max-width: 760px;
+      margin: 50px auto;
+      padding: 0 20px 80px;
+    }
+
+    /* ===== STAT BAR ===== */
+    .stat-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--primary);
+      color: white;
+      padding: 14px 24px;
+      border-radius: var(--radius) var(--radius) 0 0;
+      gap: 12px;
+    }
+
+    .stat-bar h2 {
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+
+    .stat-pills {
+      display: flex;
+      gap: 10px;
+    }
+
+    .stat-pill {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .stat-pill span { color: var(--accent); }
+
+    /* ===== GAME CARD ===== */
     .game-card {
-      background: white;
-      border: 2px solid #e0e7ff;
-      border-radius: 0 0 10px 10px;
-      padding: 30px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-      min-height: 400px;
+      background: var(--surface);
+      border: 1px solid rgba(15,57,172,0.08);
+      border-top: none;
+      border-radius: 0 0 var(--radius) var(--radius);
+      padding: 36px;
+      box-shadow: var(--card-shadow);
+      min-height: 420px;
       display: flex;
       flex-direction: column;
     }
-    
-    /* INTRO SCREEN */
+
+    /* ===== INTRO SCREEN ===== */
     .intro-screen {
       text-align: center;
-      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: fadeUp 0.5s ease both;
     }
-    
+
+    .intro-emoji { font-size: 4rem; margin-bottom: 18px; }
+
     .intro-screen h2 {
-      color: #0f39ac;
-      font-size: 2rem;
-      margin-bottom: 20px;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 12px;
     }
-    
-    .intro-screen p {
-      color: #555;
-      font-size: 1.1rem;
-      margin-bottom: 15px;
-      line-height: 1.6;
+
+    .intro-screen > p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 480px;
+      margin-bottom: 28px;
+      line-height: 1.7;
     }
-    
+
     .intro-list {
-      text-align: left;
-      background: #f0f7ff;
-      padding: 20px;
-      border-radius: 10px;
-      margin: 25px 0;
+      background: var(--bg);
+      border-radius: 14px;
+      padding: 22px 28px;
+      margin-bottom: 32px;
       list-style: none;
+      text-align: left;
+      width: 100%;
+      max-width: 420px;
+      border: 1px solid rgba(15,57,172,0.08);
     }
-    
+
     .intro-list li {
-      padding: 8px 0;
-      padding-left: 30px;
+      padding: 10px 0 10px 32px;
       position: relative;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(15,57,172,0.06);
     }
-    
-    .intro-list li:before {
-      content: "🧠";
-      position: absolute;
-      left: 0;
-    }
-    
-    /* QUESTION SCREEN */
+
+    .intro-list li:last-child { border-bottom: none; }
+    .intro-list li::before { content: "🧠"; position: absolute; left: 0; }
+
+    /* ===== QUESTION SCREEN ===== */
     .question-screen {
       display: none;
+      flex: 1;
+      flex-direction: column;
+      animation: fadeUp 0.4s ease both;
     }
-    
-    .timer-bar {
-      width: 100%;
-      height: 8px;
-      background: #e0e7ff;
-      border-radius: 4px;
+
+    /* Timer bar */
+    .timer-bar-wrap {
       margin-bottom: 20px;
-      overflow: hidden;
     }
-    
-    .timer-fill {
+
+    .timer-bar-bg {
+      height: 8px;
+      background: rgba(15,57,172,0.1);
+      border-radius: 100px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .timer-bar-fill {
       height: 100%;
-      width: 100%;
-      background: #0f39ac;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 100px;
       transition: width 1s linear;
     }
-    
+
+    .timer-bar-fill.danger { background: linear-gradient(90deg, #ef4444, #f97316); }
+
+    .timer-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     .category-tag {
       display: inline-block;
-      background: #e0f2fe;
-      color: #0f39ac;
-      padding: 5px 15px;
-      border-radius: 20px;
+      background: rgba(15,57,172,0.08);
+      color: var(--primary);
+      padding: 4px 14px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    body.dark .category-tag {
+      background: rgba(11,116,222,0.15);
+      color: var(--accent);
+    }
+
+    .timer-text {
+      font-weight: 700;
       font-size: 0.9rem;
-      font-weight: bold;
-      margin-bottom: 20px;
+      color: var(--primary);
     }
-    
+
+    .timer-text.danger { color: #ef4444; }
+
+    /* Question */
     .question-text {
-      font-size: 1.5rem;
-      color: #1e293b;
-      margin-bottom: 30px;
-      line-height: 1.4;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 20px 0 24px;
+      line-height: 1.5;
     }
-    
+
+    /* Options */
     .options-grid {
-      display: grid;
-      gap: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
       margin-bottom: 20px;
     }
-    
+
     .option-btn {
-      background: #f8fafc;
-      border: 2px solid #e2e8f0;
+      background: var(--bg);
+      border: 2px solid rgba(15,57,172,0.1);
       padding: 15px 20px;
-      border-radius: 10px;
-      font-size: 1.1rem;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 500;
       text-align: left;
       cursor: pointer;
-      transition: all 0.2s;
-      color: #1e293b;
+      transition: all var(--transition);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
-    
+
     .option-btn:hover {
-      background: #e0f2fe;
-      border-color: #0f39ac;
+      border-color: var(--primary);
+      background: rgba(15,57,172,0.05);
+      transform: translateX(4px);
     }
-    
+
+    .option-btn.correct {
+      border-color: #22c55e;
+      background: rgba(34,197,94,0.08);
+      color: #16a34a;
+    }
+
+    .option-btn.wrong {
+      border-color: #ef4444;
+      background: rgba(239,68,68,0.08);
+      color: #dc2626;
+    }
+
+    .opt-letter {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: rgba(15,57,172,0.1);
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all var(--transition);
+    }
+
+    .option-btn.correct .opt-letter { background: #22c55e; color: white; }
+    .option-btn.wrong .opt-letter { background: #ef4444; color: white; }
+
+    /* Hint box */
     .hint-box {
-      background: #fff4e5;
-      border-left: 5px solid #ff9800;
-      padding: 15px;
-      margin-top: 20px;
-      border-radius: 5px;
-      color: #663c00;
+      background: rgba(251,191,36,0.1);
+      border-left: 4px solid #f59e0b;
+      padding: 14px 18px;
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 0.92rem;
       display: none;
+      margin-top: 4px;
     }
-    
-    /* RESULT SCREEN */
+
+    .hint-box strong { color: #d97706; }
+
+    /* Feedback */
+    .feedback-bar {
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: none;
+      margin-top: 12px;
+    }
+
+    .feedback-bar.correct {
+      background: rgba(34,197,94,0.1);
+      color: #16a34a;
+      border: 1px solid rgba(34,197,94,0.3);
+      display: block;
+    }
+
+    .feedback-bar.wrong {
+      background: rgba(239,68,68,0.1);
+      color: #dc2626;
+      border: 1px solid rgba(239,68,68,0.3);
+      display: block;
+    }
+
+    .feedback-bar.timeout {
+      background: rgba(245,158,11,0.1);
+      color: #d97706;
+      border: 1px solid rgba(245,158,11,0.3);
+      display: block;
+    }
+
+    /* ===== RESULT SCREEN ===== */
     .result-screen {
       display: none;
+      flex: 1;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 30px;
+      animation: fadeUp 0.5s ease both;
     }
-    
-    .result-screen h2 {
-      color: #0f39ac;
-      font-size: 2rem;
-      margin-bottom: 20px;
+
+    .result-emoji { font-size: 4rem; margin-bottom: 18px; display: block; }
+
+    .result-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 10px;
     }
-    
-    .final-score {
+
+    .result-msg {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 28px;
+    }
+
+    .result-score-wrap {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 6px;
+      background: rgba(15,57,172,0.08);
+      border-radius: 100px;
+      padding: 14px 40px;
+      margin-bottom: 12px;
+    }
+
+    .result-score-num {
       font-size: 3rem;
-      font-weight: bold;
-      color: #0f39ac;
-      margin: 30px 0;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
     }
-    
-    .play-again-btn {
-      background: #0f39ac;
+
+    body.dark .result-score-num { color: #7eb3ff; }
+    .result-score-label { font-size: 1rem; color: var(--text-muted); font-weight: 600; }
+
+    .result-stats {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .result-stat {
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 14px 22px;
+      text-align: center;
+      border: 1px solid rgba(15,57,172,0.07);
+    }
+
+    .result-stat-num { font-size: 1.4rem; font-weight: 800; color: var(--primary); }
+    body.dark .result-stat-num { color: #7eb3ff; }
+    .result-stat-label { font-size: 0.78rem; color: var(--text-muted); }
+
+    .result-btns { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+
+    /* ===== BUTTONS ===== */
+    .btn-primary {
+      padding: 14px 32px;
+      background: var(--primary);
       color: white;
       border: none;
-      padding: 15px 40px;
-      font-size: 1.2rem;
-      border-radius: 50px;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 700;
       cursor: pointer;
-      font-weight: bold;
-      margin-top: 20px;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      transition: all var(--transition);
+      box-shadow: 0 4px 20px rgba(15,57,172,0.25);
+      text-decoration: none;
+      display: inline-block;
     }
-    
-    .play-again-btn:hover {
-      background: #0b74de;
+
+    .btn-primary:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(15,57,172,0.35);
     }
-    
-    /* DARK MODE */
-    body.dark .game-card {
-      background: #1e1e1e;
-      border-color: #333;
+
+    .btn-outline {
+      padding: 14px 32px;
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      transition: all var(--transition);
+      text-decoration: none;
+      display: inline-block;
     }
-    
-    body.dark .question-text {
+
+    .btn-outline:hover {
+      background: var(--primary);
       color: white;
     }
-    
-    body.dark .option-btn {
-      background: #2d2d2d;
-      border-color: #444;
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--primary);
       color: white;
+      text-align: center;
+      padding: 28px 20px;
     }
-    
-    body.dark .option-btn:hover {
-      background: #0f39ac;
-      color: white;
+
+    footer p { opacity: 0.85; font-size: 0.9rem; }
+
+    /* ===== ANIMATION ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    
-    body.dark .intro-list {
-      background: #2d2d2d;
-      color: white;
-    }
-    
-    body.dark .intro-list li:before {
-      opacity: 0.9;
-    }
-    
-    /* RESPONSIVE */
-    @media (max-width: 600px) {
-      .game-header {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-      }
-      
-      .question-text {
-        font-size: 1.2rem;
-      }
-      
-      .game-card {
-        padding: 20px;
-      }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      header { padding: 0 20px; }
+      nav { display: none; position: absolute; top: 72px; left: 0; right: 0;
+        background: var(--primary); padding: 20px; z-index: 99; }
+      nav.open { display: block; }
+      nav ul { flex-direction: column; gap: 8px; }
+      nav ul li a { display: block; padding: 10px 16px; }
+      .hamburger { display: flex; }
+      .stat-bar { flex-direction: column; gap: 10px; border-radius: var(--radius) var(--radius) 0 0; }
+      .game-card { padding: 24px 18px; }
+      .result-btns { flex-direction: column; align-items: center; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ===== HEADER ===== -->
   <header>
-    <div>
-      <a href="index.html">
-        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
-      </a>
-    </div>
-    
-    <nav>
+    <a href="index.html" class="logo-wrap">
+      <img src="logo.png" alt="KnotLearn Logo">
+      <span class="logo-name">KnotLearn</span>
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="mainNav">
       <ul>
         <li><a href="index.html" id="nav-home">Home</a></li>
         <li><a href="subject.html" id="nav-subject">Subjects</a></li>
@@ -264,247 +638,315 @@
         <li><a href="about.html" id="nav-about">About</a></li>
         <li><a href="contact.html" id="nav-contact">Feedback</a></li>
         <li><a href="relax.html" id="nav-relax">Relax</a></li>
-        
         <li class="nav-controls">
           <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
             <option value="en">🇬🇧 English</option>
             <option value="fr">🇫🇷 Français</option>
             <option value="rw">🇷🇼 Kinyarwanda</option>
           </select>
-          
-          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
-            🌙
-          </button>
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">🌙</button>
         </li>
       </ul>
     </nav>
   </header>
 
-  <div class="game-container">
-    
-    <!-- GAME HEADER -->
-    <div class="game-header">
-      <h1 style="font-size: 1.5rem;">🧠 Think Fast!</h1>
-      <div style="display: flex; gap: 15px;">
-        <div class="score-box">Score: <span id="scoreDisplay">0</span></div>
-        <div class="level-box">Level: <span id="levelDisplay">1</span></div>
+  <!-- ===== PAGE HERO ===== -->
+  <section class="page-hero">
+    <div class="page-hero-badge">🧠 Critical Thinking Game</div>
+    <h1>Think Fast!</h1>
+    <p>Test your logic, digital safety skills, and critical thinking under pressure!</p>
+  </section>
+
+  <!-- ===== GAME AREA ===== -->
+  <div class="game-wrapper">
+
+    <!-- STAT BAR -->
+    <div class="stat-bar">
+      <h2>🧠 Thinkers Game</h2>
+      <div class="stat-pills">
+        <div class="stat-pill">Score: <span id="scoreDisplay">0</span></div>
+        <div class="stat-pill">Level: <span id="levelDisplay">1</span></div>
+        <div class="stat-pill">Q: <span id="qDisplay">0</span>/<span id="qTotal">12</span></div>
       </div>
     </div>
-    
+
     <!-- GAME CARD -->
     <div class="game-card">
-      
+
       <!-- INTRO SCREEN -->
       <div id="introScreen" class="intro-screen">
-        <h2>Welcome, Young Thinker! 👋</h2>
-        <p>You are on a mission to save your school by using <strong>critical thinking</strong>, <strong>logic</strong>, and <strong>digital safety</strong> skills.</p>
-        
+        <div class="intro-emoji">👋</div>
+        <h2>Welcome, Young Thinker!</h2>
+        <p>You are on a mission to save your school by using <strong>critical thinking</strong>, <strong>logic</strong>, and <strong>digital safety</strong> skills. Answer quickly — you only have 20 seconds per question!</p>
+
         <ul class="intro-list">
           <li>Answer fast-thinking questions</li>
           <li>Solve logic puzzles</li>
           <li>Make smart digital choices</li>
+          <li>Earn 10 points per correct answer</li>
         </ul>
-        
-        <button onclick="startGame()" class="btn" style="font-size: 1.2rem; padding: 15px 40px;">Start Adventure</button>
+
+        <button onclick="startGame()" class="btn-primary" style="font-size: 1.05rem; padding: 15px 44px;">
+          🚀 Start Adventure
+        </button>
       </div>
-      
+
       <!-- QUESTION SCREEN -->
       <div id="questionScreen" class="question-screen">
-        <div class="timer-bar">
-          <div id="timerFill" class="timer-fill" style="width: 100%;"></div>
+
+        <div class="timer-bar-wrap">
+          <div class="timer-bar-bg">
+            <div id="timerFill" class="timer-bar-fill"></div>
+          </div>
+          <div class="timer-meta">
+            <span id="categoryTag" class="category-tag">Speed Thinking</span>
+            <span id="timerText" class="timer-text">⏱️ 20s</span>
+          </div>
         </div>
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-          <span id="categoryTag" class="category-tag">Speed Thinking</span>
-          <span id="timerText" style="font-weight: bold; color: #0f39ac;">⏱️ 20s</span>
-        </div>
-        
+
         <div id="questionText" class="question-text"></div>
-        
+
         <div id="optionsContainer" class="options-grid"></div>
-        
+
+        <div id="feedbackBar" class="feedback-bar"></div>
+
         <div id="hintBox" class="hint-box">
           <strong>💡 Hint:</strong> <span id="hintText"></span>
         </div>
+
       </div>
-      
+
       <!-- RESULT SCREEN -->
       <div id="resultScreen" class="result-screen">
-        <h2>🎉 Mission Complete!</h2>
-        <p style="font-size: 1.2rem; margin-bottom: 20px;">You showed strong critical thinking skills.</p>
-        
-        <div class="final-score">
-          <span id="finalScoreDisplay">0</span>
+        <span class="result-emoji" id="resultEmoji">🏆</span>
+        <div class="result-title" id="resultTitle">Mission Complete!</div>
+        <div class="result-msg" id="resultMsg">You showed strong critical thinking skills!</div>
+
+        <div class="result-score-wrap">
+          <span class="result-score-num" id="finalScoreDisplay">0</span>
+          <span class="result-score-label">pts</span>
         </div>
-        
-        <button onclick="restartGame()" class="play-again-btn">Play Again</button>
+
+        <div class="result-stats">
+          <div class="result-stat">
+            <div class="result-stat-num" id="correctCount">0</div>
+            <div class="result-stat-label">Correct</div>
+          </div>
+          <div class="result-stat">
+            <div class="result-stat-num" id="wrongCount">0</div>
+            <div class="result-stat-label">Wrong</div>
+          </div>
+          <div class="result-stat">
+            <div class="result-stat-num" id="accuracyDisplay">0%</div>
+            <div class="result-stat-label">Accuracy</div>
+          </div>
+        </div>
+
+        <div class="result-btns">
+          <button onclick="restartGame()" class="btn-primary">🔄 Play Again</button>
+          <a href="relax.html" class="btn-outline">🌿 Relax Zone</a>
+        </div>
       </div>
-      
+
     </div>
   </div>
 
+  <!-- ===== FOOTER ===== */
   <footer>
-    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+    <p>&copy; 2026 KnotLearn. All rights reserved. Made with ❤️ for students.</p>
   </footer>
 
+  <!-- ===== JAVASCRIPT ===== -->
   <script>
-    // ===== KNOTLEARN - THINK FAST! GAME =====
-    // YOUR GAME. YOUR QUESTIONS. CLEAN & FAST.
-    
-    // QUESTIONS - YOUR EXACT CONTENT (REMOVED DUPLICATES)
     const questions = [
-      // Level 1 - Speed Thinking
       { level: 1, category: 'Speed Thinking', q: 'Which is heavier: 1kg of iron or 1kg of cotton?', options: ['Iron', 'Cotton', 'They are the same'], a: 2, hint: 'Think about the unit: kilogram.' },
       { level: 1, category: 'Speed Thinking', q: 'What comes next: 2, 4, 8, 16, ?', options: ['18', '24', '32'], a: 2, hint: 'Each number doubles.' },
-      
-      // Level 2 - Logic Puzzle
       { level: 2, category: 'Logic Puzzle', q: 'If you have 3 apples and take away 2, how many do you have?', options: ['1', '2', '3'], a: 1, hint: 'You take them, so they are with you.' },
-      { level: 2, category: 'Logic Puzzle', q: 'A farmer has 17 sheep, all but 9 run away. How many are left?', options: ['8', '9', '17'], a: 1, hint: 'Read carefully: "all but 9".' },
-      
-      // Level 3 - Digital Safety
-      { level: 3, category: 'Digital Safety', q: 'Which password is strongest?', options: ['knot123', 'MySchool2026', 'K9!aQ#2Lm'], a: 2, hint: 'Strong passwords mix symbols, numbers, and letters.' },
-      { level: 3, category: 'Digital Safety', q: 'A stranger asks for your photo online. What should you do?', options: ['Send it', 'Ignore & report', 'Ask for their photo first'], a: 1, hint: 'Protect your privacy.' },
-      
-      // Level 4 - Math Thinking
+      { level: 2, category: 'Logic Puzzle', q: 'A farmer has 17 sheep. All but 9 run away. How many are left?', options: ['8', '9', '17'], a: 1, hint: 'Read carefully: "all but 9".' },
+      { level: 3, category: 'Digital Safety', q: 'Which password is the strongest?', options: ['knot123', 'MySchool2026', 'K9!aQ#2Lm'], a: 2, hint: 'Strong passwords mix symbols, numbers, and letters.' },
+      { level: 3, category: 'Digital Safety', q: 'A stranger online asks for your photo. What should you do?', options: ['Send it', 'Ignore & report', 'Ask for their photo first'], a: 1, hint: 'Always protect your personal privacy online.' },
       { level: 4, category: 'Math Thinking', q: 'What is 25% of 200?', options: ['25', '50', '75'], a: 1, hint: '25% is one quarter.' },
-      { level: 4, category: 'Math Thinking', q: 'Which number is prime?', options: ['21', '29', '39'], a: 1, hint: 'Prime numbers have only two factors.' },
-      
-      // Level 5 - Geography & Science
+      { level: 4, category: 'Math Thinking', q: 'Which number is prime?', options: ['21', '29', '39'], a: 1, hint: 'Prime numbers only have two factors: 1 and themselves.' },
       { level: 5, category: 'Geography & Science', q: 'Which is the largest continent?', options: ['Africa', 'Asia', 'Europe'], a: 1, hint: 'Think biggest by land area.' },
-      { level: 5, category: 'Geography & Science', q: 'What gas do plants use to make food?', options: ['Oxygen', 'Carbon Dioxide', 'Nitrogen'], a: 1, hint: 'Photosynthesis needs this gas.' },
-      
-      // Level 6 - Creativity & Ethics
-      { level: 6, category: 'Creativity & Ethics', q: 'Your friend cheats in an exam. What is the best action?', options: ['Join them', 'Tell them to stop', 'Ignore it'], a: 1, hint: 'Think about honesty and growth.' },
-      { level: 6, category: 'Creativity & Ethics', q: 'Which idea shows creativity?', options: ['Copying homework', 'Building a solar phone charger', 'Doing nothing'], a: 1, hint: 'Creativity solves problems.' }
+      { level: 5, category: 'Geography & Science', q: 'What gas do plants use to make food?', options: ['Oxygen', 'Carbon Dioxide', 'Nitrogen'], a: 1, hint: 'Photosynthesis needs this gas from the air.' },
+      { level: 6, category: 'Creativity & Ethics', q: 'Your friend cheats in an exam. What is the best action?', options: ['Join them', 'Tell them to stop', 'Ignore it'], a: 1, hint: 'Think about honesty and real growth.' },
+      { level: 6, category: 'Creativity & Ethics', q: 'Which idea shows the most creativity?', options: ['Copying homework', 'Building a solar phone charger', 'Doing nothing'], a: 1, hint: 'Creativity solves problems in new ways.' }
     ];
 
-    // GAME STATE
     let currentScore = 0;
     let currentIndex = 0;
+    let correctAnswers = 0;
+    let wrongAnswers = 0;
     let timerInterval = null;
     let timeLeft = 20;
-    
-    // DOM ELEMENTS
-    const introScreen = document.getElementById('introScreen');
-    const questionScreen = document.getElementById('questionScreen');
-    const resultScreen = document.getElementById('resultScreen');
-    const scoreDisplay = document.getElementById('scoreDisplay');
-    const levelDisplay = document.getElementById('levelDisplay');
-    const finalScoreDisplay = document.getElementById('finalScoreDisplay');
-    const questionText = document.getElementById('questionText');
-    const optionsContainer = document.getElementById('optionsContainer');
-    const categoryTag = document.getElementById('categoryTag');
-    const hintText = document.getElementById('hintText');
-    const hintBox = document.getElementById('hintBox');
-    const timerText = document.getElementById('timerText');
-    const timerFill = document.getElementById('timerFill');
+    let answered = false;
 
-    // ===== GAME FUNCTIONS =====
+    const letters = ['A', 'B', 'C', 'D'];
+
+    const introScreen    = document.getElementById('introScreen');
+    const questionScreen = document.getElementById('questionScreen');
+    const resultScreen   = document.getElementById('resultScreen');
+    const scoreDisplay   = document.getElementById('scoreDisplay');
+    const levelDisplay   = document.getElementById('levelDisplay');
+    const qDisplay       = document.getElementById('qDisplay');
+    const finalScore     = document.getElementById('finalScoreDisplay');
+    const questionText   = document.getElementById('questionText');
+    const optionsContainer = document.getElementById('optionsContainer');
+    const categoryTag    = document.getElementById('categoryTag');
+    const hintText       = document.getElementById('hintText');
+    const hintBox        = document.getElementById('hintBox');
+    const timerText      = document.getElementById('timerText');
+    const timerFill      = document.getElementById('timerFill');
+    const feedbackBar    = document.getElementById('feedbackBar');
+
+    document.getElementById('qTotal').textContent = questions.length;
+
     function startGame() {
       currentScore = 0;
       currentIndex = 0;
-      updateScore();
-      
+      correctAnswers = 0;
+      wrongAnswers = 0;
+      scoreDisplay.textContent = 0;
+
       introScreen.style.display = 'none';
-      questionScreen.style.display = 'block';
+      questionScreen.style.display = 'flex';
       resultScreen.style.display = 'none';
-      
+
       loadQuestion();
     }
 
     function loadQuestion() {
-      // Clear previous timer
       if (timerInterval) clearInterval(timerInterval);
-      
-      // Check if game is complete
-      if (currentIndex >= questions.length) {
-        endGame();
-        return;
-      }
-      
+      if (currentIndex >= questions.length) { endGame(); return; }
+
+      answered = false;
       const q = questions[currentIndex];
-      
-      // Update display
+
       levelDisplay.textContent = q.level;
+      qDisplay.textContent = currentIndex + 1;
       categoryTag.textContent = q.category;
       questionText.textContent = q.q;
       hintText.textContent = q.hint;
       hintBox.style.display = 'none';
-      
-      // Create option buttons
+      feedbackBar.className = 'feedback-bar';
+      feedbackBar.textContent = '';
+
+      // Build options
       optionsContainer.innerHTML = '';
-      q.options.forEach((option, i) => {
+      q.options.forEach((opt, i) => {
         const btn = document.createElement('button');
         btn.className = 'option-btn';
-        btn.textContent = option;
+        btn.innerHTML = `<span class="opt-letter">${letters[i]}</span>${opt}`;
         btn.onclick = () => checkAnswer(i);
         optionsContainer.appendChild(btn);
       });
-      
-      // Setup timer
+
+      // Timer
       timeLeft = 20;
-      timerText.textContent = `⏱️ ${timeLeft}s`;
       timerFill.style.width = '100%';
-      
+      timerFill.className = 'timer-bar-fill';
+      timerText.className = 'timer-text';
+      timerText.textContent = `⏱️ ${timeLeft}s`;
+
       timerInterval = setInterval(() => {
         timeLeft--;
+        const pct = (timeLeft / 20) * 100;
+        timerFill.style.width = pct + '%';
         timerText.textContent = `⏱️ ${timeLeft}s`;
-        timerFill.style.width = `${(timeLeft / 20) * 100}%`;
-        
-        // Show hint at 10 seconds
-        if (timeLeft === 10) {
-          hintBox.style.display = 'block';
+
+        if (timeLeft <= 7) {
+          timerFill.className = 'timer-bar-fill danger';
+          timerText.className = 'timer-text danger';
         }
-        
-        // Time's up - move to next question
+
+        if (timeLeft === 10) hintBox.style.display = 'block';
+
         if (timeLeft <= 0) {
           clearInterval(timerInterval);
-          currentIndex++;
-          loadQuestion();
+          if (!answered) {
+            answered = true;
+            wrongAnswers++;
+            // Show correct answer
+            document.querySelectorAll('.option-btn').forEach((btn, i) => {
+              btn.style.pointerEvents = 'none';
+              if (i === q.a) btn.classList.add('correct');
+            });
+            feedbackBar.className = 'feedback-bar timeout';
+            feedbackBar.textContent = `⏰ Time's up! The answer was: ${q.options[q.a]}`;
+            setTimeout(() => { currentIndex++; loadQuestion(); }, 1800);
+          }
         }
       }, 1000);
     }
 
-    function checkAnswer(selectedIndex) {
-      const q = questions[currentIndex];
-      
-      // Award points if correct
-      if (selectedIndex === q.a) {
-        currentScore += 10;
-        updateScore();
-      }
-      
-      // Move to next question
+    function checkAnswer(selected) {
+      if (answered) return;
+      answered = true;
       clearInterval(timerInterval);
-      currentIndex++;
-      loadQuestion();
-    }
 
-    function updateScore() {
-      scoreDisplay.textContent = currentScore;
+      const q = questions[currentIndex];
+      const btns = document.querySelectorAll('.option-btn');
+
+      btns.forEach((btn, i) => {
+        btn.style.pointerEvents = 'none';
+        if (i === q.a) btn.classList.add('correct');
+        if (i === selected && selected !== q.a) btn.classList.add('wrong');
+      });
+
+      if (selected === q.a) {
+        currentScore += 10;
+        correctAnswers++;
+        scoreDisplay.textContent = currentScore;
+        feedbackBar.className = 'feedback-bar correct';
+        feedbackBar.textContent = '✅ Correct! Great thinking!';
+      } else {
+        wrongAnswers++;
+        feedbackBar.className = 'feedback-bar wrong';
+        feedbackBar.textContent = `❌ Wrong! Correct answer: ${q.options[q.a]}`;
+      }
+
+      setTimeout(() => { currentIndex++; loadQuestion(); }, 1800);
     }
 
     function endGame() {
       questionScreen.style.display = 'none';
-      resultScreen.style.display = 'block';
-      finalScoreDisplay.textContent = currentScore;
+      resultScreen.style.display = 'flex';
+
+      const total = questions.length;
+      const accuracy = Math.round((correctAnswers / total) * 100);
+
+      finalScore.textContent = currentScore;
+      document.getElementById('correctCount').textContent = correctAnswers;
+      document.getElementById('wrongCount').textContent = wrongAnswers;
+      document.getElementById('accuracyDisplay').textContent = accuracy + '%';
+
+      let emoji, title, msg;
+      if (accuracy === 100) {
+        emoji = '🏆'; title = 'Perfect Thinker!'; msg = 'Incredible! You answered every question correctly!';
+      } else if (accuracy >= 75) {
+        emoji = '🌟'; title = 'Sharp Mind!'; msg = 'Outstanding critical thinking — you\'re a natural!';
+      } else if (accuracy >= 50) {
+        emoji = '👍'; title = 'Good Effort!'; msg = 'Nice work! Keep practicing and you\'ll master it!';
+      } else {
+        emoji = '💪'; title = 'Keep Going!'; msg = 'Don\'t give up! Every game makes you smarter!';
+      }
+
+      document.getElementById('resultEmoji').textContent = emoji;
+      document.getElementById('resultTitle').textContent = title;
+      document.getElementById('resultMsg').textContent = msg;
     }
 
     function restartGame() {
-      currentScore = 0;
-      currentIndex = 0;
-      updateScore();
-      
-      introScreen.style.display = 'block';
+      introScreen.style.display = 'flex';
       questionScreen.style.display = 'none';
       resultScreen.style.display = 'none';
     }
 
-    // ===== LANGUAGE & THEME CONTROLS (SAME AS INDEX) =====
+    // ===== LANGUAGE & THEME =====
     const textData = {
-      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
-      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
-      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+      en: { home:"Home", subjects:"Subjects", quiz:"Quiz", about:"About", contact:"Feedback", relax:"Relax" },
+      fr: { home:"Accueil", subjects:"Matières", quiz:"Quiz", about:"À propos", contact:"Contact", relax:"Détente" },
+      rw: { home:"Ahabanza", subjects:"Amasomo", quiz:"Ikizamini", about:"Ibyerekeye", contact:"Twandikire", relax:"Wuhura" }
     };
 
     function changeLanguage() {
@@ -512,7 +954,6 @@
       if (!langSelect) return;
       const lang = langSelect.value;
       localStorage.setItem("knotlearn_lang", lang);
-      
       document.getElementById("nav-home").innerText = textData[lang].home;
       document.getElementById("nav-subject").innerText = textData[lang].subjects;
       document.getElementById("nav-quiz").innerText = textData[lang].quiz;
@@ -525,26 +966,23 @@
       document.body.classList.toggle("dark");
       const isDark = document.body.classList.contains("dark");
       localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
-      const themeBtn = document.getElementById("themeToggle");
-      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+      document.getElementById("themeToggle").innerText = isDark ? "☀️" : "🌙";
     }
 
-    window.onload = function() {
+    function toggleMenu() {
+      document.getElementById("mainNav").classList.toggle("open");
+    }
+
+    window.onload = function () {
       const savedLang = localStorage.getItem("knotlearn_lang");
       const savedTheme = localStorage.getItem("knotlearn_theme");
-
       if (savedLang) {
-        const langSelect = document.getElementById("languageSelect");
-        if (langSelect) {
-          langSelect.value = savedLang;
-          changeLanguage();
-        }
+        document.getElementById("languageSelect").value = savedLang;
+        changeLanguage();
       }
-
       if (savedTheme === "dark") {
         document.body.classList.add("dark");
-        const themeBtn = document.getElementById("themeToggle");
-        if (themeBtn) themeBtn.innerText = "☀️";
+        document.getElementById("themeToggle").innerText = "☀️";
       }
     };
   </script>

@@ -1,213 +1,556 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO META TAGS -->
   <meta name="description" content="KnotLearn - Language learning. Learn English, French, and Kiswahili with easy lessons and examples.">
   <meta name="keywords" content="learn languages, English, French, Kiswahili, vocabulary, phrases">
   <meta name="author" content="KnotLearn">
-  
-  <!-- SOCIAL SHARING -->
   <meta property="og:title" content="KnotLearn - Language Learning">
   <meta property="og:description" content="Learn English, French, and Kiswahili with step-by-step lessons.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="logo.png">
-  
   <title>KnotLearn - Languages</title>
-  
-  <!-- MASTER CSS FILE -->
-  <link rel="stylesheet" href="style.css">
-  
+
   <style>
-    /* ===== LANGUAGES PAGE - YOUR COLORS ===== */
-    .languages-hero {
-      background: linear-gradient(135deg, #0f39ac 0%, #0b74de 100%);
-      color: white;
-      padding: 60px 20px;
+    :root {
+      --primary: #0f39ac;
+      --primary-light: #0b74de;
+      --accent: #00c2ff;
+      --bg: #f0f4ff;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --card-shadow: 0 8px 32px rgba(15,57,172,0.10);
+      --radius: 18px;
+      --transition: 0.3s cubic-bezier(.4,0,.2,1);
+    }
+
+    body.dark {
+      --bg: #0d1117;
+      --surface: #161b27;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --card-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--primary);
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(15,57,172,0.25);
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-wrap img { width: 48px; height: 48px; border-radius: 12px; object-fit: cover; }
+    .logo-name { font-size: 1.4rem; font-weight: 800; color: white; letter-spacing: -0.5px; }
+
+    nav ul { list-style: none; display: flex; align-items: center; gap: 6px; }
+
+    nav ul li a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none; font-weight: 500;
+      font-size: 0.9rem; padding: 6px 14px;
+      border-radius: 8px;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    nav ul li a:hover, nav ul li a.active { background: rgba(255,255,255,0.15); color: white; }
+
+    .nav-controls { display: flex; gap: 8px; align-items: center; margin-left: 10px; }
+
+    #languageSelect {
+      padding: 6px 10px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1); color: white; font-size: 13px; cursor: pointer;
+    }
+
+    #languageSelect option { color: #1e293b; background: white; }
+
+    #themeToggle {
+      padding: 6px 10px; background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white; border-radius: 8px; cursor: pointer; font-size: 16px;
+    }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; }
+
+    /* ===== PAGE HERO ===== */
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      padding: 70px 20px;
       text-align: center;
-      margin-bottom: 40px;
+      color: white;
+      position: relative;
+      overflow: hidden;
     }
-    
-    .languages-hero h1 {
-      font-size: 3rem;
-      margin-bottom: 15px;
+
+    .page-hero::before {
+      content: ''; position: absolute;
+      width: 400px; height: 400px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%; top: -150px; right: -100px;
     }
-    
-    .languages-hero p {
-      font-size: 1.3rem;
-      opacity: 0.95;
+
+    .page-hero::after {
+      content: ''; position: absolute;
+      width: 300px; height: 300px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%; bottom: -100px; left: -80px;
     }
-    
+
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 5px 18px; border-radius: 100px;
+      font-size: 0.82rem; font-weight: 600;
+      margin-bottom: 20px; position: relative; z-index: 1;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800; margin-bottom: 14px;
+      position: relative; z-index: 1;
+    }
+
+    .page-hero p {
+      font-size: 1.05rem; opacity: 0.88;
+      max-width: 500px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+
+    /* ===== BREADCRUMB ===== */
+    .breadcrumb {
+      max-width: 1200px; margin: 28px auto 0;
+      padding: 0 20px; font-size: 0.85rem; color: var(--text-muted);
+    }
+
+    .breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    /* ===== MAIN CONTENT ===== */
     .languages-container {
       max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px 60px;
+      margin: 40px auto;
+      padding: 0 20px 80px;
     }
-    
+
+    /* ===== SECTION HEADER ===== */
+    .section-header { text-align: center; margin-bottom: 40px; }
+
+    .section-tag {
+      display: inline-block;
+      background: rgba(15,57,172,0.08);
+      color: var(--primary);
+      padding: 4px 16px; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;
+    }
+
+    body.dark .section-tag { background: rgba(11,116,222,0.15); color: var(--accent); }
+
+    .section-header h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; color: var(--text); }
+    .section-header p { color: var(--text-muted); margin-top: 10px; }
+
+    /* ===== LANGUAGES GRID ===== */
     .languages-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 30px;
-      margin-top: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
     }
-    
+
+    /* ===== LANGUAGE CARD ===== */
     .language-card {
-      background: white;
-      border-radius: 20px;
+      background: var(--surface);
+      border-radius: var(--radius);
       padding: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      border: 1px solid #e0e7ff;
-      transition: transform 0.2s;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(15,57,172,0.07);
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+      animation: fadeUp 0.5s ease both;
     }
-    
+
+    .language-card:nth-child(1) { animation-delay: 0.05s; }
+    .language-card:nth-child(2) { animation-delay: 0.10s; }
+    .language-card:nth-child(3) { animation-delay: 0.15s; }
+
+    .language-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+
+    .language-card:hover::before { transform: scaleX(1); }
+
     .language-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(15, 57, 172, 0.15);
+      box-shadow: 0 20px 50px rgba(15,57,172,0.15);
     }
-    
+
+    /* Card header */
     .language-header {
       display: flex;
       align-items: center;
-      gap: 15px;
-      margin-bottom: 25px;
-      border-bottom: 2px solid #eef2f6;
-      padding-bottom: 20px;
+      gap: 14px;
+      margin-bottom: 22px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(15,57,172,0.07);
     }
-    
-    .language-flag {
-      font-size: 3rem;
+
+    .language-flag { font-size: 2.6rem; }
+
+    .lang-meta h2 {
+      font-size: 1.5rem; font-weight: 800;
+      color: var(--primary); margin-bottom: 4px;
     }
-    
-    .language-header h2 {
-      color: #0f39ac;
-      font-size: 2rem;
-      margin: 0;
+
+    body.dark .lang-meta h2 { color: #7eb3ff; }
+
+    .lang-tag {
+      display: inline-block;
+      background: rgba(15,57,172,0.08);
+      color: var(--primary);
+      padding: 2px 12px; border-radius: 100px;
+      font-size: 0.75rem; font-weight: 700;
     }
-    
+
+    body.dark .lang-tag { background: rgba(11,116,222,0.15); color: var(--accent); }
+
+    /* ===== VOCAB TABLE ===== */
     .vocab-list {
-      background: #f8fafc;
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 20px;
+      background: var(--bg);
+      border-radius: 14px;
+      padding: 6px 16px;
+      margin-bottom: 18px;
+      border: 1px solid rgba(15,57,172,0.06);
     }
-    
+
     .vocab-item {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       padding: 12px 0;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid rgba(15,57,172,0.06);
+      gap: 10px;
     }
-    
-    .vocab-item:last-child {
-      border-bottom: none;
-    }
-    
+
+    .vocab-item:last-child { border-bottom: none; }
+
     .vocab-word {
-      font-weight: bold;
-      color: #0f39ac;
-      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1rem;
     }
-    
+
+    body.dark .vocab-word { color: #7eb3ff; }
+
     .vocab-meaning {
-      color: #555;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      text-align: right;
     }
-    
+
+    /* ===== EXAMPLE BOX ===== */
     .example-box {
-      background: #eef6ff;
-      border-left: 5px solid #0f39ac;
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 20px;
+      background: linear-gradient(135deg, #e8eeff, #dff0ff);
+      border-left: 5px solid var(--primary);
+      padding: 18px 20px;
+      border-radius: 12px;
+      margin-bottom: 18px;
     }
-    
-    .example-box p {
-      margin: 5px 0;
-      color: #1e293b;
-    }
-    
+
+    body.dark .example-box { background: rgba(15,57,172,0.12); }
+
     .example-label {
-      font-weight: bold;
-      color: #0f39ac;
-      margin-bottom: 10px;
+      font-weight: 700; color: var(--primary);
+      font-size: 0.85rem; margin-bottom: 8px;
+      text-transform: uppercase; letter-spacing: 0.5px;
     }
-    
-    /* DARK MODE */
-    body.dark .language-card {
-      background: #1e1e1e;
-      border-color: #333;
-    }
-    
-    body.dark .vocab-list {
-      background: #2d2d2d;
-    }
-    
-    body.dark .vocab-item {
-      border-bottom-color: #444;
-    }
-    
-    body.dark .vocab-meaning {
-      color: #ccc;
-    }
-    
-    body.dark .example-box {
-      background: #1a2a4a;
-    }
-    
-    body.dark .example-box p {
+
+    body.dark .example-label { color: #7eb3ff; }
+
+    .example-box p { color: var(--text); font-size: 0.97rem; margin: 4px 0; }
+    .example-box .translation { color: var(--text-muted); font-size: 0.88rem; font-style: italic; margin-top: 6px; }
+
+    /* ===== FLASHCARD BTN ===== */
+    .flashcard-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
       color: white;
+      border: none;
+      padding: 11px 22px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      transition: all var(--transition);
+      box-shadow: 0 4px 16px rgba(15,57,172,0.2);
     }
-    
-    /* RESPONSIVE */
+
+    .flashcard-btn:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(15,57,172,0.3);
+    }
+
+    /* ===== FLASHCARD MODAL ===== */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 200;
+      display: none; align-items: center; justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal-box {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 40px;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+      position: relative;
+      animation: fadeUp 0.3s ease both;
+      text-align: center;
+    }
+
+    .modal-close {
+      position: absolute; top: 16px; right: 16px;
+      background: var(--bg); border: none;
+      width: 32px; height: 32px; border-radius: 8px;
+      font-size: 1rem; cursor: pointer; color: var(--text-muted);
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition);
+    }
+
+    .modal-close:hover { background: rgba(239,68,68,0.1); color: #ef4444; }
+
+    .modal-lang-badge {
+      display: inline-block;
+      background: rgba(15,57,172,0.08);
+      color: var(--primary);
+      padding: 3px 14px; border-radius: 100px;
+      font-size: 0.78rem; font-weight: 700;
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+
+    body.dark .modal-lang-badge { background: rgba(11,116,222,0.15); color: var(--accent); }
+
+    /* Progress */
+    .modal-progress {
+      display: flex; gap: 8px; justify-content: center; margin-bottom: 24px;
+    }
+
+    .prog-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: rgba(15,57,172,0.12);
+      transition: background var(--transition);
+    }
+
+    .prog-dot.done { background: var(--primary); }
+    .prog-dot.current { background: var(--accent); }
+
+    /* Flashcard */
+    .flashcard {
+      background: var(--bg);
+      border-radius: 16px;
+      padding: 36px 24px;
+      margin-bottom: 20px;
+      border: 2px solid rgba(15,57,172,0.1);
+      cursor: pointer;
+      transition: all var(--transition);
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .flashcard:hover { border-color: var(--primary); background: rgba(15,57,172,0.04); }
+
+    .flashcard-front { font-size: 2rem; font-weight: 800; color: var(--primary); }
+    body.dark .flashcard-front { color: #7eb3ff; }
+
+    .flashcard-back {
+      font-size: 1.2rem; font-weight: 600;
+      color: #16a34a; margin-top: 10px; display: none;
+    }
+
+    .flashcard-hint {
+      font-size: 0.8rem; color: var(--text-muted);
+      margin-top: 12px;
+    }
+
+    .flashcard.revealed .flashcard-back { display: block; }
+    .flashcard.revealed .flashcard-hint { display: none; }
+
+    /* Buttons */
+    .modal-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+    .btn-knew {
+      flex: 1; padding: 12px;
+      background: rgba(34,197,94,0.1); color: #16a34a;
+      border: 2px solid rgba(34,197,94,0.3);
+      border-radius: 12px; font-size: 0.9rem; font-weight: 700;
+      cursor: pointer; font-family: 'Segoe UI', system-ui, sans-serif;
+      transition: all var(--transition);
+    }
+
+    .btn-knew:hover { background: rgba(34,197,94,0.2); }
+
+    .btn-retry {
+      flex: 1; padding: 12px;
+      background: rgba(239,68,68,0.08); color: #dc2626;
+      border: 2px solid rgba(239,68,68,0.2);
+      border-radius: 12px; font-size: 0.9rem; font-weight: 700;
+      cursor: pointer; font-family: 'Segoe UI', system-ui, sans-serif;
+      transition: all var(--transition);
+    }
+
+    .btn-retry:hover { background: rgba(239,68,68,0.15); }
+
+    /* Score screen */
+    .score-screen { display: none; }
+    .score-emoji { font-size: 3.5rem; margin-bottom: 12px; display: block; }
+    .score-title { font-size: 1.5rem; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+    .score-sub { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; }
+
+    .score-num {
+      font-size: 2.5rem; font-weight: 800; color: var(--primary);
+      background: var(--bg); border-radius: 12px;
+      padding: 14px 32px; display: inline-block; margin-bottom: 20px;
+    }
+
+    body.dark .score-num { color: #7eb3ff; }
+
+    .btn-done {
+      padding: 13px 32px; background: var(--primary); color: white;
+      border: none; border-radius: 12px; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; font-family: 'Segoe UI', system-ui, sans-serif;
+      transition: all var(--transition);
+    }
+
+    .btn-done:hover { background: var(--primary-light); }
+
+    /* ===== COMING SOON ===== */
+    .coming-card {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: var(--radius);
+      padding: 44px 40px;
+      text-align: center;
+      color: white;
+      animation: fadeUp 0.5s 0.2s ease both;
+    }
+
+    .coming-card h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; }
+    .coming-card p { opacity: 0.88; font-size: 0.95rem; margin-bottom: 22px; }
+
+    .coming-tags { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+    .coming-tag {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 6px 18px; border-radius: 100px;
+      font-size: 0.85rem; font-weight: 600;
+    }
+
+    /* ===== CTA ===== */
+    .cta-strip { text-align: center; margin-top: 28px; animation: fadeUp 0.5s 0.3s ease both; }
+    .cta-strip p { color: var(--text-muted); margin-bottom: 16px; }
+
+    .btn {
+      display: inline-block; padding: 13px 28px;
+      background: var(--primary); color: white;
+      text-decoration: none; border-radius: 12px;
+      font-weight: 700; font-size: 0.95rem;
+      transition: all var(--transition);
+      box-shadow: 0 4px 20px rgba(15,57,172,0.25); margin: 6px;
+    }
+
+    .btn:hover { background: var(--primary-light); transform: translateY(-2px); }
+
+    .btn-outline {
+      background: transparent; border: 2px solid var(--primary);
+      color: var(--primary); box-shadow: none;
+    }
+
+    .btn-outline:hover { background: var(--primary); color: white; }
+
+    /* ===== FOOTER ===== */
+    footer { background: var(--primary); color: white; text-align: center; padding: 28px 20px; }
+    footer p { opacity: 0.85; font-size: 0.9rem; }
+
+    /* ===== ANIMATION ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .languages-hero h1 {
-        font-size: 2.2rem;
-      }
-      
-      .languages-hero p {
-        font-size: 1.1rem;
-      }
-      
-      .languages-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .language-header h2 {
-        font-size: 1.8rem;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      .languages-hero {
-        padding: 40px 20px;
-      }
-      
-      .languages-hero h1 {
-        font-size: 1.8rem;
-      }
-      
-      .language-card {
-        padding: 20px;
-      }
-      
-      .language-header {
-        flex-direction: column;
-        text-align: center;
-      }
+      header { padding: 0 20px; }
+      nav { display: none; position: absolute; top: 72px; left: 0; right: 0;
+        background: var(--primary); padding: 20px; z-index: 99; }
+      nav.open { display: block; }
+      nav ul { flex-direction: column; gap: 8px; }
+      nav ul li a { display: block; padding: 10px 16px; }
+      .hamburger { display: flex; }
+      .languages-grid { grid-template-columns: 1fr; }
+      .language-card { padding: 22px; }
+      .modal-box { padding: 28px 20px; }
+      .coming-card { padding: 32px 22px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ===== HEADER ===== -->
   <header>
-    <div>
-      <a href="index.html">
-        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
-      </a>
-    </div>
-    
-    <nav>
+    <a href="index.html" class="logo-wrap">
+      <img src="logo.png" alt="KnotLearn Logo">
+      <span class="logo-name">KnotLearn</span>
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="mainNav">
       <ul>
         <li><a href="index.html" id="nav-home">Home</a></li>
         <li><a href="subject.html" id="nav-subject">Subjects</a></li>
@@ -215,40 +558,51 @@
         <li><a href="about.html" id="nav-about">About</a></li>
         <li><a href="contact.html" id="nav-contact">Feedback</a></li>
         <li><a href="relax.html" id="nav-relax">Relax</a></li>
-        
         <li class="nav-controls">
           <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
             <option value="en">🇬🇧 English</option>
             <option value="fr">🇫🇷 Français</option>
             <option value="rw">🇷🇼 Kinyarwanda</option>
           </select>
-          
-          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
-            🌙
-          </button>
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">🌙</button>
         </li>
       </ul>
     </nav>
   </header>
 
-  <!-- LANGUAGES HERO SECTION -->
-  <div class="languages-hero">
-    <h1>🌍 Learn Languages</h1>
-    <p>Start speaking new languages with simple, practical lessons</p>
+  <!-- ===== PAGE HERO ===== -->
+  <section class="page-hero">
+    <div class="page-hero-badge">🌍 Communication</div>
+    <h1>Learn Languages</h1>
+    <p>Start speaking new languages with simple, practical lessons.</p>
+  </section>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="index.html">Home</a> › <a href="subject.html">Subjects</a> › Languages
   </div>
 
-  <!-- LANGUAGES GRID - YOUR EXACT CONTENT -->
+  <!-- ===== MAIN CONTENT ===== -->
   <div class="languages-container">
-    
+
+    <div class="section-header">
+      <div class="section-tag">Lessons</div>
+      <h2>Choose a Language</h2>
+      <p>Learn vocabulary, phrases, and practice with flashcards</p>
+    </div>
+
     <div class="languages-grid">
-      
-      <!-- ENGLISH CARD - YOUR EXACT WORDS -->
+
+      <!-- ENGLISH -->
       <div class="language-card">
         <div class="language-header">
           <span class="language-flag">🇬🇧</span>
-          <h2>English</h2>
+          <div class="lang-meta">
+            <h2>English</h2>
+            <span class="lang-tag">Beginner</span>
+          </div>
         </div>
-        
+
         <div class="vocab-list">
           <div class="vocab-item">
             <span class="vocab-word">Hello</span>
@@ -263,21 +617,26 @@
             <span class="vocab-meaning">Asking about well-being</span>
           </div>
         </div>
-        
+
         <div class="example-box">
           <div class="example-label">📝 Example</div>
           <p><strong>Hello! How are you?</strong></p>
-          <p style="color: #666; margin-top: 5px;">"Hello! How are you?"</p>
+          <p class="translation">A common English greeting between friends.</p>
         </div>
+
+        <button class="flashcard-btn" onclick="openFlashcards('english')">🃏 Flashcard Practice</button>
       </div>
-      
-      <!-- FRENCH CARD - YOUR EXACT WORDS -->
+
+      <!-- FRENCH -->
       <div class="language-card">
         <div class="language-header">
           <span class="language-flag">🇫🇷</span>
-          <h2>French</h2>
+          <div class="lang-meta">
+            <h2>French</h2>
+            <span class="lang-tag">Beginner</span>
+          </div>
         </div>
-        
+
         <div class="vocab-list">
           <div class="vocab-item">
             <span class="vocab-word">Bonjour</span>
@@ -292,21 +651,26 @@
             <span class="vocab-meaning">How are you?</span>
           </div>
         </div>
-        
+
         <div class="example-box">
           <div class="example-label">📝 Exemple</div>
           <p><strong>Bonjour ! Comment ça va ?</strong></p>
-          <p style="color: #666; margin-top: 5px;">"Hello! How are you?"</p>
+          <p class="translation">"Hello! How are you?" — A standard French greeting.</p>
         </div>
+
+        <button class="flashcard-btn" onclick="openFlashcards('french')">🃏 Flashcard Practice</button>
       </div>
-      
-      <!-- KISWAHILI CARD - YOUR EXACT WORDS -->
+
+      <!-- KISWAHILI -->
       <div class="language-card">
         <div class="language-header">
           <span class="language-flag">🇰🇪</span>
-          <h2>Kiswahili</h2>
+          <div class="lang-meta">
+            <h2>Kiswahili</h2>
+            <span class="lang-tag">Beginner</span>
+          </div>
         </div>
-        
+
         <div class="vocab-list">
           <div class="vocab-item">
             <span class="vocab-word">Habari</span>
@@ -321,35 +685,214 @@
             <span class="vocab-meaning">How are you?</span>
           </div>
         </div>
-        
+
         <div class="example-box">
           <div class="example-label">📝 Mfano</div>
           <p><strong>Habari! Habari yako?</strong></p>
-          <p style="color: #666; margin-top: 5px;">"Hello! How are you?"</p>
+          <p class="translation">"Hello! How are you?" — Common Kiswahili greeting.</p>
         </div>
+
+        <button class="flashcard-btn" onclick="openFlashcards('kiswahili')">🃏 Flashcard Practice</button>
       </div>
-      
+
     </div>
-    
-    <!-- MORE LANGUAGES COMING SOON -->
-    <div style="text-align: center; margin-top: 50px; padding: 30px; background: #f0f7ff; border-radius: 15px;">
-      <p style="font-size: 1.2rem; color: #0f39ac; font-weight: bold;">
-        🚀 More languages coming soon! Spanish, Arabic, Chinese, and more.
-      </p>
+
+    <!-- COMING SOON -->
+    <div class="coming-card">
+      <h3>🚀 More Languages Coming Soon!</h3>
+      <p>We're adding more languages to help you connect with the world.</p>
+      <div class="coming-tags">
+        <span class="coming-tag">🇪🇸 Spanish</span>
+        <span class="coming-tag">🇸🇦 Arabic</span>
+        <span class="coming-tag">🇨🇳 Chinese</span>
+        <span class="coming-tag">🇩🇪 German</span>
+        <span class="coming-tag">🇧🇷 Portuguese</span>
+      </div>
     </div>
-    
+
+    <!-- CTA -->
+    <div class="cta-strip">
+      <p>Ready to test your language knowledge?</p>
+      <a href="Quiz.html" class="btn">Take the Quiz 🧠</a>
+      <a href="subject.html" class="btn btn-outline">Browse All Subjects →</a>
+    </div>
+
   </div>
 
+  <!-- ===== FLASHCARD MODAL ===== -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+    <div class="modal-box" id="modalBox">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-lang-badge" id="modalBadge">English</div>
+      <div class="modal-progress" id="modalProgress"></div>
+
+      <!-- Flashcard area -->
+      <div id="flashcardArea">
+        <div class="flashcard" id="flashcard" onclick="revealCard()">
+          <div class="flashcard-front" id="cardFront"></div>
+          <div class="flashcard-back" id="cardBack"></div>
+          <div class="flashcard-hint">👆 Tap to reveal meaning</div>
+        </div>
+
+        <div class="modal-btns" id="modalBtns" style="display:none;">
+          <button class="btn-retry" onclick="markCard(false)">❌ Didn't know</button>
+          <button class="btn-knew" onclick="markCard(true)">✅ I knew it!</button>
+        </div>
+      </div>
+
+      <!-- Score screen -->
+      <div class="score-screen" id="scoreScreen">
+        <span class="score-emoji" id="scoreEmoji">🎉</span>
+        <div class="score-title" id="scoreTitle">Well done!</div>
+        <div class="score-sub" id="scoreSub">Here's how you did:</div>
+        <div class="score-num" id="scoreNum">3 / 3</div>
+        <button class="btn-done" onclick="closeModal()">🎉 Done!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
   <footer>
-    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+    <p>&copy; 2026 KnotLearn. All rights reserved. Made with ❤️ for students.</p>
   </footer>
 
+  <!-- ===== JAVASCRIPT ===== -->
   <script>
-    // ===== KNOTLEARN - LANGUAGE & THEME CONTROLS =====
+    const flashcardData = {
+      english: {
+        badge: '🇬🇧 English',
+        cards: [
+          { word: 'Hello',        meaning: 'A greeting' },
+          { word: 'Thank you',    meaning: 'Showing appreciation' },
+          { word: 'How are you?', meaning: 'Asking about someone\'s well-being' },
+          { word: 'Goodbye',      meaning: 'A farewell' },
+          { word: 'Please',       meaning: 'Polite request' }
+        ]
+      },
+      french: {
+        badge: '🇫🇷 French',
+        cards: [
+          { word: 'Bonjour',          meaning: 'Hello' },
+          { word: 'Merci',            meaning: 'Thank you' },
+          { word: 'Comment ça va ?',  meaning: 'How are you?' },
+          { word: 'Au revoir',        meaning: 'Goodbye' },
+          { word: 'S\'il vous plaît', meaning: 'Please' }
+        ]
+      },
+      kiswahili: {
+        badge: '🇰🇪 Kiswahili',
+        cards: [
+          { word: 'Habari',       meaning: 'Hello / News' },
+          { word: 'Asante',       meaning: 'Thank you' },
+          { word: 'Habari yako?', meaning: 'How are you?' },
+          { word: 'Kwaheri',      meaning: 'Goodbye' },
+          { word: 'Tafadhali',    meaning: 'Please' }
+        ]
+      }
+    };
+
+    let currentLang = null;
+    let currentCard = 0;
+    let knewCount = 0;
+    let revealed = false;
+
+    function openFlashcards(lang) {
+      currentLang = lang;
+      currentCard = 0;
+      knewCount = 0;
+      revealed = false;
+
+      document.getElementById('modalOverlay').classList.add('open');
+      document.getElementById('scoreScreen').style.display = 'none';
+      document.getElementById('flashcardArea').style.display = 'block';
+      document.getElementById('modalBadge').textContent = flashcardData[lang].badge;
+
+      loadCard();
+    }
+
+    function buildDots() {
+      const total = flashcardData[currentLang].cards.length;
+      const wrap = document.getElementById('modalProgress');
+      wrap.innerHTML = '';
+      for (let i = 0; i < total; i++) {
+        const d = document.createElement('div');
+        d.className = 'prog-dot' + (i < currentCard ? ' done' : i === currentCard ? ' current' : '');
+        wrap.appendChild(d);
+      }
+    }
+
+    function loadCard() {
+      revealed = false;
+      const card = flashcardData[currentLang].cards[currentCard];
+      const fc = document.getElementById('flashcard');
+
+      document.getElementById('cardFront').textContent = card.word;
+      document.getElementById('cardBack').textContent = card.meaning;
+      fc.classList.remove('revealed');
+      document.getElementById('modalBtns').style.display = 'none';
+      buildDots();
+    }
+
+    function revealCard() {
+      if (revealed) return;
+      revealed = true;
+      document.getElementById('flashcard').classList.add('revealed');
+      document.getElementById('modalBtns').style.display = 'flex';
+    }
+
+    function markCard(knew) {
+      if (knew) knewCount++;
+      currentCard++;
+      const total = flashcardData[currentLang].cards.length;
+
+      if (currentCard < total) {
+        loadCard();
+      } else {
+        showScore(total);
+      }
+    }
+
+    function showScore(total) {
+      document.getElementById('flashcardArea').style.display = 'none';
+      document.getElementById('scoreScreen').style.display = 'block';
+      document.getElementById('scoreNum').textContent = `${knewCount} / ${total}`;
+
+      let emoji, title, sub;
+      if (knewCount === total) {
+        emoji = '🏆'; title = 'Perfect!'; sub = 'You knew every single word!';
+      } else if (knewCount >= total * 0.6) {
+        emoji = '🌟'; title = 'Great job!'; sub = 'You\'re making great progress!';
+      } else {
+        emoji = '💪'; title = 'Keep going!'; sub = 'Practice more and you\'ll master it!';
+      }
+
+      document.getElementById('scoreEmoji').textContent = emoji;
+      document.getElementById('scoreTitle').textContent = title;
+      document.getElementById('scoreSub').textContent = sub;
+
+      // Rebuild dots all done
+      const wrap = document.getElementById('modalProgress');
+      wrap.innerHTML = '';
+      for (let i = 0; i < total; i++) {
+        const d = document.createElement('div');
+        d.className = 'prog-dot done';
+        wrap.appendChild(d);
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('open');
+    }
+
+    function closeModalOutside(e) {
+      if (e.target === document.getElementById('modalOverlay')) closeModal();
+    }
+
+    // ===== LANGUAGE & THEME =====
     const textData = {
-      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
-      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
-      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+      en: { home:"Home", subjects:"Subjects", quiz:"Quiz", about:"About", contact:"Feedback", relax:"Relax" },
+      fr: { home:"Accueil", subjects:"Matières", quiz:"Quiz", about:"À propos", contact:"Contact", relax:"Détente" },
+      rw: { home:"Ahabanza", subjects:"Amasomo", quiz:"Ikizamini", about:"Ibyerekeye", contact:"Twandikire", relax:"Wuhura" }
     };
 
     function changeLanguage() {
@@ -357,7 +900,6 @@
       if (!langSelect) return;
       const lang = langSelect.value;
       localStorage.setItem("knotlearn_lang", lang);
-      
       document.getElementById("nav-home").innerText = textData[lang].home;
       document.getElementById("nav-subject").innerText = textData[lang].subjects;
       document.getElementById("nav-quiz").innerText = textData[lang].quiz;
@@ -370,26 +912,20 @@
       document.body.classList.toggle("dark");
       const isDark = document.body.classList.contains("dark");
       localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
-      const themeBtn = document.getElementById("themeToggle");
-      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+      document.getElementById("themeToggle").innerText = isDark ? "☀️" : "🌙";
     }
 
-    window.onload = function() {
+    function toggleMenu() {
+      document.getElementById("mainNav").classList.toggle("open");
+    }
+
+    window.onload = function () {
       const savedLang = localStorage.getItem("knotlearn_lang");
       const savedTheme = localStorage.getItem("knotlearn_theme");
-
-      if (savedLang) {
-        const langSelect = document.getElementById("languageSelect");
-        if (langSelect) {
-          langSelect.value = savedLang;
-          changeLanguage();
-        }
-      }
-
+      if (savedLang) { document.getElementById("languageSelect").value = savedLang; changeLanguage(); }
       if (savedTheme === "dark") {
         document.body.classList.add("dark");
-        const themeBtn = document.getElementById("themeToggle");
-        if (themeBtn) themeBtn.innerText = "☀️";
+        document.getElementById("themeToggle").innerText = "☀️";
       }
     };
   </script>

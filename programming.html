@@ -1,247 +1,488 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO META TAGS -->
   <meta name="description" content="KnotLearn - Programming tutorials. Learn HTML, CSS, JavaScript, and Vue.js step by step with video lessons.">
   <meta name="keywords" content="programming tutorials, HTML, CSS, JavaScript, Vue.js, learn to code">
   <meta name="author" content="KnotLearn">
-  
-  <!-- SOCIAL SHARING -->
   <meta property="og:title" content="KnotLearn - Programming Tutorials">
   <meta property="og:description" content="Learn HTML, CSS, JavaScript, and Vue.js with easy step-by-step videos.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="logo.png">
-  
   <title>KnotLearn - Programming Tutorials</title>
-  
-  <!-- MASTER CSS FILE -->
-  <link rel="stylesheet" href="style.css">
-  
+
   <style>
-    /* ===== PROGRAMMING PAGE - YOUR COLORS ===== */
-    .programming-header {
-      background: linear-gradient(135deg, #0f39ac 0%, #0b74de 100%);
+    :root {
+      --primary: #0f39ac;
+      --primary-light: #0b74de;
+      --accent: #00c2ff;
+      --bg: #f0f4ff;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --card-shadow: 0 8px 32px rgba(15,57,172,0.10);
+      --radius: 18px;
+      --transition: 0.3s cubic-bezier(.4,0,.2,1);
+    }
+
+    body.dark {
+      --bg: #0d1117;
+      --surface: #161b27;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --card-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--primary);
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(15,57,172,0.25);
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-wrap img { width: 48px; height: 48px; border-radius: 12px; object-fit: cover; }
+    .logo-name { font-size: 1.4rem; font-weight: 800; color: white; letter-spacing: -0.5px; }
+
+    nav ul { list-style: none; display: flex; align-items: center; gap: 6px; }
+
+    nav ul li a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none; font-weight: 500;
+      font-size: 0.9rem; padding: 6px 14px;
+      border-radius: 8px;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    nav ul li a:hover, nav ul li a.active { background: rgba(255,255,255,0.15); color: white; }
+
+    .nav-controls { display: flex; gap: 8px; align-items: center; margin-left: 10px; }
+
+    #languageSelect {
+      padding: 6px 10px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1); color: white; font-size: 13px; cursor: pointer;
+    }
+
+    #languageSelect option { color: #1e293b; background: white; }
+
+    #themeToggle {
+      padding: 6px 10px; background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white; border-radius: 8px; cursor: pointer; font-size: 16px;
+    }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; }
+
+    /* ===== PAGE HERO ===== */
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      padding: 70px 20px 50px;
+      text-align: center;
       color: white;
-      padding: 60px 20px;
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    
-    .programming-header h1 {
-      font-size: 3rem;
-      margin-bottom: 15px;
-    }
-    
-    .programming-header p {
-      font-size: 1.3rem;
-      opacity: 0.95;
-    }
-    
-    .tutorials-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px 60px;
-    }
-    
-    .section-title {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-    
-    .section-title h2 {
-      color: #0f39ac;
-      font-size: 2.2rem;
       position: relative;
-      display: inline-block;
-      padding-bottom: 15px;
-    }
-    
-    .section-title h2:after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: #0f39ac;
-      border-radius: 2px;
-    }
-    
-    .tutorial-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-      gap: 30px;
-      margin-top: 30px;
-    }
-    
-    .tutorial-card {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      border: 1px solid #e0e7ff;
-      transition: transform 0.2s;
-    }
-    
-    .tutorial-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(15, 57, 172, 0.15);
-    }
-    
-    .tutorial-icon {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
-    }
-    
-    .tutorial-card h2 {
-      color: #0f39ac;
-      margin-bottom: 15px;
-      font-size: 1.8rem;
-    }
-    
-    .tutorial-card p {
-      color: #555;
-      margin-bottom: 25px;
-      font-size: 1.1rem;
-    }
-    
-    .video-wrapper {
-      background: #f8fafc;
-      border-radius: 15px;
-      padding: 20px;
-      margin-top: 15px;
-    }
-    
-    .video-container {
-      position: relative;
-      width: 100%;
-      background: #1e1e1e;
-      border-radius: 10px;
       overflow: hidden;
     }
-    
-    video {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 10px;
+
+    .page-hero::before {
+      content: ''; position: absolute;
+      width: 400px; height: 400px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%; top: -150px; right: -100px;
     }
-    
-    .video-caption {
-      margin-top: 12px;
-      color: #666;
-      font-size: 0.95rem;
-      text-align: center;
-      font-style: italic;
+
+    .page-hero::after {
+      content: ''; position: absolute;
+      width: 300px; height: 300px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%; bottom: -100px; left: -80px;
     }
-    
-    /* SUB-NAVIGATION */
+
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 5px 18px; border-radius: 100px;
+      font-size: 0.82rem; font-weight: 600;
+      margin-bottom: 20px; position: relative; z-index: 1;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800; margin-bottom: 14px;
+      position: relative; z-index: 1;
+    }
+
+    .page-hero p {
+      font-size: 1.05rem; opacity: 0.88;
+      max-width: 500px; margin: 0 auto 32px;
+      position: relative; z-index: 1;
+    }
+
+    /* ===== SUB-NAV ===== */
     .sub-nav {
       display: flex;
       justify-content: center;
-      gap: 15px;
-      margin: 30px 0;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .sub-nav a {
+      background: rgba(255,255,255,0.12);
+      border: 2px solid rgba(255,255,255,0.3);
+      color: white;
+      text-decoration: none;
+      padding: 10px 24px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all var(--transition);
+    }
+
+    .sub-nav a:hover {
+      background: white;
+      color: var(--primary);
+      border-color: white;
+    }
+
+    /* ===== BREADCRUMB ===== */
+    .breadcrumb {
+      max-width: 1200px; margin: 28px auto 0;
+      padding: 0 20px; font-size: 0.85rem; color: var(--text-muted);
+    }
+
+    .breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    /* ===== LEARNING PATH ===== */
+    .path-strip {
+      max-width: 1200px;
+      margin: 36px auto 0;
+      padding: 0 20px;
+    }
+
+    .path-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 24px 32px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(15,57,172,0.07);
+      display: flex;
+      align-items: center;
+      gap: 16px;
       flex-wrap: wrap;
     }
-    
-    .sub-nav a {
-      background: white;
-      color: #0f39ac;
+
+    .path-label {
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+
+    body.dark .path-label { color: #7eb3ff; }
+
+    .path-steps {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .path-step {
+      background: rgba(15,57,172,0.08);
+      color: var(--primary);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    body.dark .path-step { background: rgba(11,116,222,0.15); color: var(--accent); }
+
+    .path-arrow { color: var(--text-muted); font-size: 1rem; }
+
+    /* ===== SECTION HEADER ===== */
+    .section-header { text-align: center; margin: 48px 0 36px; }
+
+    .section-tag {
+      display: inline-block;
+      background: rgba(15,57,172,0.08);
+      color: var(--primary);
+      padding: 4px 16px; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;
+    }
+
+    body.dark .section-tag { background: rgba(11,116,222,0.15); color: var(--accent); }
+
+    .section-header h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800; color: var(--text);
+    }
+
+    .section-header p { color: var(--text-muted); margin-top: 10px; }
+
+    /* ===== TUTORIAL GRID ===== */
+    .tutorial-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    /* ===== TUTORIAL CARD ===== */
+    .tutorial-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(15,57,172,0.07);
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .tutorial-card:nth-child(1) { animation-delay: 0.05s; }
+    .tutorial-card:nth-child(2) { animation-delay: 0.10s; }
+    .tutorial-card:nth-child(3) { animation-delay: 0.15s; }
+    .tutorial-card:nth-child(4) { animation-delay: 0.20s; }
+
+    .tutorial-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+
+    .tutorial-card:hover::before { transform: scaleX(1); }
+
+    .tutorial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 50px rgba(15,57,172,0.15);
+    }
+
+    /* Card top row */
+    .card-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .tutorial-icon { font-size: 2.4rem; }
+
+    .card-meta h2 {
+      font-size: 1.4rem; font-weight: 800;
+      color: var(--primary); margin-bottom: 4px;
+    }
+
+    body.dark .card-meta h2 { color: #7eb3ff; }
+
+    .card-level {
+      display: inline-block;
+      background: rgba(15,57,172,0.08);
+      color: var(--primary);
+      padding: 2px 12px; border-radius: 100px;
+      font-size: 0.75rem; font-weight: 700;
+    }
+
+    body.dark .card-level { background: rgba(11,116,222,0.15); color: var(--accent); }
+
+    .tutorial-card > p {
+      color: var(--text-muted);
+      font-size: 0.97rem;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    /* ===== VIDEO WRAPPER ===== */
+    .video-wrapper {
+      background: var(--bg);
+      border-radius: 14px;
+      padding: 16px;
+      border: 1px solid rgba(15,57,172,0.06);
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0d1117;
+    }
+
+    .video-container iframe {
+      width: 100%;
+      height: 220px;
+      display: block;
+      border: none;
+    }
+
+    .video-caption {
+      margin-top: 12px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .detail-link {
+      display: inline-block;
+      margin-top: 16px;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.9rem;
       text-decoration: none;
-      padding: 12px 25px;
-      border-radius: 50px;
-      font-weight: bold;
-      border: 2px solid #0f39ac;
-      transition: all 0.2s;
+      transition: color var(--transition);
     }
-    
-    .sub-nav a:hover {
-      background: #0f39ac;
+
+    .detail-link:hover { color: var(--primary-light); text-decoration: underline; }
+    body.dark .detail-link { color: #7eb3ff; }
+
+    /* ===== TIP STRIP ===== */
+    .tip-strip {
+      max-width: 1200px;
+      margin: 0 auto 28px;
+      padding: 0 20px;
+    }
+
+    .tip-card {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: var(--radius);
+      padding: 36px 40px;
       color: white;
+      text-align: center;
+      animation: fadeUp 0.5s 0.25s ease both;
     }
-    
-    /* DARK MODE */
-    body.dark .tutorial-card {
-      background: #1e1e1e;
-      border-color: #333;
+
+    .tip-card h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; }
+    .tip-card p { opacity: 0.88; font-size: 0.97rem; margin-bottom: 22px; }
+
+    .tip-steps {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
     }
-    
-    body.dark .tutorial-card p {
-      color: #ccc;
+
+    .tip-step {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 0.88rem;
+      font-weight: 700;
     }
-    
-    body.dark .video-wrapper {
-      background: #2d2d2d;
+
+    /* ===== CTA ===== */
+    .cta-strip {
+      max-width: 1200px;
+      margin: 0 auto 80px;
+      padding: 0 20px;
+      text-align: center;
+      animation: fadeUp 0.5s 0.3s ease both;
     }
-    
-    body.dark .video-caption {
-      color: #aaa;
+
+    .cta-strip p { color: var(--text-muted); margin-bottom: 16px; }
+
+    .btn {
+      display: inline-block; padding: 13px 28px;
+      background: var(--primary); color: white;
+      text-decoration: none; border-radius: 12px;
+      font-weight: 700; font-size: 0.95rem;
+      transition: all var(--transition);
+      box-shadow: 0 4px 20px rgba(15,57,172,0.25);
+      margin: 6px;
     }
-    
-    body.dark .sub-nav a {
-      background: #2d2d2d;
-      color: white;
-      border-color: #0f39ac;
+
+    .btn:hover { background: var(--primary-light); transform: translateY(-2px); }
+
+    .btn-outline {
+      background: transparent; border: 2px solid var(--primary);
+      color: var(--primary); box-shadow: none;
     }
-    
-    body.dark .sub-nav a:hover {
-      background: #0f39ac;
-      color: white;
+
+    .btn-outline:hover { background: var(--primary); color: white; }
+
+    /* ===== FOOTER ===== */
+    footer { background: var(--primary); color: white; text-align: center; padding: 28px 20px; }
+    footer p { opacity: 0.85; font-size: 0.9rem; }
+
+    /* ===== ANIMATION ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    
-    /* RESPONSIVE */
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .programming-header h1 {
-        font-size: 2.2rem;
-      }
-      
-      .programming-header p {
-        font-size: 1.1rem;
-      }
-      
-      .tutorial-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .section-title h2 {
-        font-size: 1.8rem;
-      }
+      header { padding: 0 20px; }
+      nav { display: none; position: absolute; top: 72px; left: 0; right: 0;
+        background: var(--primary); padding: 20px; z-index: 99; }
+      nav.open { display: block; }
+      nav ul { flex-direction: column; gap: 8px; }
+      nav ul li a { display: block; padding: 10px 16px; }
+      .hamburger { display: flex; }
+      .tutorial-grid { grid-template-columns: 1fr; padding: 0 20px; }
+      .tutorial-card { padding: 24px; }
+      .tip-card { padding: 28px 22px; }
+      .path-card { flex-direction: column; align-items: flex-start; }
     }
-    
+
     @media (max-width: 480px) {
-      .programming-header {
-        padding: 40px 20px;
-      }
-      
-      .programming-header h1 {
-        font-size: 1.8rem;
-      }
-      
-      .tutorial-card {
-        padding: 20px;
-      }
-      
-      .sub-nav a {
-        width: 100%;
-        text-align: center;
-      }
+      .sub-nav a { width: 100%; text-align: center; }
+      .video-container iframe { height: 180px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ===== HEADER ===== -->
   <header>
-    <div>
-      <a href="index.html">
-        <img src="logo.png" alt="KnotLearn Home" width="85" height="85">
-      </a>
-    </div>
-    
-    <nav>
+    <a href="index.html" class="logo-wrap">
+      <img src="logo.png" alt="KnotLearn Logo">
+      <span class="logo-name">KnotLearn</span>
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="mainNav">
       <ul>
         <li><a href="index.html" id="nav-home">Home</a></li>
         <li><a href="subject.html" id="nav-subject">Subjects</a></li>
@@ -249,150 +490,178 @@
         <li><a href="about.html" id="nav-about">About</a></li>
         <li><a href="contact.html" id="nav-contact">Feedback</a></li>
         <li><a href="relax.html" id="nav-relax">Relax</a></li>
-        
         <li class="nav-controls">
           <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
             <option value="en">🇬🇧 English</option>
             <option value="fr">🇫🇷 Français</option>
             <option value="rw">🇷🇼 Kinyarwanda</option>
           </select>
-          
-          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">
-            🌙
-          </button>
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Switch dark/light mode">🌙</button>
         </li>
       </ul>
     </nav>
   </header>
 
-  <!-- PROGRAMMING HERO SECTION -->
-  <div class="programming-header">
-    <h1>💻 Programming</h1>
-    <p>Learn to code step by step with easy video tutorials</p>
-    
-    <!-- SUB-NAVIGATION - YOUR EXACT LINKS -->
+  <!-- ===== PAGE HERO ===== -->
+  <section class="page-hero">
+    <div class="page-hero-badge">💻 Learn to Code</div>
+    <h1>Programming</h1>
+    <p>Learn to code step by step with easy video tutorials — at your own pace.</p>
     <div class="sub-nav">
-      <a href="HTML.html">HTML</a>
-      <a href="CSS.html">CSS</a>
-      <a href="JavaScript.html">JavaScript</a>
+      <a href="HTML.html">🌐 HTML</a>
+      <a href="CSS.html">🎨 CSS</a>
+      <a href="JavaScript.html">⚡ JavaScript</a>
+    </div>
+  </section>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="index.html">Home</a> › <a href="subject.html">Subjects</a> › Programming
+  </div>
+
+  <!-- LEARNING PATH -->
+  <div class="path-strip">
+    <div class="path-card">
+      <span class="path-label">🗺️ Learning Path:</span>
+      <div class="path-steps">
+        <span class="path-step">1. HTML</span>
+        <span class="path-arrow">→</span>
+        <span class="path-step">2. CSS</span>
+        <span class="path-arrow">→</span>
+        <span class="path-step">3. JavaScript</span>
+        <span class="path-arrow">→</span>
+        <span class="path-step">4. Vue.js</span>
+        <span class="path-arrow">→</span>
+        <span class="path-step">🚀 Build Projects!</span>
+      </div>
     </div>
   </div>
 
-  <!-- TUTORIALS SECTION -->
-  <div class="tutorials-container">
-    
-    <div class="section-title">
-      <h2>📚 Sample Lessons</h2>
-      <p style="color: #666; margin-top: 15px;">Watch and learn — your pace, your time</p>
-    </div>
-    
-    <div class="tutorial-grid">
-      
-     <!-- HTML TUTORIAL - YOUR CONTENT -->
-<div class="tutorial-card">
-  <div class="tutorial-icon">🌐</div>
-  <h2>HTML Basics</h2>
-  <p>HTML is used to create the structure of web pages. Learn the building blocks of every website.</p>
-  
-  <div class="video-wrapper">
-    <div class="video-container">
-      <iframe width="100%" height="315" 
-        src="https://www.youtube.com/embed/pQN-pnXPaVg" 
-        title="HTML Basics in 5 min" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen>
-      </iframe>
-    </div>
-    <div class="video-caption">
-      ⏱️ 5 min • Introduction to HTML
-    </div>
-  </div>
-</div>
-
-<!-- CSS TUTORIAL - YOUR CONTENT -->
-<div class="tutorial-card">
-  <div class="tutorial-icon">🎨</div>
-  <h2>CSS Basics</h2>
-  <p>CSS is used to style and design websites. Make your pages beautiful and responsive.</p>
-  
-  <div class="video-wrapper">
-    <div class="video-container">
-      <iframe width="100%" height="315" 
-        src="https://www.youtube.com/embed/yfoY53QXEnI" 
-        title="CSS Basics in 5 min" 
-        frameborder="0" 
-        allowfullscreen>
-      </iframe>
-    </div>
-    <div class="video-caption">
-      ⏱️ 5 min • Styling with CSS
-    </div>
-  </div>
-</div>
-
-<!-- JAVASCRIPT TUTORIAL - YOUR CONTENT -->
-<div class="tutorial-card">
-  <div class="tutorial-icon">⚡</div>
-  <h2>JavaScript Basics</h2>
-  <p>JavaScript makes websites interactive. Add logic, animations, and dynamic content.</p>
-  
-  <div class="video-wrapper">
-    <div class="video-container">
-      <iframe width="100%" height="315" 
-        src="https://www.youtube.com/embed/W6NZfCO5SIk" 
-        title="JavaScript Basics in 5 min" 
-        frameborder="0" 
-        allowfullscreen>
-      </iframe>
-    </div>
-    <div class="video-caption">
-      ⏱️ 5 min • Interactive JavaScript
-    </div>
-  </div>
-</div>
-
-<!-- VUE.JS TUTORIAL - YOUR CONTENT -->
-<div class="tutorial-card">
-  <div class="tutorial-icon">🎮</div>
-  <h2>Vue.js Basics</h2>
-  <p>Vue.js is a modern framework for building interactive web applications and games.</p>
-  
-  <div class="video-wrapper">
-    <div class="video-container">
-      <iframe width="100%" height="315" 
-        src="https://www.youtube.com/embed/4deVCNJq3qc" 
-        title="Vue.js Basics in 5 min" 
-        frameborder="0" 
-        allowfullscreen>
-      </iframe>
-    </div>
-    <div class="video-caption">
-      ⏱️ 5 min • Building with Vue.js
-    </div>
-  </div>
-</div>
-    </div>
-    
-    <!-- LEARNING PATH NOTE -->
-    <div style="text-align: center; margin-top: 50px; padding: 30px; background: #f0f7ff; border-radius: 15px;">
-      <p style="font-size: 1.2rem; color: #0f39ac; font-weight: bold;">
-        🚀 Start with HTML, then CSS, then JavaScript — and finally build games with Vue!
-      </p>
-    </div>
-    
+  <!-- SECTION HEADER -->
+  <div class="section-header">
+    <div class="section-tag">Video Lessons</div>
+    <h2>Sample Lessons</h2>
+    <p>Watch and learn — your pace, your time</p>
   </div>
 
+  <!-- TUTORIAL GRID -->
+  <div class="tutorial-grid">
+
+    <!-- HTML -->
+    <div class="tutorial-card">
+      <div class="card-top">
+        <span class="tutorial-icon">🌐</span>
+        <div class="card-meta">
+          <h2>HTML Basics</h2>
+          <span class="card-level">⭐ Beginner</span>
+        </div>
+      </div>
+      <p>HTML is used to create the structure of web pages. Learn the building blocks of every website.</p>
+      <div class="video-wrapper">
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/pQN-pnXPaVg"
+            title="HTML Basics" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+        <div class="video-caption">⏱️ 5 min &nbsp;•&nbsp; Introduction to HTML</div>
+      </div>
+      <a href="HTML.html" class="detail-link">Go to full HTML lessons →</a>
+    </div>
+
+    <!-- CSS -->
+    <div class="tutorial-card">
+      <div class="card-top">
+        <span class="tutorial-icon">🎨</span>
+        <div class="card-meta">
+          <h2>CSS Basics</h2>
+          <span class="card-level">⭐ Beginner</span>
+        </div>
+      </div>
+      <p>CSS is used to style and design websites. Make your pages beautiful and responsive.</p>
+      <div class="video-wrapper">
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/yfoY53QXEnI"
+            title="CSS Basics" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-caption">⏱️ 5 min &nbsp;•&nbsp; Styling with CSS</div>
+      </div>
+      <a href="CSS.html" class="detail-link">Go to full CSS lessons →</a>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <div class="tutorial-card">
+      <div class="card-top">
+        <span class="tutorial-icon">⚡</span>
+        <div class="card-meta">
+          <h2>JavaScript Basics</h2>
+          <span class="card-level">⭐⭐ Intermediate</span>
+        </div>
+      </div>
+      <p>JavaScript makes websites interactive. Add logic, animations, and dynamic content.</p>
+      <div class="video-wrapper">
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/W6NZfCO5SIk"
+            title="JavaScript Basics" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-caption">⏱️ 5 min &nbsp;•&nbsp; Interactive JavaScript</div>
+      </div>
+      <a href="JavaScript.html" class="detail-link">Go to full JS lessons →</a>
+    </div>
+
+    <!-- VUE.JS -->
+    <div class="tutorial-card">
+      <div class="card-top">
+        <span class="tutorial-icon">🎮</span>
+        <div class="card-meta">
+          <h2>Vue.js Basics</h2>
+          <span class="card-level">⭐⭐⭐ Advanced</span>
+        </div>
+      </div>
+      <p>Vue.js is a modern framework for building interactive web applications and games.</p>
+      <div class="video-wrapper">
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/4deVCNJq3qc"
+            title="Vue.js Basics" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-caption">⏱️ 5 min &nbsp;•&nbsp; Building with Vue.js</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TIP STRIP -->
+  <div class="tip-strip">
+    <div class="tip-card">
+      <h3>🚀 Start from the beginning — build up step by step!</h3>
+      <p>Every great developer started with HTML. Follow the path and you'll be building real projects soon.</p>
+      <div class="tip-steps">
+        <span class="tip-step">🌐 HTML first</span>
+        <span class="tip-step">🎨 Then CSS</span>
+        <span class="tip-step">⚡ Then JavaScript</span>
+        <span class="tip-step">🎮 Then Vue.js</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-strip">
+    <p>Ready to test your programming knowledge?</p>
+    <a href="Quiz.html" class="btn">Take the Quiz 🧠</a>
+    <a href="subject.html" class="btn btn-outline">Browse All Subjects →</a>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
   <footer>
-    <p>&copy; 2026 KnotLearn. All rights reserved.</p>
+    <p>&copy; 2026 KnotLearn. All rights reserved. Made with ❤️ for students.</p>
   </footer>
 
+  <!-- ===== JAVASCRIPT ===== -->
   <script>
-    // ===== KNOTLEARN - LANGUAGE & THEME CONTROLS =====
     const textData = {
-      en: { home: "Home", subjects: "Subjects", quiz: "Quiz", about: "About", contact: "Feedback", relax: "Relax" },
-      fr: { home: "Accueil", subjects: "Matières", quiz: "Quiz", about: "À propos", contact: "Contact", relax: "Détente" },
-      rw: { home: "Ahabanza", subjects: "Amasomo", quiz: "Ikizamini", about: "Ibyerekeye", contact: "Twandikire", relax: "Wuhura" }
+      en: { home:"Home", subjects:"Subjects", quiz:"Quiz", about:"About", contact:"Feedback", relax:"Relax" },
+      fr: { home:"Accueil", subjects:"Matières", quiz:"Quiz", about:"À propos", contact:"Contact", relax:"Détente" },
+      rw: { home:"Ahabanza", subjects:"Amasomo", quiz:"Ikizamini", about:"Ibyerekeye", contact:"Twandikire", relax:"Wuhura" }
     };
 
     function changeLanguage() {
@@ -400,7 +669,6 @@
       if (!langSelect) return;
       const lang = langSelect.value;
       localStorage.setItem("knotlearn_lang", lang);
-      
       document.getElementById("nav-home").innerText = textData[lang].home;
       document.getElementById("nav-subject").innerText = textData[lang].subjects;
       document.getElementById("nav-quiz").innerText = textData[lang].quiz;
@@ -413,26 +681,20 @@
       document.body.classList.toggle("dark");
       const isDark = document.body.classList.contains("dark");
       localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
-      const themeBtn = document.getElementById("themeToggle");
-      if (themeBtn) themeBtn.innerText = isDark ? "☀️" : "🌙";
+      document.getElementById("themeToggle").innerText = isDark ? "☀️" : "🌙";
     }
 
-    window.onload = function() {
+    function toggleMenu() {
+      document.getElementById("mainNav").classList.toggle("open");
+    }
+
+    window.onload = function () {
       const savedLang = localStorage.getItem("knotlearn_lang");
       const savedTheme = localStorage.getItem("knotlearn_theme");
-
-      if (savedLang) {
-        const langSelect = document.getElementById("languageSelect");
-        if (langSelect) {
-          langSelect.value = savedLang;
-          changeLanguage();
-        }
-      }
-
+      if (savedLang) { document.getElementById("languageSelect").value = savedLang; changeLanguage(); }
       if (savedTheme === "dark") {
         document.body.classList.add("dark");
-        const themeBtn = document.getElementById("themeToggle");
-        if (themeBtn) themeBtn.innerText = "☀️";
+        document.getElementById("themeToggle").innerText = "☀️";
       }
     };
   </script>
