@@ -1,16 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="KnotLearn - Send us your feedback. We value your questions, suggestions, and messages.">
-  <meta name="keywords" content="contact KnotLearn, feedback, send message, support">
-  <meta name="author" content="KnotLearn">
-  <meta property="og:title" content="KnotLearn - Feedback">
-  <meta property="og:description" content="Send us your message. We'd love to hear from you.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="logo.png">
   <title>KnotLearn - Feedback</title>
 
   <style>
@@ -96,8 +89,7 @@
       transition: background var(--transition), color var(--transition);
     }
 
-    nav ul li a:hover,
-    nav ul li a.active {
+    nav ul li a:hover, nav ul li a.active {
       background: rgba(255,255,255,0.15);
       color: white;
     }
@@ -209,11 +201,11 @@
 
     /* ===== MAIN LAYOUT ===== */
     .contact-wrapper {
-      max-width: 900px;
+      max-width: 1100px;
       margin: 60px auto;
       padding: 0 20px 80px;
       display: grid;
-      grid-template-columns: 1fr 340px;
+      grid-template-columns: 1fr 360px;
       gap: 28px;
       align-items: start;
     }
@@ -251,7 +243,6 @@
       margin-bottom: 32px;
     }
 
-    /* ===== FORM ===== */
     .contact-form {
       display: flex;
       flex-direction: column;
@@ -307,7 +298,6 @@
       line-height: 1.6;
     }
 
-    /* character count */
     .char-count {
       font-size: 0.78rem;
       color: var(--text-muted);
@@ -340,7 +330,6 @@
       box-shadow: 0 8px 28px rgba(15,57,172,0.35);
     }
 
-    /* ===== SUCCESS MESSAGE ===== */
     .success-message {
       display: none;
       background: linear-gradient(135deg, #22c55e, #16a34a);
@@ -356,14 +345,155 @@
 
     .success-message.show { display: block; }
 
-    /* ===== SIDE INFO CARDS ===== */
-    .side-cards {
+    /* ===== SIDE PANEL ===== */
+    .side-panel {
       display: flex;
       flex-direction: column;
       gap: 18px;
       animation: fadeUp 0.5s 0.1s ease both;
     }
 
+    /* My Messages Box */
+    .my-messages-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(15,57,172,0.07);
+    }
+
+    .my-messages-card h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .my-messages-card .subtitle-sm {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .msg-thread {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .msg-thread::-webkit-scrollbar { width: 4px; }
+    .msg-thread::-webkit-scrollbar-thumb { background: rgba(15,57,172,0.2); border-radius: 4px; }
+
+    .msg-item {
+      border-radius: 12px;
+      padding: 14px 16px;
+      position: relative;
+      animation: fadeUp 0.3s ease both;
+    }
+
+    .msg-item.user-msg {
+      background: rgba(15,57,172,0.06);
+      border-left: 3px solid var(--primary);
+    }
+
+    .msg-item.admin-reply {
+      background: rgba(0,194,255,0.07);
+      border-left: 3px solid var(--accent);
+    }
+
+    .msg-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .msg-sender {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .user-msg .msg-sender { color: var(--primary); }
+    body.dark .user-msg .msg-sender { color: #7eb3ff; }
+    .admin-reply .msg-sender { color: #0891b2; }
+
+    .msg-time {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .msg-category-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      background: rgba(15,57,172,0.1);
+      color: var(--primary);
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    body.dark .msg-category-badge {
+      background: rgba(126,179,255,0.15);
+      color: #7eb3ff;
+    }
+
+    .msg-text {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .no-messages {
+      text-align: center;
+      padding: 30px 16px;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    .no-messages .no-msg-icon { font-size: 2rem; margin-bottom: 8px; }
+
+    /* Status badge */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-top: 8px;
+    }
+
+    .status-badge.pending {
+      background: rgba(234,179,8,0.15);
+      color: #b45309;
+    }
+
+    .status-badge.replied {
+      background: rgba(34,197,94,0.15);
+      color: #15803d;
+    }
+
+    .status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .status-badge.pending .status-dot { background: #f59e0b; }
+    .status-badge.replied .status-dot { background: #22c55e; }
+
+    /* Info cards */
     .info-card {
       background: var(--surface);
       border-radius: var(--radius);
@@ -375,11 +505,7 @@
 
     .info-card:hover { transform: translateY(-3px); }
 
-    .info-icon {
-      font-size: 2rem;
-      margin-bottom: 12px;
-      display: block;
-    }
+    .info-icon { font-size: 2rem; margin-bottom: 12px; display: block; }
 
     .info-card h3 {
       font-size: 1rem;
@@ -394,7 +520,6 @@
       line-height: 1.6;
     }
 
-    /* cta strip */
     .side-cta {
       background: linear-gradient(135deg, var(--primary), var(--primary-light));
       border-radius: var(--radius);
@@ -430,13 +555,11 @@
 
     footer p { opacity: 0.85; font-size: 0.9rem; }
 
-    /* ===== ANIMATION ===== */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       header { padding: 0 20px; }
       nav { display: none; position: absolute; top: 72px; left: 0; right: 0;
@@ -452,7 +575,6 @@
 </head>
 <body>
 
-  <!-- ===== HEADER ===== -->
   <header>
     <a href="index.html" class="logo-wrap">
       <img src="logo.png" alt="KnotLearn Logo">
@@ -483,14 +605,12 @@
     </nav>
   </header>
 
-  <!-- ===== PAGE HERO ===== -->
   <section class="page-hero">
     <div class="page-hero-badge">📬 Get In Touch</div>
     <h1>Send Us Feedback</h1>
     <p>We'd love to hear your questions, suggestions, or anything on your mind!</p>
   </section>
 
-  <!-- ===== MAIN CONTENT ===== -->
   <div class="contact-wrapper">
 
     <!-- FORM -->
@@ -533,14 +653,26 @@
         </button>
 
         <div id="successMessage" class="success-message">
-          ✅ Thank you! Your message has been sent successfully. We'll respond within 24–48 hours.
+          ✅ Thank you! Your message has been sent. We'll respond within 24–48 hours.
         </div>
 
       </form>
     </div>
 
-    <!-- SIDE INFO CARDS -->
-    <div class="side-cards">
+    <!-- SIDE PANEL -->
+    <div class="side-panel">
+
+      <!-- MY MESSAGES -->
+      <div class="my-messages-card">
+        <h3>💬 My Messages</h3>
+        <p class="subtitle-sm">Your sent messages & admin replies appear here.</p>
+        <div class="msg-thread" id="msgThread">
+          <div class="no-messages">
+            <div class="no-msg-icon">📭</div>
+            <p>No messages yet.<br>Send your first feedback!</p>
+          </div>
+        </div>
+      </div>
 
       <div class="info-card">
         <span class="info-icon">⏱️</span>
@@ -554,12 +686,6 @@
         <p>We're always looking to improve KnotLearn. Your ideas help us grow!</p>
       </div>
 
-      <div class="info-card">
-        <span class="info-icon">🐛</span>
-        <h3>Found a Problem?</h3>
-        <p>Let us know if something isn't working and we'll fix it quickly.</p>
-      </div>
-
       <div class="side-cta">
         <h3>Want to keep learning?</h3>
         <p>While you wait, explore our subjects!</p>
@@ -569,21 +695,99 @@
     </div>
   </div>
 
-  <!-- ===== FOOTER ===== -->
   <footer>
     <p>&copy; 2026 KnotLearn. All rights reserved. Made with ❤️ for students.</p>
   </footer>
 
-  <!-- ===== JAVASCRIPT ===== -->
   <script>
-    function updateCount() {
-      const msg = document.getElementById('message');
-      document.getElementById('charCount').innerText = `${msg.value.length} / 500 characters`;
+    // ===== STORAGE KEY =====
+    const STORAGE_KEY = 'knotlearn_feedbacks';
+
+    // ===== UTILS =====
+    function getStoredFeedbacks() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch(e) { return []; }
     }
 
+    function storeFeedbacks(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    function formatTime(ts) {
+      const d = new Date(ts);
+      return d.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' }) +
+             ' ' + d.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
+    }
+
+    function getCategoryLabel(val) {
+      const map = { suggestion:'💡 Suggestion', question:'❓ Question', bug:'🐛 Report a Problem', compliment:'❤️ Compliment', other:'📝 Other' };
+      return map[val] || val;
+    }
+
+    // ===== RENDER SIDE MESSAGES =====
+    function renderMyMessages() {
+      const thread = document.getElementById('msgThread');
+      const feedbacks = getStoredFeedbacks();
+      // Filter by current user email (stored after first submit)
+      const myEmail = localStorage.getItem('knotlearn_my_email') || '';
+      const myMsgs = myEmail ? feedbacks.filter(f => f.email === myEmail) : feedbacks;
+
+      if (myMsgs.length === 0) {
+        thread.innerHTML = `
+          <div class="no-messages">
+            <div class="no-msg-icon">📭</div>
+            <p>No messages yet.<br>Send your first feedback!</p>
+          </div>`;
+        return;
+      }
+
+      thread.innerHTML = '';
+      // Show newest first
+      [...myMsgs].reverse().forEach(fb => {
+        const hasReply = fb.reply && fb.reply.trim() !== '';
+
+        // User message
+        const userDiv = document.createElement('div');
+        userDiv.className = 'msg-item user-msg';
+        userDiv.innerHTML = `
+          <div class="msg-meta">
+            <span class="msg-sender">👤 ${fb.name}</span>
+            <span class="msg-time">${formatTime(fb.timestamp)}</span>
+          </div>
+          ${fb.category ? `<div class="msg-category-badge">${getCategoryLabel(fb.category)}</div>` : ''}
+          <div class="msg-text">${escapeHtml(fb.message)}</div>
+          <span class="status-badge ${hasReply ? 'replied' : 'pending'}">
+            <span class="status-dot"></span>
+            ${hasReply ? 'Replied' : 'Awaiting reply'}
+          </span>`;
+        thread.appendChild(userDiv);
+
+        // Admin reply
+        if (hasReply) {
+          const adminDiv = document.createElement('div');
+          adminDiv.className = 'msg-item admin-reply';
+          adminDiv.innerHTML = `
+            <div class="msg-meta">
+              <span class="msg-sender">🛡️ KnotLearn Admin</span>
+              <span class="msg-time">${formatTime(fb.replyTimestamp)}</span>
+            </div>
+            <div class="msg-text">${escapeHtml(fb.reply)}</div>`;
+          thread.appendChild(adminDiv);
+        }
+      });
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    // ===== SEND MESSAGE =====
     function sendMessage() {
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
+      const category = document.getElementById('category').value;
       const message = document.getElementById('message').value.trim();
 
       if (!name || !email || !message) {
@@ -591,15 +795,43 @@
         return false;
       }
 
+      // Save to localStorage
+      const feedbacks = getStoredFeedbacks();
+      const newFeedback = {
+        id: Date.now().toString(),
+        name,
+        email,
+        category,
+        message,
+        timestamp: Date.now(),
+        reply: '',
+        replyTimestamp: null
+      };
+      feedbacks.push(newFeedback);
+      storeFeedbacks(feedbacks);
+
+      // Remember user's email to filter their messages
+      localStorage.setItem('knotlearn_my_email', email);
+
       const successMsg = document.getElementById('successMessage');
       successMsg.classList.add('show');
       document.getElementById('contactForm').reset();
       document.getElementById('charCount').innerText = '0 / 500 characters';
 
+      // Refresh side panel
+      renderMyMessages();
+
       setTimeout(() => successMsg.classList.remove('show'), 6000);
       return false;
     }
 
+    // ===== CHAR COUNT =====
+    function updateCount() {
+      const msg = document.getElementById('message');
+      document.getElementById('charCount').innerText = `${msg.value.length} / 500 characters`;
+    }
+
+    // ===== LANGUAGE =====
     const textData = {
       en: { home:"Home", subjects:"Subjects", quiz:"Quiz", about:"About", contact:"Feedback", relax:"Relax" },
       fr: { home:"Accueil", subjects:"Matières", quiz:"Quiz", about:"À propos", contact:"Contact", relax:"Détente" },
@@ -641,6 +873,7 @@
         document.body.classList.add("dark");
         document.getElementById("themeToggle").innerText = "☀️";
       }
+      renderMyMessages();
     };
   </script>
 

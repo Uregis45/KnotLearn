@@ -1,0 +1,860 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KnotLearn - Admin Panel</title>
+  <style>
+    :root {
+      --primary: #0f39ac;
+      --primary-light: #0b74de;
+      --accent: #00c2ff;
+      --bg: #f0f4ff;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --card-shadow: 0 8px 32px rgba(15,57,172,0.10);
+      --radius: 18px;
+      --transition: 0.3s cubic-bezier(.4,0,.2,1);
+      --danger: #ef4444;
+      --success: #22c55e;
+    }
+
+    body.dark {
+      --bg: #0d1117;
+      --surface: #161b27;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --card-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    /* ===== LOGIN OVERLAY ===== */
+    .login-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,57,172,0.97);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .login-box {
+      background: white;
+      border-radius: 24px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+    }
+
+    .login-logo {
+      font-size: 2.5rem;
+      margin-bottom: 8px;
+    }
+
+    .login-box h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .login-box p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid rgba(15,57,172,0.15);
+      border-radius: 12px;
+      font-size: 1rem;
+      margin-bottom: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+
+    .login-box input:focus { border-color: var(--primary); }
+
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+
+    .login-btn:hover { background: var(--primary-light); }
+
+    .login-error {
+      display: none;
+      color: var(--danger);
+      font-size: 0.85rem;
+      margin-top: 12px;
+      font-weight: 600;
+    }
+
+    .login-error.show { display: block; }
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--primary);
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(15,57,172,0.25);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .header-logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: white;
+      text-decoration: none;
+    }
+
+    .admin-badge {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .header-right {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .header-btn {
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: inherit;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .header-btn:hover { background: rgba(255,255,255,0.2); }
+    .header-btn.danger { border-color: rgba(239,68,68,0.5); color: #fca5a5; }
+    .header-btn.danger:hover { background: rgba(239,68,68,0.2); }
+
+    /* ===== MAIN ===== */
+    .admin-main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* Stats bar */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border-radius: 14px;
+      padding: 20px 24px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(15,57,172,0.07);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .stat-icon {
+      font-size: 1.8rem;
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15,57,172,0.08);
+    }
+
+    .stat-info h4 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    body.dark .stat-info h4 { color: #7eb3ff; }
+
+    .stat-info p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .controls h2 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      flex: 1;
+    }
+
+    .filter-select, .search-input {
+      padding: 9px 14px;
+      border: 2px solid rgba(15,57,172,0.12);
+      border-radius: 10px;
+      font-size: 0.88rem;
+      background: var(--surface);
+      color: var(--text);
+      outline: none;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    .filter-select:focus, .search-input:focus { border-color: var(--primary); }
+    .search-input { min-width: 200px; }
+
+    .clear-btn {
+      padding: 9px 16px;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.25);
+      color: var(--danger);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 700;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+
+    .clear-btn:hover { background: rgba(239,68,68,0.2); }
+
+    /* Feedback list */
+    .feedback-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feedback-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 0;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(15,57,172,0.07);
+      overflow: hidden;
+      animation: fadeUp 0.4s ease both;
+      transition: box-shadow var(--transition);
+    }
+
+    .feedback-card:hover { box-shadow: 0 12px 40px rgba(15,57,172,0.15); }
+
+    .feedback-card.has-reply {
+      border-left: 4px solid var(--success);
+    }
+
+    .feedback-card.no-reply {
+      border-left: 4px solid #f59e0b;
+    }
+
+    .card-header {
+      padding: 20px 24px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-avatar {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: white;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .user-details h4 {
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .user-details span {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .card-badges {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .category-badge {
+      font-size: 0.75rem;
+      background: rgba(15,57,172,0.08);
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    body.dark .category-badge {
+      background: rgba(126,179,255,0.15);
+      color: #7eb3ff;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .status-pill.pending { background: rgba(245,158,11,0.12); color: #b45309; }
+    .status-pill.replied { background: rgba(34,197,94,0.12); color: #15803d; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+    .pending .dot { background: #f59e0b; }
+    .replied .dot { background: #22c55e; }
+
+    .card-time {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .card-body {
+      padding: 0 24px 16px;
+    }
+
+    .msg-block {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.6;
+      word-break: break-word;
+    }
+
+    /* Reply section */
+    .reply-section {
+      border-top: 1px solid rgba(15,57,172,0.08);
+      padding: 16px 24px 20px;
+    }
+
+    .existing-reply {
+      background: rgba(0,194,255,0.07);
+      border-left: 3px solid var(--accent);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+    }
+
+    .existing-reply .reply-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #0891b2;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .existing-reply p {
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .reply-time {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .reply-form {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    .reply-textarea {
+      flex: 1;
+      padding: 12px 14px;
+      border: 2px solid rgba(15,57,172,0.12);
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      resize: none;
+      min-height: 80px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .reply-textarea:focus { border-color: var(--primary); }
+
+    .reply-btn {
+      padding: 12px 20px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .reply-btn:hover { background: var(--primary-light); transform: translateY(-1px); }
+
+    .delete-btn {
+      padding: 10px 16px;
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.2);
+      color: var(--danger);
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+
+    .delete-btn:hover { background: rgba(239,68,68,0.15); }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--text-muted);
+    }
+
+    .empty-state .empty-icon { font-size: 3rem; margin-bottom: 16px; }
+    .empty-state h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+    .empty-state p { font-size: 0.88rem; }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      background: var(--primary);
+      color: white;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 8px 32px rgba(15,57,172,0.3);
+      z-index: 9999;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { background: #16a34a; }
+    .toast.error { background: #dc2626; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 0 16px; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .controls { flex-direction: column; align-items: stretch; }
+      .reply-form { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== LOGIN OVERLAY ===== -->
+  <div class="login-overlay" id="loginOverlay">
+    <div class="login-box">
+      <div class="login-logo">🛡️</div>
+      <h2>Admin Access</h2>
+      <p>Enter your credentials to manage KnotLearn feedback</p>
+      <input type="text" id="loginUser" placeholder="Username" onkeydown="if(event.key==='Enter') doLogin()">
+      <input type="password" id="loginPass" placeholder="Password" onkeydown="if(event.key==='Enter') doLogin()">
+      <button class="login-btn" onclick="doLogin()">🔐 Login</button>
+      <div class="login-error" id="loginError">❌ Invalid username or password</div>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="header-left">
+      <a href="index.html" class="header-logo">🎓 KnotLearn</a>
+      <span class="admin-badge">ADMIN</span>
+    </div>
+    <div class="header-right">
+      <button class="header-btn" onclick="toggleTheme()">🌙 Theme</button>
+      <a href="contact.html" class="header-btn">🌐 View Site</a>
+      <button class="header-btn danger" onclick="logout()">🚪 Logout</button>
+    </div>
+  </header>
+
+  <!-- ===== MAIN ===== -->
+  <main class="admin-main">
+
+    <!-- Stats -->
+    <div class="stats-bar" id="statsBar">
+      <div class="stat-card">
+        <div class="stat-icon">📨</div>
+        <div class="stat-info">
+          <h4 id="statTotal">0</h4>
+          <p>Total Messages</p>
+        </div>
+      </div>
+      <div class="stat-card" style="animation-delay:0.1s">
+        <div class="stat-icon">⏳</div>
+        <div class="stat-info">
+          <h4 id="statPending">0</h4>
+          <p>Awaiting Reply</p>
+        </div>
+      </div>
+      <div class="stat-card" style="animation-delay:0.2s">
+        <div class="stat-icon">✅</div>
+        <div class="stat-info">
+          <h4 id="statReplied">0</h4>
+          <p>Replied</p>
+        </div>
+      </div>
+      <div class="stat-card" style="animation-delay:0.3s">
+        <div class="stat-icon">👥</div>
+        <div class="stat-info">
+          <h4 id="statUsers">0</h4>
+          <p>Unique Users</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <h2>💬 Feedback Messages</h2>
+      <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search by name, email..." oninput="renderFeedbacks()">
+      <select class="filter-select" id="filterStatus" onchange="renderFeedbacks()">
+        <option value="all">All Status</option>
+        <option value="pending">⏳ Pending</option>
+        <option value="replied">✅ Replied</option>
+      </select>
+      <select class="filter-select" id="filterCategory" onchange="renderFeedbacks()">
+        <option value="all">All Types</option>
+        <option value="suggestion">💡 Suggestion</option>
+        <option value="question">❓ Question</option>
+        <option value="bug">🐛 Problem</option>
+        <option value="compliment">❤️ Compliment</option>
+        <option value="other">📝 Other</option>
+      </select>
+      <button class="clear-btn" onclick="clearAllConfirm()">🗑️ Clear All</button>
+    </div>
+
+    <div class="feedback-list" id="feedbackList"></div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ===== CONFIG =====
+    const ADMIN_USER = 'admin';
+    const ADMIN_PASS = 'knotlearn2026'; // Change this!
+    const STORAGE_KEY = 'knotlearn_feedbacks';
+
+    // ===== AUTH =====
+    function doLogin() {
+      const u = document.getElementById('loginUser').value;
+      const p = document.getElementById('loginPass').value;
+      if (u === ADMIN_USER && p === ADMIN_PASS) {
+        document.getElementById('loginOverlay').style.display = 'none';
+        localStorage.setItem('knotlearn_admin_session', '1');
+        renderAll();
+      } else {
+        document.getElementById('loginError').classList.add('show');
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('knotlearn_admin_session');
+      location.reload();
+    }
+
+    // ===== STORAGE =====
+    function getFeedbacks() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch(e) { return []; }
+    }
+
+    function saveFeedbacks(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    // ===== UTILS =====
+    function formatTime(ts) {
+      if (!ts) return '—';
+      const d = new Date(ts);
+      return d.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' }) +
+             ' ' + d.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
+    }
+
+    function getCategoryLabel(val) {
+      const map = { suggestion:'💡 Suggestion', question:'❓ Question', bug:'🐛 Problem', compliment:'❤️ Compliment', other:'📝 Other' };
+      return map[val] || val || '📝 Other';
+    }
+
+    function getInitial(name) {
+      return (name || '?').charAt(0).toUpperCase();
+    }
+
+    function escapeHtml(str) {
+      return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function showToast(msg, type='') {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = 'toast show' + (type ? ' ' + type : '');
+      setTimeout(() => t.className = 'toast', 3000);
+    }
+
+    // ===== STATS =====
+    function updateStats(feedbacks) {
+      const total = feedbacks.length;
+      const replied = feedbacks.filter(f => f.reply && f.reply.trim()).length;
+      const pending = total - replied;
+      const uniqueEmails = new Set(feedbacks.map(f => f.email)).size;
+
+      document.getElementById('statTotal').textContent = total;
+      document.getElementById('statPending').textContent = pending;
+      document.getElementById('statReplied').textContent = replied;
+      document.getElementById('statUsers').textContent = uniqueEmails;
+    }
+
+    // ===== REPLY =====
+    function submitReply(id) {
+      const ta = document.getElementById('reply_' + id);
+      const replyText = ta.value.trim();
+      if (!replyText) { showToast('⚠️ Please write a reply first.', 'error'); return; }
+
+      const feedbacks = getFeedbacks();
+      const idx = feedbacks.findIndex(f => f.id === id);
+      if (idx === -1) return;
+
+      feedbacks[idx].reply = replyText;
+      feedbacks[idx].replyTimestamp = Date.now();
+      saveFeedbacks(feedbacks);
+
+      showToast('✅ Reply sent successfully!', 'success');
+      renderAll();
+    }
+
+    function deleteMsg(id) {
+      if (!confirm('Delete this message permanently?')) return;
+      const feedbacks = getFeedbacks().filter(f => f.id !== id);
+      saveFeedbacks(feedbacks);
+      showToast('🗑️ Message deleted.');
+      renderAll();
+    }
+
+    function clearAllConfirm() {
+      if (!confirm('Delete ALL feedback messages? This cannot be undone.')) return;
+      saveFeedbacks([]);
+      showToast('🗑️ All messages cleared.');
+      renderAll();
+    }
+
+    // ===== RENDER =====
+    function renderFeedbacks() {
+      const feedbacks = getFeedbacks();
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const statusFilter = document.getElementById('filterStatus').value;
+      const catFilter = document.getElementById('filterCategory').value;
+
+      let filtered = [...feedbacks].reverse().filter(fb => {
+        const matchSearch = !search ||
+          (fb.name || '').toLowerCase().includes(search) ||
+          (fb.email || '').toLowerCase().includes(search) ||
+          (fb.message || '').toLowerCase().includes(search);
+
+        const hasReply = fb.reply && fb.reply.trim();
+        const matchStatus = statusFilter === 'all' ||
+          (statusFilter === 'replied' && hasReply) ||
+          (statusFilter === 'pending' && !hasReply);
+
+        const matchCat = catFilter === 'all' || fb.category === catFilter;
+
+        return matchSearch && matchStatus && matchCat;
+      });
+
+      const list = document.getElementById('feedbackList');
+
+      if (filtered.length === 0) {
+        list.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">📭</div>
+            <h3>No messages found</h3>
+            <p>${feedbacks.length === 0 ? 'No feedback has been submitted yet.' : 'Try adjusting your filters.'}</p>
+          </div>`;
+        return;
+      }
+
+      list.innerHTML = '';
+      filtered.forEach((fb, i) => {
+        const hasReply = fb.reply && fb.reply.trim();
+        const card = document.createElement('div');
+        card.className = `feedback-card ${hasReply ? 'has-reply' : 'no-reply'}`;
+        card.style.animationDelay = (i * 0.05) + 's';
+
+        card.innerHTML = `
+          <div class="card-header">
+            <div class="user-info">
+              <div class="user-avatar">${getInitial(fb.name)}</div>
+              <div class="user-details">
+                <h4>${escapeHtml(fb.name)}</h4>
+                <span>${escapeHtml(fb.email)}</span>
+              </div>
+            </div>
+            <div class="card-badges">
+              ${fb.category ? `<span class="category-badge">${getCategoryLabel(fb.category)}</span>` : ''}
+              <span class="status-pill ${hasReply ? 'replied' : 'pending'}">
+                <span class="dot"></span>
+                ${hasReply ? 'Replied' : 'Pending'}
+              </span>
+              <span class="card-time">${formatTime(fb.timestamp)}</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="msg-block">${escapeHtml(fb.message)}</div>
+          </div>
+          <div class="reply-section">
+            ${hasReply ? `
+              <div class="existing-reply">
+                <div class="reply-label">🛡️ Admin Reply</div>
+                <p>${escapeHtml(fb.reply)}</p>
+                <div class="reply-time">${formatTime(fb.replyTimestamp)}</div>
+              </div>
+            ` : ''}
+            <div class="reply-form">
+              <textarea class="reply-textarea" id="reply_${fb.id}" placeholder="Write your reply to ${escapeHtml(fb.name)}...">${hasReply ? escapeHtml(fb.reply) : ''}</textarea>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <button class="reply-btn" onclick="submitReply('${fb.id}')">
+                  ${hasReply ? '✏️ Update' : '📤 Reply'}
+                </button>
+                <button class="delete-btn" onclick="deleteMsg('${fb.id}')">🗑️ Delete</button>
+              </div>
+            </div>
+          </div>`;
+
+        list.appendChild(card);
+      });
+    }
+
+    function renderAll() {
+      const feedbacks = getFeedbacks();
+      updateStats(feedbacks);
+      renderFeedbacks();
+    }
+
+    // ===== THEME =====
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("knotlearn_theme", isDark ? "dark" : "light");
+    }
+
+    // ===== INIT =====
+    window.onload = function () {
+      const savedTheme = localStorage.getItem("knotlearn_theme");
+      if (savedTheme === "dark") document.body.classList.add("dark");
+
+      // Check session
+      if (localStorage.getItem('knotlearn_admin_session') === '1') {
+        document.getElementById('loginOverlay').style.display = 'none';
+        renderAll();
+      }
+
+
+    };
+  </script>
+
+</body>
+</html>
